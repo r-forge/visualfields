@@ -1,0 +1,251 @@
+vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
+##############
+# input checks
+##############
+# check that all rows in vf belong to the same subject, the same test, the same perimetry
+# testing and the same algorithm, and the same eye
+  if( length( unique( vf$tperimetry ) ) > 1 |
+    length( unique( vf$tpattern   ) ) > 1 |
+    length( unique( vf$talgorithm ) ) > 1 |
+    length( unique( vf$id ) ) > 1         |
+    length( unique( vf$seye ) ) > 1 ) {
+    stop( "all visual fields should belong to the same subject tested with the same perimeter and algorithm on the same locations" )
+  }
+  if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the analysis" )
+  if( nrow( vf ) < 8 )       warning( "permutation analysis may not be very precise if for less than 8 visual fields" )
+# init
+  ffamily          <- "Helvetica"
+  sizetxt          <- 12
+  sizetxtSmall     <- 8
+  ffmailyvf        <- "Times"
+  pointsize        <- 7
+  outerSymbol      <- "circle"
+  outerInch        <- 0.12
+  innerSymbol      <- "circle"
+  innerInch        <- outerInch / 1.9
+  inch2axisunits   <- 12.528
+  lengthLines      <- 5
+  thicknessLines   <- 1.5
+  outerInchpoplr   <- 0.165
+  innerInchpoplr   <- outerInchpoplr / 1.9
+  lengthLinespoplr <- 5
+  type             <- "slr"
+  typecomb         <- "fisher"
+# get settings for the pattern of test locations
+  texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
+  settings <- eval( parse( text = texteval ) )
+# get x and y locations
+  texteval <- paste( vf$tperimetry[1], "locmap$",  vf$tpattern[1], sep = "" )
+  locmap   <- eval( parse( text = texteval ) )
+# get poplr analysis
+  pres <- poplr( vf, nperm = nperm, type = type, typecomb = typecomb )
+# remove blind spot
+  vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
+  locmap <- locmap[-settings$bs,]
+  ######################
+  # Analysis
+  ######################
+  # init
+  vfinfo0 <- vf[1,1:( vfsettings$locini - 1 )]
+  vfinfo1 <- vf[1,1:( vfsettings$locini - 1 )]
+  # get indices for averages
+  locvalsidx <- vfsettings$locini:( vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
+  idx0 <- c( 1:grp )
+  idx1 <- c( ( nrow( vf ) - grp + 1 ):nrow( vf ) )
+  # get averages
+  vfinfo0$sage <- mean( vf$sage[idx0] )
+  vfinfo0$sbsx <- mean( vf$sbsx[idx0] )
+  vfinfo0$sbsy <- mean( vf$sbsy[idx0] )
+  vfinfo1$sage <- mean( vf$sage[idx1] )
+  vfinfo1$sbsx <- mean( vf$sbsx[idx1] )
+  vfinfo1$sbsy <- mean( vf$sbsy[idx1] )
+  vf0          <- round( colMeans( vf[idx0, locvalsidx] ) )
+  vf1          <- round( colMeans( vf[idx1, locvalsidx] ) )
+  
+  # open window wiht A4 page
+  if( is.null( filename ) ) {
+    if( .Platform$OS.type == "unix" ) {
+      if( Sys.info()["sysname"] == "Darwin" ) {
+        quartz( width = pwidth, height = pheight, dpi = 85 )
+      } else {
+        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
+      }
+    } else{
+      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
+    }
+  } else {
+    pdf( width = pwidth, height = pheight, file = filename )
+  }
+  
+  # define the margins
+  mwidth  <- pwidth  - 2 * margin
+  mheight <- pheight - 2 * margin
+  
+  # create the layout of the printout
+  printout <- createviewport( "printout", left = margin, top = margin, height = mheight, width = mwidth )
+  
+  ######################################################
+  # first plot all graphs
+  ######################################################
+  if( vfinfo0$tpattern == "p24d2" ) {
+    xminmax <- 29
+    yminmax <- 29
+  } else if( vf$tpattern == "p30d2" ) {
+    xminmax <- 29
+    yminmax <- 29    
+  } else if( vf$tpattern == "p10d2" ) {
+    xminmax <- 10
+    yminmax <- 10
+  } else {
+    xminmax <- 100
+    yminmax <- 100
+  }
+# sensitivity plot first n visits
+  opar <- par( no.readonly = TRUE )
+  par( fig = c( 0.0150, 0.5000, 0.5833, 0.9200 ) )
+  color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  vfplotloc( vf0, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+             txtfont = ffmailyvf, pointsize = pointsize,
+             xminmax = xminmax, yminmax = yminmax,
+             outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+             outerInch = outerInch, innerInch = innerInch,
+             lengthLines = lengthLines, thicknessLines = thicknessLines )
+# sensitivity plot last n visits
+  par( new = TRUE )
+  par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
+  color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  vfplotloc( vf1, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+             txtfont = ffmailyvf, pointsize = pointsize,
+             xminmax = xminmax, yminmax = yminmax,
+             outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+             outerInch = outerInch, innerInch = innerInch,
+             lengthLines = lengthLines, thicknessLines = thicknessLines )
+# PoPLR plot
+  par( new = TRUE )
+  par( fig = c( 0.1461, 0.8539, 0.1400, 0.6315 ) )
+  vfplot_poplr( pres$sl, pres$pval, pres$vfdata,
+                txtfont = ffmailyvf, pointsize = pointsize,
+                xminmax = xminmax, yminmax = yminmax,
+                outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+                outerInch = outerInchpoplr, innerInch = innerInchpoplr,
+                lengthLines = lengthLinespoplr, thicknessLines = thicknessLines )
+  par( opar )
+  
+  ######################################################
+  # create the text elements in the printouts
+  ######################################################
+  # The two above are to delete once the graphs are generated!!!
+  mainInfo   <- createviewport( "mainInfo",   left =  0.00, top =  0.00, width = 4.75, height = 0.40, pheight = mheight, pwidth = mwidth )
+  infobox2   <- createviewport( "infobox2",   left =  6.37, top =  0.00, width = 1.40, height = 0.40, pheight = mheight, pwidth = mwidth )
+  infobox3   <- createviewport( "infobox3",   left =  3.15, top = 10.89, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textvisit0 <- createviewport( "textvisit0", left =  1.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textvisit1 <- createviewport( "textvisit1", left =  5.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textpoplar <- createviewport( "textpoplar", left =  3.20, top =  3.97, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  
+  # create the list and then generate the tree and "push" it
+  list <- vpList( mainInfo, infobox2, infobox3, textvisit0, textvisit1, textpoplar )
+  tree <- vpTree( printout, list )
+  
+  pushViewport( tree )
+  
+  seekViewport( "printout" )
+  grid.rect( gp = gpar( col = "blue" ) )
+  
+  ######################################################
+  # perimetry information
+  ######################################################
+  seekViewport( "mainInfo" )
+  text <- vfinfo0$tperimetry
+  if( text == "sap" ) {
+    text = "Standard Automatic Perimetry."
+  } else if( text == "fdp" ) {
+    text = "Frequency-doubling Perimetry."
+  } else if( text == "csp" ) {
+    text = "Contrast sensitivity Perimetry."
+  }
+  text <- paste( text, "PoPLR progression analysis", sep = " " )
+  # ID
+  text <- paste( text, "Subject ID: ", sep = "\n" )
+  text <- paste( text, vfinfo0$id, ",", sep = "" )
+  # age
+  text <- paste( text, " age: from ", round( vfinfo0$sage ), " to ", round( vfinfo1$sage ), ",", sep = "" )
+  # eye
+  texteye <- paste( "eye:", vfinfo0$seye, sep = " " )
+  if( vfinfo0$seye == "OD" ) {
+    texteye <- paste( texteye, "(right)", sep = " " )
+  } else if ( vfinfo0$seye == "OS" ) {
+    texteye <- paste( texteye, "(left)", sep = " " )
+  } else {
+    texteye <- paste( texteye, "(which?)", sep = " " )
+  }
+  text <- paste( text, texteye, sep = " " )
+  grid.text( text, x = 0.0, y = 1.0, just = c( "left", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt, fontface = "bold" ) )
+  
+  ######################################################
+  # Details about printouts
+  ######################################################
+  seekViewport( "infobox2" )
+  
+  if( vfinfo0$tpattern == "p24d2" ) {
+    textpattern <- "Central 24-2"
+  } else if( vfinfo0$tpattern == "p30d2" ) {
+    textpattern <- "Central 30-2"
+  } else if( vfinfo0$tpattern == "p10d2" ) {
+    textpattern <- "Central 10-2"
+  } else if( vfinfo0$tpattern == "rnfl" ) {
+    textpattern <- "RNFL-57"
+  } else {
+    textpattern <- "Unknown"
+  }
+  # algorithm
+  if( vfinfo0$talgorithm == "sitas" ) {
+    textalgorithm <- "SITA standard"
+  } else if( vfinfo0$talgorithm == "sitaf" ) {
+    textalgorithm <- "SITA fast"
+  } else if( vfinfo0$talgorithm == "fullt" ) {
+    textalgorithm <- "Full threshold"
+  } else {
+    textalgorithm <- "Unknown"
+  }
+  
+  text <- paste( textpattern, textalgorithm, sep = "\n" )
+  grid.text( text, x = 1.00, y = 1.00, just = c( "right", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+  
+  ######################################################
+  # Details about first and last visits
+  ######################################################
+  seekViewport( "textvisit0" )
+  
+  text <- paste( "first ", as.character( grp ), " exams", sep = "" )
+  if( grp == 1 ) text <- "first exam"
+  grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+  
+  seekViewport( "textvisit1" )
+  
+  text <- paste( "last ", as.character( grp ), " exams", sep = "" )
+  if( grp == 1 ) text <- "last exam"
+  grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+  
+######################################################
+# Text for PoPLR plot
+######################################################
+  seekViewport( "textpoplar" )
+  
+  text <- paste( "PoPLR analysis", sep = "" )
+  grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+
+######################################################
+# Details about printouts
+######################################################
+  seekViewport( "infobox3" )
+  
+  text <- paste( "norm vals: ", nv$nvname, sep = "" )
+  text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
+  text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
+  grid.text( text, x = 0.50, y = 0.00, just = c( "center", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )
+  
+  # only if in save mode, then set device to off
+  if( !is.null( filename ) ) {
+    dev.off()
+  }
+}

@@ -1,0 +1,66 @@
+v0.0-1 11/22/2011
+visualField is born!!!
+
+Created the folder structure and description as Ken Knoblauch's "psyphy"
+
+Created the skeleton with main functions, data, and documentation
+
+v0.0-2 12/07/2011
+visualField is almost ready to go!!!
+
+Implemented all necessary functions to generate normative values
+
+Implemented functions to obtain total-deviation (TD) and pattern-deviation (PD) values, and their corresponding probability maps (in relation to the normative values used)
+
+Implemented functions to obtain global statistical measures for a visual field
+
+Added a global variable nv (nv.rda) that contains the actual normative values to be used. This is to be set by newly created function setnv(). This is a better way to manage which version of normative values is used by visualFields. The function getnv() gives the actual version used by visualFields
+
+Need to implement vfi
+
+Need to add normative values also for mean deviation, pattern standard deviation, vfi, etc
+
+Exhaustive testing is necessary
+
+No display functions yet, but soon
+
+v0.1-0 12/12/2011
+
+Implemented vfi
+
+Added normative values also for mean deviation, pattern standard deviation,  and vfi
+
+Added a function that obtains demographics and statistics of the sample in vf object
+
+Created a function that obtains TD-rank curves and functions that obtains normative values for TD-rank values
+
+Exhaustive testing is still necessary
+
+No display functions yet, but soon
+
+v0.1-1 12/14/2011
+some patches fixed
+
+separation between visualFields and visualFieldsDevelIMF, a development package by IMF of functions that will be part of visualFields in the future
+
+Each developer can have their own visualFieldsDevelXXX mounted on top of visualFields that updates it
+
+v0.1-2 01/29/2012
+added a series of function to parse XML files. Contributed by Richard Russell
+
+added calculation of probability values for global indices
+
+v0.1-3 03/01/2012
+added functionality for pattern 30-2 and 10-2. NO NORMATIVE VALUES EXIST FOR THESE!!!! SO NO STATISTICAL ANALYSIS POSSIBLE
+
+added a function to obtain from XML files the (x,y)-coordinates of the locations tested
+
+v0.1-4 03/23/2012
+added layouts and graphs for plotting visualFields results
+
+v0.2-0 02/02/2012
+finished first version of printouts and added stimulus-location and bebie-curve graphs
+
+partially added PoPLR analysis. Contributed by Neil O'Leary
+
+added Paul Artes' lego plots. Contributed by Paul Artes
