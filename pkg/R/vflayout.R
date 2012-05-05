@@ -10,7 +10,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
   ffmailyvf      <- "Times"
   pointsize      <- 7
   outerSymbol    <- "circle"
-  outerInch      <- 0.15
+  outerInch      <- 0.13
   innerSymbol    <- "circle"
   innerInch      <- outerInch / 1.9
   inch2axisunits <- 12.528
@@ -51,6 +51,9 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
   } else if( vf$tpattern == "p10d2" ) {
     xminmax <- 10
     yminmax <- 10
+  } else if( vf$tpattern == "sgrnfl" ) {
+    xminmax <- 29
+    yminmax <- 29
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -83,7 +86,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
   par( new = TRUE )
   par( fig = c( 0.769, 0.981, 0.42, 0.57 ) )
   par( mar = c( 0, 0, 0.5, 0.5 ) )
-  stimLoc( perimetry = vf$tperimetry, pattern = vf$tpattern,
+  stimLoc( perimetry = vf$tperimetry, pattern = vf$tpattern, eye = vf$seye,
           txtfont = ffmailyvf, pointsize = pointsize,
           xminmax = xminmax, yminmax = yminmax )
 # Bebie difference curve
@@ -133,14 +136,14 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
   } else if( text == "fdp" ) {
     text = "Frequency-doubling Perimetry."
   } else if( text == "csp" ) {
-    text = "Contrast sensitivity Perimetry."
+    text = "Contrast Sensitivity Perimetry."
   }
   text <- paste( text, "Single field analysis", sep = " " )
 # ID
   text <- paste( text, "Subject ID: ", sep = "\n" )
   text <- paste( text, vf$id, ",", sep = "" )
 # age
-  text <- paste( text, " age: ", vf$sage, ",", sep = "" )
+  text <- paste( text, " age: ", round( vf$sage ), ",", sep = "" )
   # eye
   texteye <- paste( "eye:", vf$seye, sep = " " )
   if( vf$seye == "OD" ) {
@@ -172,8 +175,8 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
     textpattern <- "Central 30-2"
   } else if( vf$tpattern == "p10d2" ) {
     textpattern <- "Central 10-2"
-  } else if( vf$tpattern == "rnfl" ) {
-    textpattern <- "RNFL-57"
+  } else if( vf$tpattern == "sgrnfl" ) {
+    textpattern <- "CSP-SG-RNFL-57"
   } else {
     textpattern <- "Unknown"
   }
@@ -184,6 +187,8 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
     textalgorithm <- "SITA fast"
   } else if( vf$talgorithm == "fullt" ) {
     textalgorithm <- "Full threshold"
+  } else if( vf$talgorithm == "zest" ) {
+    textalgorithm <- "ZEST"
   } else {
     textalgorithm <- "Unknown"
   }

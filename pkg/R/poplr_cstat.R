@@ -50,13 +50,14 @@ poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRU
 
 # combine p-value test statistics
 # Fisher-class combination (product) of p-values with optional weigths
-  if( typecomb == "fisher" ) res$pvalcomb <- rowSums( spatialwtd * log( pval ), na.rm = TRUE )
+  if( typecomb == "fisher" ) res$scomb <- rowSums( spatialwtd * log( pval ), na.rm = TRUE )
 # obtain significance of combination statistics
 # classic Fisher and truncated products (unweighted)
-  res$pcomb     <- rank( res$pvalcomb ) / nperm
-# observed test statistic
+  res$pcomb     <- rank( res$scomb ) / nperm
+# observed and permutation test statistics
+  res$scomb_obs <- res$scomb[1]
+  res$scomb     <- res$scomb[-1]
   res$pcomb_obs <- res$pcomb[1]
-# permumation test statistic
   res$pcomb     <- res$pcomb[-1]
 # weights
   res$spatialwtd <- spatialwtd

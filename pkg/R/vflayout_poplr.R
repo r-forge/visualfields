@@ -37,15 +37,17 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
 # get x and y locations
   texteval <- paste( vf$tperimetry[1], "locmap$",  vf$tpattern[1], sep = "" )
   locmap   <- eval( parse( text = texteval ) )
+######################
+# Analysis
+######################
+# get global indices
+  vfindices <- vfstats( vf )
 # get poplr analysis
   pres <- poplr( vf, nperm = nperm, type = type, typecomb = typecomb )
 # remove blind spot
   vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
   locmap <- locmap[-settings$bs,]
-  ######################
-  # Analysis
-  ######################
-  # init
+# init
   vfinfo0 <- vf[1,1:( vfsettings$locini - 1 )]
   vfinfo1 <- vf[1,1:( vfsettings$locini - 1 )]
   # get indices for averages
@@ -61,8 +63,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   vfinfo1$sbsy <- mean( vf$sbsy[idx1] )
   vf0          <- round( colMeans( vf[idx0, locvalsidx] ) )
   vf1          <- round( colMeans( vf[idx1, locvalsidx] ) )
-  
-  # open window wiht A4 page
+# open window wiht A4 page
   if( is.null( filename ) ) {
     if( .Platform$OS.type == "unix" ) {
       if( Sys.info()["sysname"] == "Darwin" ) {
@@ -81,12 +82,12 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   mwidth  <- pwidth  - 2 * margin
   mheight <- pheight - 2 * margin
   
-  # create the layout of the printout
+# create the layout of the printout
   printout <- createviewport( "printout", left = margin, top = margin, height = mheight, width = mwidth )
   
-  ######################################################
-  # first plot all graphs
-  ######################################################
+######################################################
+# first plot all graphs
+######################################################
   if( vfinfo0$tpattern == "p24d2" ) {
     xminmax <- 29
     yminmax <- 29
@@ -96,6 +97,9 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   } else if( vf$tpattern == "p10d2" ) {
     xminmax <- 10
     yminmax <- 10
+  } else if( vf$tpattern == "sgrnfl" ) {
+    xminmax <- 29
+    yminmax <- 29
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -104,7 +108,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   opar <- par( no.readonly = TRUE )
   par( fig = c( 0.0150, 0.5000, 0.5833, 0.9200 ) )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
-  vfplotloc( vf0, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+  vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
@@ -114,7 +118,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   par( new = TRUE )
   par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
-  vfplotloc( vf1, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+  vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
@@ -129,27 +133,38 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
                 outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                 outerInch = outerInchpoplr, innerInch = innerInchpoplr,
                 lengthLines = lengthLinespoplr, thicknessLines = thicknessLines )
+# plot permutation histogram
+  par( new = TRUE )
+  par( fig = c( 0.02, 0.40, 0.015, 0.20 ) )
+  hist_poplr( pres$scomb_obs, pres$pcomb_obs, pres$scomb, txtfont = ffamily, pointsize = sizetxt )
   par( opar )
+# plot md on age
+  par( new = TRUE )
+  par( fig = c( 0.65, 0.97, 0.015, 0.20 ) )
+  # regression analysis
+  progols( vfindices$sage, vfindices$mtdev, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  par( opar )
+######################################################
+# create the text elements in the printouts
+######################################################
+# The two above are to delete once the graphs are generated!!!
+  mainInfo      <- createviewport( "mainInfo",      left =  0.00, top =  0.00, width = 4.75, height = 0.40, pheight = mheight, pwidth = mwidth )
+  infobox2      <- createviewport( "infobox2",      left =  6.37, top =  0.00, width = 1.40, height = 0.40, pheight = mheight, pwidth = mwidth )
+  infobox3      <- createviewport( "infobox3",      left =  3.15, top = 10.89, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textvisit0    <- createviewport( "textvisit0",    left =  1.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textvisit1    <- createviewport( "textvisit1",    left =  5.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textpoplar    <- createviewport( "textpoplar",    left =  3.20, top =  3.97, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
+  texthistogram <- createviewport( "texthistogram", left =  0.50, top =  9.00, width = 1.00, height = 0.30, pheight = mheight, pwidth = mwidth )
+  textmdprogols <- createviewport( "textmdprogols", left =  6.00, top =  9.00, width = 1.00, height = 0.30, pheight = mheight, pwidth = mwidth )
   
-  ######################################################
-  # create the text elements in the printouts
-  ######################################################
-  # The two above are to delete once the graphs are generated!!!
-  mainInfo   <- createviewport( "mainInfo",   left =  0.00, top =  0.00, width = 4.75, height = 0.40, pheight = mheight, pwidth = mwidth )
-  infobox2   <- createviewport( "infobox2",   left =  6.37, top =  0.00, width = 1.40, height = 0.40, pheight = mheight, pwidth = mwidth )
-  infobox3   <- createviewport( "infobox3",   left =  3.15, top = 10.89, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
-  textvisit0 <- createviewport( "textvisit0", left =  1.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
-  textvisit1 <- createviewport( "textvisit1", left =  5.20, top =  0.50, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
-  textpoplar <- createviewport( "textpoplar", left =  3.20, top =  3.97, width = 1.40, height = 0.30, pheight = mheight, pwidth = mwidth )
-  
-  # create the list and then generate the tree and "push" it
-  list <- vpList( mainInfo, infobox2, infobox3, textvisit0, textvisit1, textpoplar )
+# create the list and then generate the tree and "push" it
+  list <- vpList( mainInfo, infobox2, infobox3, textvisit0, textvisit1, textpoplar, texthistogram, textmdprogols )
   tree <- vpTree( printout, list )
   
   pushViewport( tree )
   
-  seekViewport( "printout" )
-  grid.rect( gp = gpar( col = "blue" ) )
+#  seekViewport( "printout" )
+#  grid.rect( gp = gpar( col = "blue" ) )
   
   ######################################################
   # perimetry information
@@ -232,6 +247,22 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   seekViewport( "textpoplar" )
   
   text <- paste( "PoPLR analysis", sep = "" )
+  grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+  
+######################################################
+# Text for permutation histogram
+######################################################
+  seekViewport( "texthistogram" )
+  
+  text <- paste( "permutation histogram", sep = "" )
+  grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
+
+######################################################
+# Text for permutation histogram
+######################################################
+  seekViewport( "textmdprogols" )
+  
+  text <- paste( "mean deviation", sep = "" )
   grid.text( text, x = 0.50, y = 0.50, just = c( "center", "center" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 
 ######################################################

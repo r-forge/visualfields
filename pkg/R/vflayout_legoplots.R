@@ -11,7 +11,7 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
       length( unique( vf$seye ) ) > 1 ) {
     stop( "all visual fields should belong to the same subject tested with the same perimeter and algorithm on the same locations" )
   }
-  if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the analysis" )
+  if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the display" )
 
 # init
   ffamily        <- "Helvetica"
@@ -19,8 +19,10 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   sizetxtSmall   <- 8
   ffmailyvf      <- "Times"
   pointsize      <- 6
-  outerSymbol     <- "circle"
-  outerInch       <- 0.12
+  pointsizelego  <- 11
+  txtcolorlego   <- "red"
+  outerSymbol    <- "circle"
+  outerInch      <- 0.12
   innerSymbol    <- "circle"
   innerInch      <- outerInch / 1.9
   inch2axisunits <- 12.528
@@ -110,6 +112,9 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   } else if( vf$tpattern == "p10d2" ) {
     xminmax <- 10
     yminmax <- 10
+  } else if( vf$tpattern == "sgrnfl" ) {
+    xminmax <- 29
+    yminmax <- 29
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -119,8 +124,8 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   color0 <- vfgrayscale( vf0, vfinfo0$sage, pattern = vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   color1 <- vfgrayscale( vf1, vfinfo1$sage, pattern = vfinfo1$tpattern, algorithm = vfinfo1$talgorithm )
   par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
-  vfplotloc( vf1 - vf0, patternMap = locmap, outerColor = color0, innerColor = color1, axesCol = "white",
-             txtfont = ffmailyvf, pointsize = pointsize,
+  vfplotloc( vf1 - vf0, eye = vfinfo0$seye, patternMap = locmap, outerColor = color0, innerColor = color1, axesCol = "white",
+             txtfont = ffmailyvf, pointsize = pointsizelego, txtcolor = txtcolorlego,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbollego, innerSymbol = innerSymbollego,
              outerInch = outerInchlego, innerInch = innerInchlego,
@@ -129,7 +134,7 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   par( new = TRUE )
   par( fig = c( 0.0150, 0.5000, 0.2332,  0.5700 ) )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
-  vfplotloc( vf0, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+  vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
@@ -139,7 +144,7 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   par( new = TRUE )
   par( fig = c( 0.5000, 0.985, 0.2332,  0.5700 ) )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
-  vfplotloc( vf1, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+  vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
@@ -190,7 +195,7 @@ vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, mar
   } else if( text == "csp" ) {
     text = "Contrast sensitivity Perimetry."
   }
-  text <- paste( text, "Legoplot progression analysis", sep = " " )
+  text <- paste( text, "Legoplot progression display", sep = " " )
 # ID
   text <- paste( text, "Subject ID: ", sep = "\n" )
   text <- paste( text, vfinfo0$id, ",", sep = "" )

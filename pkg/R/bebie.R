@@ -7,10 +7,8 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
   xlab <- "rank"
   linewdt <- 1.5
   if( diff ) {
-    xlab <- "rank"
     ylab <- "dB difference"
   } else {
-    xlab <- "rank"
     ylab <- "dB"
   }
 
@@ -42,19 +40,20 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
     }
     tdrperc <- eval( parse( text = evaltxt ) )
   }
-  oplt    <- par()$plt
   ops     <- par()$ps
   ofamily <- par()$family
-  par( ps = pointsize )
+  par( ps     = pointsize )
+  par( family = txtfont )
 
   if( diff ) {
     plot(c( xlim[1], xlim[2] ), c( 0, 0 ), axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "n" )
   } else {
     plot( tdrref, axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "l", lwd = linewdt )
   }
+
   axis( 1, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
   axis( 2, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
-  grid( nx = NA, ny = NULL, lty = "solid" )
+  grid( nx = NA, ny = NULL, lty = "solid", "gray" )
   box()
   title( xlab = xlab, mgp = c( 2, 1, 0 ) )
   title( ylab = ylab, mgp = c( 2.3, 1, 0 ) )
@@ -70,7 +69,6 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
   if( correction ) points( tdrc, xlim = xlim, ylim = ylim, pch = 16, cex = cex )
 
   par( new    = FALSE )
-  par( plt    = oplt )
   par( ps     = ops )
   par( family = ofamily )
 

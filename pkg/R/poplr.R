@@ -28,7 +28,6 @@ poplr <- function( vf, nperm = 5000, type = "slr", sl_test = NULL, typecomb = "f
   pstat    <- poplr_pstat( vf, porder = porder, type = "slr",  sl_test = sl_test )
 # ... and the actual analysis
   cstat    <- poplr_cstat( pstat$pval, typecomb = typecomb )
-  res$pcomb_obs <- cstat$pcomb_obs
   if( type == "slr" ) {
     res$sl   <- pstat$sl[1,]
     res$int  <- pstat$int[1,]
@@ -36,13 +35,15 @@ poplr <- function( vf, nperm = 5000, type = "slr", sl_test = NULL, typecomb = "f
   } else if( type == "rank" ) {
     res$rho  <- pstat$rho[1,]
   }
-  res$pval  <- pstat$pval[1,]
-  res$pcomb <- cstat$pcomb
+  res$pval      <- pstat$pval[1,]
+  res$scomb_obs <- cstat$scomb_obs
+  res$pcomb_obs <- cstat$pcomb_obs
+  res$pcomb     <- cstat$pcomb
+  res$scomb     <- cstat$scomb
 #  return detail or just final results?
   if( details ) {
-    res$pvalcomb   <- cstat$pvalcomb
-    res$spatialwtd <- cstat$spatialwtd
-    res$pstat      <- pstat
+    res$pstat <- pstat
+    res$cstat <- cstat
   }
     
   return( res )

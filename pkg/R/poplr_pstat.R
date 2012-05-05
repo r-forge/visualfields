@@ -56,9 +56,9 @@ poplr_pstat <- function( vf, porder, type = "slr", sl_test = NULL ) {
     }
 # locations with non-changing series in sensitivity: slope is zero,
 # intercept is not defined, and standard error is nominally very small
-    res$sl[, invariantloc]  <- 0
-    res$int[, invariantloc] <- vf[invariantloc,1]
-    res$se[, invariantloc]  <- precision
+    res$sl[,invariantloc]  <- 0
+    res$int[,invariantloc] <- vf[1,invariantloc]
+    res$se[,invariantloc]  <- precision
 # test sensitivity slope lower than specified slope
     res$pval <- pt( ( res$sl - t( matrix( rep( sl_test, nloc * nperm ), nloc, nperm ) ) )
                     / res$se, ntest - 2 )

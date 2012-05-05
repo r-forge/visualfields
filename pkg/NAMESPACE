@@ -43,4 +43,6 @@ export( ageLinearModel,
 	poplr_pstat,
 	poplr_cstat,
 	vflayout_legoplots,
-	vfplot_poplr,	vflayout_poplr )
+	vfplot_poplr,	vflayout_poplr,
+	hist_poplr,
+	progols )

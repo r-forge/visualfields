@@ -64,3 +64,7 @@ finished first version of printouts and added stimulus-location and bebie-curve 
 partially added PoPLR analysis. Contributed by Neil O'Leary
 
 added Paul Artes' lego plots. Contributed by Paul Artes
+
+v0.2-1 05/04/2012
+fixed a few of bugs, a HIPAA problem, and left-eye, right-eye problems
+completed PoPLR printout a bit more. Still need to confirm with them they are all right with it

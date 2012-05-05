@@ -51,10 +51,7 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
 # construct patternmap
   evaltxt <- paste( vfinfo$tperimetry, "locmap$", vfinfo$tpattern, sep = "" )
   patternMap <- eval( parse( text=evaltxt ) )
-# left/right eye
-  if( vfinfo$seye == "OS" ) {
-    patternMap$xod <- -patternMap$xod
-  }
+
 # remove blindspot
   evaltxt <- paste( "vfsettings$", vfinfo$tpattern, "$bs", sep = "" )
   bspos <- eval( parse( text = evaltxt ) )
@@ -76,11 +73,12 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
   }
   pval <- 100 * pval
   pvalc <- rep( c( 100 ), length( pval ) )
-  for( i in 1:( length( nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval <= nv$pmapsettings$cutoffs[i] )] <- nv$pmapsettings$cutoffs[i]
+  pvalc[which( pval <= nv$pmapsettings$cutoffs[1] )] <- nv$pmapsettings$cutoffs[1]
+  for( i in 2:( length( nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > nv$pmapsettings$cutoffs[i-1] & pval <= nv$pmapsettings$cutoffs[i] )] <- nv$pmapsettings$cutoffs[i]
   plotColor  <- vfColorMap( as.data.frame( pvalc ) )
 
-  sl <- round( 100 * sl ) / 10
-  vfplotloc( sl, patternMap = patternMap, outerColor = plotColor,
+  sl <- round( 10 * sl ) / 10
+  vfplotloc( sl, eye = vfinfo$seye, patternMap = patternMap, outerColor = plotColor,
              txtfont = txtfont, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,

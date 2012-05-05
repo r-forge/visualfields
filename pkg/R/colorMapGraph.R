@@ -25,7 +25,7 @@ colorMapGraph <- function( ncol = 3, notSeenAsBlack = TRUE, txtfont = "mono", po
     rgbval$red[idx]   <- 0
     rgbval$green[idx] <- 0
     rgbval$blue[idx]  <- 0
-    txtval[idx] <- "NL"
+    txtval[idx] <- "NS"
   }
   for( i in 1:nrow( nv$pmapsettings ) ) {
     rgbval$red[i+idx]   <- nv$pmapsettings$red[i]

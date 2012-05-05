@@ -61,13 +61,8 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
 # construct patternmap
   evaltxt <- paste( vf$tperimetry, "locmap$", vf$tpattern, sep = "" )
   patternMap <- eval( parse( text=evaltxt ) )
-# left/right eye
-  if( vf$seye == "OS" ) {
-    patternMap$xod <- -patternMap$xod
-  }
-
-  if( plotType != "vf" ) {
 # get bs
+  if( plotType != "vf" ) {
     evaltxt <- paste( "vfsettings$", vf$tpattern, "$bs", sep = "" )
     bspos <- eval( parse( text = evaltxt ) )
   }
@@ -98,12 +93,15 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
     cloneDev   <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
   }  else {
     plotColor  <- vfColorMap( devP[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] )
-    patternMap <- patternMap[-bspos,]
-    plotColor  <- plotColor[-bspos,]
 # exclude blind spot locations
     dev <- dev[,-( vfsettings$locini + bspos - 1 )]
-    if( notSeenAsBlack ) plotColor[which( vf[vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] == 0),] <- 0 # IMF NOT ROUND!!!
+    if( notSeenAsBlack ) {
+      idxblack <- which( vf[vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] == 0)
+      if( length( idxblack ) > 0 ) plotColor[idxblack,] <- 0
+    }
     cloneDev <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] ) )
+    patternMap <- patternMap[-bspos,]
+    plotColor  <- plotColor[-bspos,]
   }
 
 # create a new window and plot data in it
@@ -120,7 +118,7 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
       windows( xpos = 0, ypos = 0, width = width, height = height, rescale = "fixed" )
     }
   }
-  vfplotloc( cloneDev, patternMap = patternMap, outerColor = plotColor, bs = c( vf$sbsx, vf$sbsy ),
+  vfplotloc( cloneDev, eye = vf$seye, patternMap = patternMap, outerColor = plotColor, bs = c( vf$sbsx, vf$sbsy ),
              txtfont = txtfont, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
