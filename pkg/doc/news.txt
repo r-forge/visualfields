@@ -69,7 +69,7 @@ v0.2-1 05/04/2012
 fixed a few of bugs, a HIPAA problem, and left-eye, right-eye problems
 completed PoPLR printout a bit more. Still need to confirm with them they are all right with it
 
-v0.2-2 07/25/2012
+v0.2-2 07/26/2012
 seriusly reworked the documentation of the package and added relevant references
 
 changed defaults for vfplot
