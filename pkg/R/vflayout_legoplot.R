@@ -1,4 +1,4 @@
-vflayout_legoplots <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
+vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
 ##############
 # input checks
 ##############

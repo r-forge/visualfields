@@ -4,22 +4,16 @@
 \description{gets percentiles for TD rank curve}
 \usage{tdranknv( td )}
 \arguments{
-  \item{td}{table with total-deviation values}
-}
-\details{details?}
-
-\value{
-percentiles for TD rank curves
+  \item{td}{\code{\link{vf}}-object with total-deviation values}
 }
 
-\references{
-References?
-}
+\value{percentiles for TD rank curves}
 
 \seealso{ \code{\link{tdrank}} }
 
 \examples{
-#tdranknv()
+# DO NOT EXECUTE
+#tdranknv( td )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

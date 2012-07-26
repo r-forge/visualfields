@@ -11,14 +11,11 @@
 returns a list of visual fields that did not pass the reliability criteria
 }
 
-\references{
-References?
-}
-
 \seealso{ \code{\link{lidLensArtifact}} }
 
 \examples{
-#filterReliability()
+# DO NOT RUN
+#idx <- filterReliability( vf )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

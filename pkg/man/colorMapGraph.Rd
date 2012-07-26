@@ -15,20 +15,14 @@
   \item{outerInch}{Maximum size of the outer symbol in inches. Default is \code{0.2}}
   \item{innerInch}{Maximum size of the inner symbol in inches. Default is \code{0.1}}
 }
-\details{It geneartes color legend for p-values in td and pd probability plots}
-
-\value{
-something
+\details{
+it generates a graph with the color legend for p-values in td and pd probability plots given the actual normative values \code{\link{nv}} version set for \code{\link{visualFields}}
 }
 
-\references{
-something
-}
-
-\seealso{\code{\link{vfColorMap}}}
+\seealso{\code{\link{vfcolormap}}}
 
 \examples{
-#colorMapGraph( nrow, ncol, txtfont, pointsize )
+colorMapGraph()
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

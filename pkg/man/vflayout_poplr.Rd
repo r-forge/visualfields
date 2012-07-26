@@ -1,14 +1,12 @@
 \name{ vflayout_poplr }
 \alias{ vflayout_poplr }
-\title{printout with results for the visual field}
-\description{
-creates a printout with results for the visual field
-}
+\title{layout displaying the PoPLR analysis}
+\description{the function performs the PoPLR analysis (see \code{\link{poplr}}) with default values and presents the results in form of a A4 printout}
 \usage{
 vflayout_poplr( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL )
 }
 \arguments{
-  \item{vf}{visual-field data. It can be td or pd as well}
+  \item{vf}{\code{\link{vf}} object with threshold sensitivities, td, or pd values}
   \item{grp}{how many visual fields to group. Default is \code{3}}
   \item{nperm}{number of permutations. Default is \code{5000}}
   \item{pwidth}{width of the page (in inches). Default is \code{8.27}}
@@ -16,18 +14,13 @@ vflayout_poplr( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69, margi
   \item{margin}{margins of the page (in inches). Default is \code{0.25}}
   \item{filename}{file name to save the printout as pdf. If it is saved to pdf, it won't be displayed in the screen. Default is \code{NULL}.}
 }
-\details{
-creates a printout with results for the visual field
-}
 
-\value{
-plots the printout or saves it as pdf
-}
+\seealso{\code{\link{vflayout}}, \code{\link{vflayout_legoplot}}, \code{\link{poplr}}, \code{\link{hist_poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vfplot_poplr}}}
 
-\seealso{ \code{\link{createviewport}} }
+\references{ADD REFERENCES HERE}
 
 \examples{
-#vflayout_poplr()
+vflayout_poplr( vf91016right )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

@@ -1,26 +1,22 @@
 \name{loadvfcsv}
 \alias{loadvfcsv}
-\title{loads visual fields from a CSV file}
+\title{load visual fields from a CSV file}
 \description{loads visual fields from a CSV file}
 \usage{loadvfcsv( filename, patternMap )}
 \arguments{
   \item{filename}{filename}
   \item{patternMap}{pattern of stimulus locations}
 }
-\details{
-GIVE HERE HOW THE CSV FILE SHOULD BE FORMATTED
-}
+\details{The columns in the CSV file must follow the format of \code{\link{vf}}. Make sure that all dates have the format \code{MM/DD/YYYY} and all times have the format \code{HH:MM:SS}. Excel tends to change the format, and any edits in Excel that are safe may cause problems when loading the data as \code{\link{vf}}-object}
 
-\value{returns a data frame in which each row is a visual field}
+\value{returns a \code{\link{vf}}-object with all the data in the CSV file \code{filename}}
 
-\references{
-References?
-}
-
-\seealso{ \code{\link{loadvfxml}} }
+\seealso{ \code{\link{loadvfxml}}, \code{\link{loadvfxmlbatch}} }
 
 \examples{
-#loadvfcsv(  )
+# DO NOT RUN
+#filename <- # Add the file name with the control data
+#vf       <- loadvfxml( filename = filename, patternMap = saplocmap$p24d2 )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

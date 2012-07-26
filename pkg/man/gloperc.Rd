@@ -9,20 +9,18 @@
   \item{type}{see \code{\link{wtd.quantile}} for a list of different options}
 }
 \details{
-gets the percentiles for global indices. IMPORTANT: this function works in conjunction with \code{\link{vfstats}}. In \code{\link{vfstats}} all global indices refering to mean must start with \code{m} and all refereing to standard deviation must start with \code{s}, otherwise \code{\link{gloperc}} won't calculate the cutoff values correctly
+gets the percentiles for global indices. This function works in conjunction with \code{\link{vfstats}}. In \code{\link{vfstats}} all global indices refering to mean must start with \code{m} and all refereing to standard deviation must start with \code{s}, otherwise \code{\link{gloperc}} won't calculate the cutoff values correctly
 }
 
 \value{
 percentiles for global indices
 }
 
-\references{
-References?
-}
+\seealso{\code{\link{vfindex}}, \code{\link{vfstats}}, \code{\link{vfiperc}}, \code{\link{locperc}}}
 
-\seealso{ \code{\link{vfindex}}, \code{\link{vfstats}}, \code{\link{vfiperc}}, \code{\link{locperc}} }
 \examples{
-#gloper()
+# DO NOT RUN
+# gperc <- gloper()
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

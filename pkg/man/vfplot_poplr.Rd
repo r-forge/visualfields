@@ -1,12 +1,12 @@
 \name{vfplot_poplr}
 \alias{vfplot_poplr}
-\title{Visual Fileds Plot}
-\description{This package provides a function: vfplot which can be used to plot visual fields data.}
+\title{plot with the PoPLR analysis}
+\description{plots the slope values and the corresponding probabiliby category for each location}
 \usage{vfplot_poplr( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono", pointsize = 7, width = 6, xminmax = 29, yminmax = 29, outerSymbol = "circles", innerSymbol = "circles", outerSize = 1, innerSize = 1, outerInch = 0.24, innerInch = 0.12, lengthLines = 3.0, thicknessLines = 2 )}
 \arguments{
   \item{sl}{slopes}
   \item{pval}{pvalues calculated for the slope}
-  \item{vfinfo}{information about the visualfield}
+  \item{vfinfo}{information about the visual field}
   \item{newWindow}{boolean value- TRUE will generate a new window for the plot. Default value is TRUE}
   \item{txtfont}{font of the text with visual-sensitivity values. Default is \code{mono}}
   \item{pointsize}{size of the text with visual-sensitivity values. Default is \code{7}}
@@ -24,18 +24,13 @@
 }
 \details{The vfplot function operates on a single row of visual fileds (vf). Depending on the plot type it will generate a plot representing the sensitivity at each location. The  color scheme elucidates the degree of sensitivity at that location. Locations with zero sensitivity are shown in black. Blind spots have been excluded fronm the plot}
 
-\value{
-something
-}
+\seealso{\code{\link{poplr}}, \code{\link{hist_poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vflayout_poplr}}}
 
-\references{
-something
-}
-
-\seealso{\code{\link{vfColorMap}}}
+\references{ADD REFERENCES HERE}
 
 \examples{
-#vfplot_poplr()
+res <- poplr( vf91016right )
+vfplot_poplr( res$sl, res$pval, res$vfdata, newWindow = TRUE )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

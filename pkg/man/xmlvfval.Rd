@@ -8,20 +8,12 @@
   \item{patternMap}{pattern of stimulus locations. Default is \code{saplocmap$p24d2}}
   \item{extractionType}{what type of extraction we want: all re-tested sensitivities \code{"all"} or just the mean \code{"average"} over re-tested values? Default is \code{"average"}}
 }
-\details{
-extracts visual-field sensitivity values
-}
-
-\value{extracts visual-field sensitivity values}
-
-\references{
-References?
-}
 
 \seealso{ \code{\link{loadvfxml}}, \code{\link{xmldevval}} }
 
 \examples{
-#xmlvfval(  )
+# DO NOT RUN
+#xmlvfval( xmllines, patternMap = saplocmap$p24d2 )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

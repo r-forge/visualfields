@@ -1,7 +1,7 @@
 \name{hist_poplr}
 \alias{hist_poplr}
-\title{histogram fro PoPLR analysis}
-\description{Plots an histogram of Fisher S statistic combining all location p-values}
+\title{histogram for PoPLR analysis}
+\description{plots an histogram of Fisher S statistic combining all location p-values}
 \usage{hist_poplr( scomb_obs, pcomb_obs, scomb, txtfont = "mono", pointsize = 7 )}
 \arguments{
   \item{scomb_obs}{observed S-statistic for the observed visual fields}
@@ -10,20 +10,13 @@
   \item{txtfont}{font of the text with visual-sensitivity values. Default is \code{mono}}
   \item{pointsize}{size of the text with visual-sensitivity values. Default is \code{7}}
 }
-\details{something, something dark side}
 
-\value{
-something
-}
+\seealso{\code{\link{poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vflayout_poplr}}, \code{\link{vfplot_poplr}}}
 
-\references{
-something
-}
-
-\seealso{\code{\link{vfColorMap}}}
+\references{ADD REFERENCES HERE}
 
 \examples{
-#vfplot()
+vflayout_poplr( vf91016right )
 }
 
-\author{Chaitanya Khadilkar <chaikhad@indiana.edu>, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch <imarinfr@indiana.edu>}

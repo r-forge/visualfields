@@ -1,10 +1,10 @@
 \name{vfplotloc}
 \alias{vfplotloc}
-\title{data plotting locations of visual field}
-\description{This package provides a function: vfplot which can be used to plot visual fields data.}
+\title{visual field data plot}
+\description{plots location-specific data at each location of the visual field. It is the function called by \code{\link{vfplot}}}
 \usage{vfplotloc( vals, eye, patternMap, outerColor, innerColor, bs = NULL, axesCol = "black", txtfont = "mono", pointsize = 7, txtcolor = "black", xminmax = 29, yminmax = 29, outerSymbol = "circles", innerSymbol = "circles", outerSize = 1, innerSize = 1, outerInch = 0.2, innerInch = 0.1, lengthLines = 2.5, thicknessLines = 2 )}
 \arguments{
-  \item{vals}{Sensitivity, TD, or PD values, or other location-related values}
+  \item{vals}{sensitivity threshold, TD or PD values, or other location-specific values}
   \item{eye}{eye being tested}
   \item{patternMap}{locations where to plot symbols, the TD and PD values}
   \item{outerColor}{colors to use for the outer symbols in the graph}
@@ -27,18 +27,11 @@
 }
 \details{The vfplot function operates on a single row of visual fileds (vf). Depending on the plot type it will generate a plot representing the sensitivity at each location. The  color scheme elucidates the degree of sensitivity at that location. Locations with zero sensitivity are shown in black. Blind spots have been excluded fronm the plot}
 
-\value{
-something
-}
-
-\references{
-something
-}
-
-\seealso{\code{\link{vfColorMap}}}
+\seealso{\code{\link{vfplot}}}
 
 \examples{
-#vfplotloc()
+# DO NOT EXECUTE
+#vfplotloc( vals )
 }
 
 \author{Chaitanya Khadilkar <chaikhad@indiana.edu>, Ivan Marin-Franch <imarinfr@indiana.edu>}

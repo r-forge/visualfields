@@ -10,7 +10,7 @@ createviewport( name, left, top, width, height, pwidth = 8.27, pheight = 11.69 )
 \arguments{
   \item{name}{name of he viewport}
   \item{left}{a numeric vector or unit object specifying left location (in inches)}
-  \item{top}{a numeric vector or unit object specifying top location (in inches)}
+  \item{top}{a numeric vector or unit object specifying topvflocation (in inches)}
   \item{width}{a numeric vector or unit object specifying width (in inches)}
   \item{height}{a numeric vector or unit object specifying height (in inches)}
   \item{pwidth}{width of the page (in inches). Default is \code{8.27}}
@@ -27,7 +27,8 @@ returns a viewport object
 \seealso{ \code{\link{vflayout}} }
 
 \examples{
-#createviewport()
+# show a printout
+vflayout( vf91016right[15,] )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

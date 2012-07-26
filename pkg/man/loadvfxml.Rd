@@ -10,20 +10,16 @@
   \item{typeSubject}{Type of subject, control (\code{ctr}) or patient (\code{pwg}). Default is (\code{pwg})}
   \item{extractionType}{When typeData is (\code{vf}) what type of extraction we want: all re-tested sensitivities \code{"all"} or just the mean \code{"average"} over re-tested values? Default is \code{"average"}}
 }
-\details{
-GIVE HERE HOW THE XLM FILE SHOULD BE FORMATTED
-}
+\details{The XML files format must be as from the extraction of the HFA device}
 
-\value{returns a data frame in which each row is a visual-field object}
-
-\references{
-References?
-}
+\value{returns a \code{\link{vf}}-object with one row containing the information for the subject loaded in the XML}
 
 \seealso{ \code{\link{loadvfcsv}}, \code{\link{loadvfxmlbatch}} }
 
 \examples{
-#loadvfxml(  )
+# DO NOT RUN
+#filename <- # Add the XML file name
+#vf       <- loadvfxml( filename = filename, patternMap = saplocmap$p24d2 )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

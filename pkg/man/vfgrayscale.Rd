@@ -1,29 +1,23 @@
 \name{vfgrayscale}
 \alias{vfgrayscale}
-\title{Gray scales for sensitivities}
-\description{This function maps sensitivity values to grayscales}
-\usage{vfgrayscale( vf, age, pattern, algorithm )}
+\title{gray scales for sensitivities}
+\description{maps sensitivity values to grayscales}
+\usage{vfgrayscale( sens, age, pattern, algorithm )}
 \arguments{
-  \item{vf}{sensitivity values}
+  \item{sens}{an array with sensitivity values}
   \item{age}{age of the subject}
   \item{algorithm}{algorithm used in the visual test}
   \item{pattern}{pattern used in the visual test}
 }
-\details{This function maps sensitivity values to grayscales. The grayscale depends on age of the person, test pattern and algorithm
-}
+\details{This function maps sensitivity values to grayscales. The grayscale depends on age of the person, test pattern and algorithm}
 
-\value{
-something
-}
+\value{returns the RGB values for the gray scale}
 
-\references{
-something
-}
-
-\seealso{\code{\link{vfColorMap}}}
+\seealso{\code{\link{vfcolormap}}}
 
 \examples{
-#vfgrayscale()
+# DO NOT EXECUTE
+#vfgrayscale( sens )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

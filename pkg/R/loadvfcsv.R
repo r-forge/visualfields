@@ -12,7 +12,7 @@ loadvfcsv <- function( filename, patternMap ) {
 # of visualField package; it has information about how the VF-object is
 # expected to be
   vf2 <- vf[,vfsettings$locini:ncol( vf )]
-  vf[,vfsettings$locini:ncol( vf )] <- vf2[,order( patternMap$loc )]
+  vf[,vfsettings$locini:ncol( vf )] <- vf2[,patternMap$loc]
   remove( vf2 )
   
 # convert all text columns into the correct class

@@ -10,20 +10,14 @@
   \item{group}{for probability maps: the probability group coding}
   \item{cutoffs}{for probability maps: the corresponding pvalue for each group code}
 }
-\details{
-extracts total-deviation values, pattern-deviation values, total-deviation probability values, and pattern-deviation probability values
-}
 
 \value{total-deviation values, pattern-deviation values, total-deviation probability values, and pattern-deviation probability values}
-
-\references{
-References?
-}
 
 \seealso{ \code{\link{loadvfxml}}, \code{\link{xmlvfval}} }
 
 \examples{
-#xmldevval(  )
+# DO NOT RUN
+#xmldevval( xmllines, patternMap = saplocmap$p24d2 )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

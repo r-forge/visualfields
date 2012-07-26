@@ -7,12 +7,15 @@
 \format{
 vfisettings contains structures for different patterns of location testing. For instance, p24d2 or p30d2. Each structure contains 2 items:
   \describe{
+    \item{\code{regweights}}{the actual weights to be applied to each region}
     \item{\code{locregions}}{mapping between locations in the visual-field testing pattern and regions with the same weight}
-    \item{\code{locregions}}{the actual weights to be applied to each region}
   }
-  In addition to data for each pattern of locations, it has a variable \code{locini} specifying the starting column in the VF-object in which locations sensitivities are listed
 }
 
 \keyword{datasets}
+
+\references{
+[1] B. Bengtsson and A. Heijl. \emph{A visual field index for calculation of glaucoma rate of progression}. American Journal of Ophthalmology, 145, 2008
+}
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

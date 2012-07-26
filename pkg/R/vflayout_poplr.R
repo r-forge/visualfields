@@ -9,7 +9,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
     length( unique( vf$talgorithm ) ) > 1 |
     length( unique( vf$id ) ) > 1         |
     length( unique( vf$seye ) ) > 1 ) {
-    stop( "all visual fields should belong to the same subject tested with the same perimeter and algorithm on the same locations" )
+    stop( "all visual fields should belong to the same subject and eye tested with the same perimeter and algorithm on the same locations" )
   }
   if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the analysis" )
   if( nrow( vf ) < 8 )       warning( "permutation analysis may not be very precise if for less than 8 visual fields" )
@@ -140,9 +140,14 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   par( opar )
 # plot md on age
   par( new = TRUE )
-  par( fig = c( 0.65, 0.97, 0.015, 0.20 ) )
+  par( fig = c( 0.65, 0.97, 0.05, 0.20 ) )
   # regression analysis
-  progols( vfindices$sage, vfindices$mtdev, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  progols( vfindices$tdate, vfindices$mtdev, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+# color-code map
+  par( new = TRUE )
+  par( fig = c( 0.6131, 0.97, 0.015, 0.060 ) )
+  colorMapGraph( ncol = 5, notSeenAsBlack = FALSE, txtfont = ffmailyvf, pointsize = pointsize, outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+                 outerInch = outerInch, innerInch = innerInch )
   par( opar )
 ######################################################
 # create the text elements in the printouts

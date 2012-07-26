@@ -31,7 +31,7 @@ colorMapGraph <- function( ncol = 3, notSeenAsBlack = TRUE, txtfont = "mono", po
     rgbval$red[i+idx]   <- nv$pmapsettings$red[i]
     rgbval$green[i+idx] <- nv$pmapsettings$green[i]
     rgbval$blue[i+idx]  <- nv$pmapsettings$blue[i]
-    txtval[i+idx] <- as.character( nv$pmapsettings$cutoffs[i] )
+    txtval[i+idx]       <- as.character( nv$pmapsettings$cutoffs[i] )
   }
   rgbval <- rgb( as.data.frame( rgbval ) )
 

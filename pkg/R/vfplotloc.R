@@ -13,7 +13,7 @@ vfplotloc <- function( vals, eye, patternMap, outerColor, innerColor = NULL, bs 
   par( ps = pointsize )
   par( family = txtfont )
 # get lines denoting the orientation of the RNF bundle
-  coords <- vfsegmentCoord( patternMap, length = lengthLines )
+  coords <- vfsegmentcoord( patternMap, length = lengthLines )
   
   # left/right eye
   if( eye == "OS" ) {

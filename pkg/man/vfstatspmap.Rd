@@ -2,26 +2,21 @@
 \alias{vfstatspmap}
 \title{probability values for visual field global indices}
 \description{calculates the probability values for visual field global indices}
-\usage{ vfstatspmap( vfindices ) }
+\usage{vfstatspmap( vfindices )}
 \arguments{
-  \item{vfindices}{ visual fields global indices }
+  \item{vfindices}{visual fields global indices}
 }
-\details{
-calculates the proability values for visual field global indices (see \code{\link{vfstats}})
-}
-
-\value{
-returns the subjects's probability values for visual field global indices
-}
+\details{calculates the proability values for visual field global indices (see \code{\link{vfstats}})}
 
 \references{
-References?
+[1] A. Heijl, G. Lindgren, and J. Olsson. \emph{A package for the statistical analysis of visual fields}. Documenta Ophthalmologica Proceedings Series, 49, 1987
 }
 
-\seealso{ \code{\link{vfstats}} }
+\seealso{\code{\link{vfstats}}, \code{\link{vfindex}}, \code{\link{vfindexpmap}}}
 
 \examples{
-#vfstatspmap(  )
+vfs  <- vfstats( vf91016right )
+vfsp <- vfstatspmap( vfs )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

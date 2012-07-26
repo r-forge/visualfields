@@ -7,20 +7,12 @@
   \item{tag}{tag to look at}
   \item{xmllines}{lines from loaded XML files}
 }
-\details{
-extracts from a loaded XML file the info of a tag
-}
-
-\value{returns the value of the tag}
-
-\references{
-References?
-}
-
-\seealso{ \code{\link{loadvfxml}}, \code{\link{loadvfcsv}}, \code{\link{xmlblock}} }
+\details{extracts from a loaded XML file the info of a tag}
+\seealso{\code{\link{loadvfxml}}, \code{\link{loadvfcsv}},\code{\link{xmlblock}}}
 
 \examples{
-#xmlitem(  )
+# DO NOT RUN
+#xmlitem( tag, xmllines )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

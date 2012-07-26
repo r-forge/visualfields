@@ -1,14 +1,20 @@
-progols <- function( age, index, projyears = 5, xlab = "age", ylab = "md", txtfont = "mono", pointsize = 12, cex = 1 ) {
+progols <- function( tdate, index, projyears = 5, xlab = "months from first visit", ylab = "md",
+                     txtfont = "mono", pointsize = 12, cex = 1 ) {
 
-  xreg <- c( min( age ), max( age ) + projyears )
+  lt      <- as.POSIXlt( tdate )
+  mon     <- lt$year * 12 + lt$mon
+  mon     <- mon - mon[1]
+  xreg    <- c( min( mon ), max( mon ) + projyears * 12 )
   xlim    <- NULL
   ylim    <- NULL
   xlim[1] <- xreg[1]
   xlim[2] <- xreg[2] + 1
-  ylim <- c( min( index ) - 1, max( index ) + 1 )
+  ylim <- c( max( index ) - 11, max( index ) + 1 )
 # get regression
-  mdreg <- lm( index ~ age )
+  mdreg <- lm( index ~ mon )
   pval  <- summary( mdreg )$coefficients[2,4]
+  pval  <- round( pval * 1000 ) / 1000
+  ylab  <- paste( ylab, ", p = ", as.character( pval ), sep = "" )
   yreg  <- mdreg$coefficients[1] + mdreg$coefficients[2] * xreg
 
   ops     <- par()$ps
@@ -16,16 +22,20 @@ progols <- function( age, index, projyears = 5, xlab = "age", ylab = "md", txtfo
   oplt    <- par()$plt
   par( ps     = pointsize )
   par( family = txtfont )
-  par( plt    = c( 0.25, 1.0, 0.35, 0.9 ) )
+  par( plt    = c( 0.29, 1.0, 0.35, 0.9 ) )
   
-  plot( age, index, axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim )
-  lines( xreg, yreg )
+  firstTick <- round( max( index ) - 11 )
+  tickMarks <- c( firstTick, firstTick + 4, firstTick + 8, firstTick + 12 )
+  
+  plot( mon, index, type = "n", axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim )
   axis( 1, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
-  axis( 2, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
-  grid( nx = NA, ny = 4, lty = "solid", "gray" )
+  axis( 2, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5, at = tickMarks )
+  grid( nx = NA, ny = NULL, lty = "solid", "lightgray" )
+  points( mon, index )
+  lines( xreg, yreg )
   box()
   title( xlab = xlab, mgp = c( 2, 1, 0 ) )
-  title( ylab = ylab, mgp = c( 2.3, 1, 0 ) )
+  title( ylab = ylab, mgp = c( 2.7, 1, 0 ) )
 
   par( new    = FALSE )
   par( ps     = ops )

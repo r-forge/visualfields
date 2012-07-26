@@ -47,7 +47,7 @@ tdrankadjperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "q
     eval( parse( text = texteval ) )
   }
   tdrper  <- as.data.frame( tdrper )
-# remove the number of locations corresponding to blind spots (which are not to be analyzed)
+# remove the locations corresponding to blind spots (which are not to be analyzed)
   tdrper   <- tdrper[1:( nrow( tdrper ) - length( settings$bs ) ),]
   tdr <- tdrank( td )
 # adjusted curves to the "85th percentile"

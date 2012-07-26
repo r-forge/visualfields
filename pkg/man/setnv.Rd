@@ -8,7 +8,7 @@ set normative values and stimuli location map to be used with visualFields
 setnv( nvtxt = "sapsunyiunv", name = "sapsunyiunv" )
 }
 \arguments{
-  \item{nvtxt}{char. Name of the normative reference values to be used}
+  \item{nvtxt}{char. Name of the normative reference values to be used. It must be an existing structure}
   \item{name}{char. Name to give to the normative reference values}
 }
 \details{

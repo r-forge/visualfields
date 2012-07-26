@@ -213,7 +213,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
 
   timetxt <- substr( vf$ttime, 1, 5 )
   if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
-  text <- paste( "Date:", format( vf$tdate, "%d/%m/%Y" ), "at", timetxt, sep = " " )
+  text <- paste( "Date:", format( vf$tdate, "%m/%d/%Y" ), "at", timetxt, sep = " " )
 # duration and pause of test
   timetxt         <- substr( vf$sduration, 3, nchar( vf$sduration ) )
   if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""

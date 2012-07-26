@@ -1,5 +1,6 @@
 hist_poplr <- function( scomb_obs, pcomb_obs, scomb, txtfont = "mono", pointsize = 7 ) {
 
+  limExtention = 2
   sizeBreaks <- 4
   scomb_obs <- - scomb_obs
   scomb     <- - scomb
@@ -12,7 +13,7 @@ hist_poplr <- function( scomb_obs, pcomb_obs, scomb, txtfont = "mono", pointsize
   par( ps     = pointsize )
   par( family = txtfont )
   par( plt    = c( 0, 1, 0.3, 1 ) )
-  plot( hcomb, main = "", xlab = NULL, ylab = NULL, ylim = c( 0, 1.1 ), border = rgb( 0.7, 0.7, 0.7 ), col = rgb( 0.9, 0.9, 0.9 ), axes = FALSE )
+  plot( hcomb, main = "", xlab = NULL, ylab = NULL, xlim = c(0, limExtention * max( scomb ) ), ylim = c( 0, 1.1 ), border = rgb( 0.7, 0.7, 0.7 ), col = rgb( 0.9, 0.9, 0.9 ), axes = FALSE )
   axis( 1, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
   title( xlab = "S statistic", mgp = c( 2, 1, 0 ) )
   lines( c( scomb_obs, scomb_obs ), c( 0, 0.60 ), col = "red" )
