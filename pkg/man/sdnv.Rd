@@ -2,9 +2,7 @@
 \alias{sdnv}
 \title{standard deviations of normative values}
 \description{get the standard deviations at each location for normative values: sensitivities, total-deviation, and pattern-deviation values}
-\usage{
-sdnv( vf, smooth = TRUE, smoothFunction = quad2Dfit )
-}
+\usage{sdnv( vf, smooth = TRUE, smoothFunction = quad2Dfit )}
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds}
   \item{smooth}{whether to use a function to smooth the results or not. Default is \code{TRUE}}

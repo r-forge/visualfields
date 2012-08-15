@@ -2,7 +2,9 @@
 \alias{xmldevval}
 \title{extracts total-deviation values, pattern-deviation values, total-deviation probability values, and pattern-deviation probability values}
 \description{extracts total-deviation values, pattern-deviation values, total-deviation probability values, and pattern-deviation probability values}
-\usage{xmldevval( xmllines, patternMap, typeData = c( "td" ), group = c( 4, 3, 2, 1, 0 ), cutoffs = c( 0.5, 1, 2, 5, 95 ) ) }
+\usage{xmldevval( xmllines, patternMap, typeData = c( "td" ),
+           group = c( 4, 3, 2, 1, 0 ),
+           cutoffs = c( 0.5, 1, 2, 5, 95 ) )}
 \arguments{
   \item{xmllines}{lines from loaded XML files}
   \item{patternMap}{pattern of stimulus locations. Default is \code{saplocmap$p24d2}}

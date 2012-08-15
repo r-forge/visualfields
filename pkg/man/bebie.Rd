@@ -2,9 +2,11 @@
 \alias{bebie}
 \title{Bebie curve}
 \description{Plots Bebie rank TD curve}
-\usage{bebie( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfont = "mono", pointsize = 7, cex = 1 )}
+\usage{bebie( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
+       correction = TRUE, txtfont = "mono", pointsize = 7, cex = 1 )}
 \arguments{
-  \item{td}{a \code{vf} object with total-deviation values}
+  \item{tdr}{a \code{vf} object with the rank TD curve}
+  \item{type}{whether to use a \code{conventional} way to plot the rank TD curve or \code{ghrank} type where the \code{vf} object passed is the reconstructed within-normal TD rank curve. Default is \code{conventional}}
   \item{diff}{add absolute td values or differences from mean normal. Default is \code{TRUE}}
   \item{percentiles}{add percentile lines. Default is \code{TRUE}}
   \item{correction}{add ranked TD line after correcting for general height difference. Default is \code{TRUE}}
@@ -20,8 +22,16 @@
 }
 
 \examples{
+# conventional "Bebie" rank TD curve
 td <- tdval( vf91016right[15,] )
-bebie( td )
+tdr <- tdrank( td )
+bebie( tdr )
+#
+# "ghrank" type of "Bebie" rank TD curve
+td  <- tdval( vf91016right[15,] )
+tdr <- tdrank( td )
+#################################################ghr <- ghranktd( td )
+#################################################bebie( ghr, type = "ghrank" )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}

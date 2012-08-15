@@ -2,7 +2,9 @@
 \alias{locperc}
 \title{percentiles for each location}
 \description{gets the percentiles for each location}
-\usage{locperc( vals, stds, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ), poolLocations = FALSE )}
+\usage{locperc( vals, stds, percentiles = c( 0.5, 1, 2, 5, 95 ),
+         type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ),
+         poolLocations = FALSE )}
 \arguments{
   \item{vals}{table with sensitivity values, total-deviation values, or pattern-deviation values}
   \item{stds}{standard deviations per location for sensitivity values, total-deviation values, or pattern-deviation values}

@@ -1,4 +1,5 @@
-poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRUE, spatialwtd = NULL, distance = NULL, eccwtd = NULL ) {
+poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRUE,
+                         spatialwtd = NULL, distance = NULL, eccwtd = NULL ) {
 ##############
 # input checks
 ##############

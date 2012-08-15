@@ -2,7 +2,8 @@
 \alias{gloperc}
 \title{percentiles for global indices}
 \description{gets the percentiles for global indices}
-\usage{gloperc( vals, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) )}
+\usage{gloperc( vals, percentiles = c( 0.5, 1, 2, 5, 95 ),
+         type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) )}
 \arguments{
   \item{vals}{table with global indices for control subjects}
   \item{percentiles}{percentiles at which to calculate cutoff values}

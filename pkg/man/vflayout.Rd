@@ -2,9 +2,9 @@
 \alias{vflayout}
 \title{printout with results for the visual field}
 \description{creates a printout with results for the visual field. This includes sensitivity threshold values with a gray scale plot, and TD and PD values with color coding for the probability map}
-\usage{
-vflayout( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL )
-}
+\usage{vflayout( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
+          filename = NULL )}
+
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds}
   \item{pwidth}{width of the page (in inches). Default is \code{8.27}}

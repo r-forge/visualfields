@@ -5,7 +5,7 @@
 \description{
 Normative reference values or (normative values or nv for short) for Standard Automatic Perimetry (SAP) obtained from a combination of control subjects from SUNY (Mitchel W Dul) and IU (William H Swanson and Victor E Malinovsky) databases.
 }
-\usage{ data( sapsunyiunv ) }
+\usage{data( sapsunyiunv )}
 \format{This normative-value object is defined by some tables, variables, and sub-structures, some of which are mandatory and some which are not. Importantly an age linear model must be included for test pattern (24-2) and presentation algorithm (e.g. SITA standard). Also important are the tables specifying the settings. Think of the normative-value object as a structure with several levels. The first level has three main substructures with settings:
 \describe{
 \item{\code{pmapsettings}}{\bold{mandatory}. Information about which percentiles are used for location-wise analysis in this nv and their corresponding color coding for display. This is a table with four columns. First column specifies the percentiles (in percent) for \code{cutoffs} and the other three columns are the corresponding RGB values (defined from 0 to 1) specifying the color code to use for values below that percentile}
@@ -21,7 +21,7 @@ From here age linear models, percentile values, etc are defined for combination 
 \item{\code{percvfi}}{\bold{mandatory}. A table with as many columns as cutoff percentiles (rows) were defined in \code{globalco} for global indices. This table has data only for the VFI (\code{mvfi}) and the standard deviation of the VFI at each locaton (\code{svfi})}
 \item{\code{nvtdrank}}{\bold{optional}, but necessary to run \code{\link{bebie}} with the option \code{diff = TRUE}. A table with two columns, mean normal Bebie TD rank curve and the standard deviation at each ranked location.}
 \item{\code{perctdrank}}{\bold{optional}, but necessary to run \code{\link{bebie}} with the option \code{percentiles = TRUE}. A table with as many columns as cutoff percentiles (rows) were defined in \code{pmapsettings}. Each column is the TD cutoff value for each percentile}
-\item{\code{perctdrankadj}}{\bold{optional}, but necessary to run \code{\link{bebie}} with the option \code{diff = TRUE} and \code{percentiles = TRUE}. Same as \code{perctdrank} but the difference from mean normal Bebie TD rank curve analysis}
+\item{\code{perctdrankadj7}}{\bold{optional}, but necessary to run \code{\link{bebie}} with the option \code{diff = TRUE} and \code{percentiles = TRUE}. Same as \code{perctdrank} but the difference from mean normal Bebie TD rank curve analysis}
   }
 }
 

@@ -2,7 +2,8 @@
 \alias{loadvfxml}
 \title{loads visual fields from a XML file}
 \description{loads visual fields from a XML file}
-\usage{loadvfxml( filename, patternMap, typeData = "vf", typeSubject = "pwg", extractionType = c( "average" ) ) }
+\usage{loadvfxml( filename, patternMap, typeData = "vf", typeSubject = "pwg",
+           extractionType = c( "average" ) )}
 \arguments{
   \item{filename}{filename}
   \item{patternMap}{pattern of stimulus locations. Default is \code{saplocmap$p24d2}}

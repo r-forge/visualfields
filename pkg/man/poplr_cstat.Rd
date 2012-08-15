@@ -2,7 +2,8 @@
 \alias{poplr_cstat}
 \title{permutation of pointwise linear regression (PoPLR): calculation of the combined statistic}
 \description{For details see [1]}
-\usage{poplr_cstat( pval, typecomb = "fisher", truncation = 1, minmax = TRUE, spatialwtd = NULL, distance = NULL, eccwtd = NULL )}
+\usage{poplr_cstat( pval, typecomb = "fisher", truncation = 1, minmax = TRUE,
+             spatialwtd = NULL, distance = NULL, eccwtd = NULL )}
 \arguments{
   \item{pval}{p-values. Typically the ones obtained from \code{\link{poplr_pstat}}}
   \item{typecomb}{Combination type for p-values. Default is \code{fisher}, by now the only one implemented}

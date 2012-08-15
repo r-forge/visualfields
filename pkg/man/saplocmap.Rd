@@ -5,7 +5,7 @@
 \description{
 A table with relevant information about test location data for each pattern of locations, 24-2, 10-2, and 30-2, and the standard Goldman size III stimulus. The convention for visualFields is to use always a right-eye format. That is, a left eye would be "flipped" left-right and location number are counted row-wise from top-left to bottom-right. Information about the size of the stimulus and the corresponding angle of incidence and slope with Jansonious map [1] are included.
 }
-\usage{ data( saplocmap ) }
+\usage{data( saplocmap )}
 \format{
 The structure saplocmap has 1 table for the test pattern \code{p24d2}. The table has six columns:
 \describe{

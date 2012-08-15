@@ -1,4 +1,5 @@
-vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
+vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
+                               margin = 0.25, filename = NULL ) {
 ##############
 # input checks
 ##############
@@ -19,8 +20,8 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, marg
   sizetxtSmall   <- 8
   ffmailyvf      <- "Times"
   pointsize      <- 6
-  pointsizelego  <- 11
   txtcolorlego   <- "red"
+  pointsizelego  <- 16
   outerSymbol    <- "circle"
   outerInch      <- 0.12
   innerSymbol    <- "circle"
@@ -31,7 +32,7 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, marg
   outerSymbollego <- "square"
   innerSymbollego <- "circle"
   outerInchlego   <- 0.36
-  innerInchlego   <- 0.12
+  innerInchlego   <- 0.16
 # get settings for the pattern of test locations
   texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
@@ -40,16 +41,14 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, marg
   locmap   <- eval( parse( text = texteval ) )
 # get TD and PD values
   td  <- tdval( vf )
-#  pd  <- pdval( td )
-#  tdp <- tdpmap( td )
-#  pdp <- pdpmap( td )
 # remove blind spot
   vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
   td     <- td[,-( settings$bs + vfsettings$locini - 1 )]
-#  pd     <- pd[,-( settings$bs + vfsettings$locini - 1 )]
-#  tdp    <- tdp[,-( settings$bs + vfsettings$locini - 1 )]
-#  pdp    <- pdp[,-( settings$bs + vfsettings$locini - 1 )]
   locmap <- locmap[-settings$bs,]
+# add color for the text of the legoplots
+txtcolorlego <- t( matrix( rep( col2rgb( txtcolorlego ) / 255, nrow( locmap ) ), 3, nrow( locmap ) ) )
+txtcolorlego <- as.data.frame( txtcolorlego )
+names( txtcolorlego ) <- c( "red", "green", "blue" )
 ######################
 # Analysis
 ######################
@@ -71,12 +70,6 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, marg
   vf1          <- round( colMeans( vf[idx1, locvalsidx] ) )
   td0          <- colMeans( td[idx0, locvalsidx] )
   td1          <- colMeans( td[idx1, locvalsidx] )
-#  pd0          <- colMeans( pd[idx0, locvalsidx] )
-#  pd1          <- colMeans( pd[idx1, locvalsidx] )
-#  tdp0         <- colMeans( tdp[idx0, locvalsidx] )
-#  tdp1         <- colMeans( tdp[idx1, locvalsidx] )
-#  pdp0         <- colMeans( pdp[idx0, locvalsidx] )
-#  pdp1         <- colMeans( pdp[idx1, locvalsidx] )
 
 # open window wiht A4 page
   if( is.null( filename ) ) {
@@ -154,12 +147,12 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69, marg
   par( new = TRUE )
   par( fig = c( 0, 0.4, 0, 0.25 ) )
   par( mar = c( 4, 4.4, 0.5, 0.5 ) )
-  bebie( as.data.frame( c( vfinfo0, td0 ) ), correction = FALSE, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  bebie(  tdrank( as.data.frame( c( vfinfo0, td0 ) ) ), correction = FALSE, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
   # Bebie last n visits
   par( new = TRUE )
   par( fig = c( 0.5, 0.9, 0, 0.25 ) )
   par( mar = c( 4, 4.4, 0.5, 0.5 ) )
-  bebie( as.data.frame( c( vfinfo1, td1 ) ), correction = FALSE, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  bebie( tdrank( as.data.frame( c( vfinfo1, td1 ) ) ), correction = FALSE, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
   par( opar )
 
 ######################################################

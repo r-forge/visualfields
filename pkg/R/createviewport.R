@@ -1,4 +1,5 @@
-createviewport <- function( name, left, top, width, height, pwidth = 8.27, pheight = 11.69 ) {
+createviewport <- function( name, left, top, width, height, pwidth = 8.27,
+                            pheight = 11.69 ) {
 
   left   <- left / pwidth
   width  <- width / pwidth

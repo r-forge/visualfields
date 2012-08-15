@@ -1,4 +1,5 @@
-tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) ) {
+tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
+                        type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) ) {
 # gets percentiles for TD rank curve. TDs should come from control subjects from a
 # set of visual fields it fits lines to characterize age effect on the visual-field
 # sensitivities. For this function all visual fields should correspond to the

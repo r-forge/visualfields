@@ -1,4 +1,4 @@
-ghpostd <- function( td, rankRef = c( "default" ) ) {
+ghpostd <- function( td, correction = FALSE, rankRef = c( "default" ) ) {
 
   if( nrow( td ) > 1) {
     stop( "pass only one visual field here" )
@@ -21,5 +21,11 @@ ghpostd <- function( td, rankRef = c( "default" ) ) {
 # get TD values in a list and remove blind spot
   tdr <- tdrank( td )
 # rankRef-th largest TD value
-  return( as.numeric( tdr[vfsettings$locini + rankRef - 1] ) )
+  gh <- as.numeric( tdr[vfsettings$locini + rankRef - 1] )
+  if( correction ) {
+    texteval <- paste( "nv$", td$tpattern, "_", td$talgorithm, "$nvtdrank$mtdr", sep = "" )
+    tdrref  <- eval( parse( text = texteval ) )
+    gh <- tdrref[rankRef] - gh
+  }
+  return( gh )
 }

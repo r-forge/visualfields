@@ -3,7 +3,7 @@
 \docType{data}
 \title{Settings of visualField object}
 \description{Specifies the structure of a vf object (see \code{\link{vf}}) and information pertaining test patterns and their statistical analysis.}
-\usage{ data( vfsettings ) }
+\usage{data( vfsettings )}
 \format{
 This structure contains a variable specifying the number of columns with patient and subject data, \code{locini} and several sub-structures with relevant information pertaining different pattern of locations and their analysis. Information exists for the test patterns \code{p24d2}, \code{p30d2}, \code{p10d2}, and \code{sgrnfl}. Each sub-structure contains three items:
 \describe{

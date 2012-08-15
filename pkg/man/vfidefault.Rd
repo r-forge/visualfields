@@ -3,7 +3,7 @@
 \docType{data}
 \title{Settings of visual field index }
 \description{Specifies the weighting to be applied at each location for averaging.}
-\usage{ data( vfidefault ) }
+\usage{data( vfidefault )}
 \format{
 vfisettings contains structures for different patterns of location testing. For instance, p24d2 or p30d2. Each structure contains 2 items:
   \describe{

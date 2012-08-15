@@ -2,7 +2,13 @@
 \alias{vfplotloc}
 \title{visual field data plot}
 \description{plots location-specific data at each location of the visual field. It is the function called by \code{\link{vfplot}}}
-\usage{vfplotloc( vals, eye, patternMap, outerColor, innerColor, bs = NULL, axesCol = "black", txtfont = "mono", pointsize = 7, txtcolor = "black", xminmax = 29, yminmax = 29, outerSymbol = "circles", innerSymbol = "circles", outerSize = 1, innerSize = 1, outerInch = 0.2, innerInch = 0.1, lengthLines = 2.5, thicknessLines = 2 )}
+\usage{vfplotloc( vals, eye, patternMap, outerColor, innerColor = NULL, bs = NULL,
+           axesCol = "black", txtfont = "mono", pointsize = 7,
+           txtcolor = NULL, xminmax = 29, yminmax = 29, outerSymbol = "circles",
+           innerSymbol = "circles", outerSize = 1, innerSize = 1,
+           outerInch = 0.2, innerInch = 0.1, lengthLines = 2.5,
+           thicknessLines = 2, outerBorderColor = NULL, innerBorderColor = NULL,
+           outerBorderThickness = 2, innerBorderThickness = 2 )}
 \arguments{
   \item{vals}{sensitivity threshold, TD or PD values, or other location-specific values}
   \item{eye}{eye being tested}
@@ -24,6 +30,10 @@
   \item{innerInch}{Maximum size of the inner symbol in inches. Default is \code{0.1}}
   \item{lengthLines}{length of the lines denoting the orientation of the RNF bundle}
   \item{thicknessLines}{thickness of the lines denoting the orientation of the RNF bundle}
+  \item{outerBorderColor}{Border for outer symbol denoting statistical significance. Default is \code{NULL}}
+  \item{innerBorderColor }{Color of the inner border that represents statistical significance. Default is \code{NULL}.}
+  \item{outerBorderThickness}{Thickness of outer border for outer symbol denoting statistical significance. Default is \code{2}}
+  \item{innerBorderThickness }{Thickness of the inner border that represents statistical significance. Default is \code{2}}	
 }
 \details{The vfplot function operates on a single row of visual fileds (vf). Depending on the plot type it will generate a plot representing the sensitivity at each location. The  color scheme elucidates the degree of sensitivity at that location. Locations with zero sensitivity are shown in black. Blind spots have been excluded fronm the plot}
 

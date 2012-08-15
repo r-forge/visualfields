@@ -2,8 +2,9 @@
 \alias{progols}
 \title{progression by linear ordinary least squares}
 \description{makes a linear regression with projection in the future by projyears years}
-\usage{progols( tdate, index, projyears = 5, xlab = "months from first visit", ylab = "md",
-                txtfont = "mono", pointsize = 12, cex = 1 )}
+\usage{progols( tdate, index, projyears = 5,
+         xlab = "years from first visit", ylab = "md",
+         txtfont = "mono", pointsize = 12, cex = 1 )}
 \arguments{
   \item{tdate}{visit date}
   \item{index}{index measured at the corresponding age}

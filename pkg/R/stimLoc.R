@@ -1,4 +1,5 @@
-stimLoc <- function( perimetry, pattern, eye, txtfont = "mono", pointsize = 7, xminmax = 29, yminmax = 29 ) {
+stimLoc <- function( perimetry, pattern, eye, txtfont = "mono", pointsize = 7,
+                     xminmax = 29, yminmax = 29 ) {
   evaltxt <- paste( perimetry, "locmap$", pattern, sep = "" )
   locmap  <- eval( parse( text = evaltxt ) )
 # left/right eye

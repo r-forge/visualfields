@@ -2,7 +2,8 @@
 \alias{poplr}
 \title{permutation of Pointwise Linear Regression (PoPLR)}
 \description{performs the PoPLR analysis from a series of visual-field threshold sensitivities, or TD or PD values over time}
-\usage{poplr( vf, nperm = 5000, type = "slr", sl_test = NULL, typecomb = "fisher", details = FALSE )}
+\usage{poplr( vf, nperm = 5000, type = "slr", sl_test = NULL,
+       typecomb = "fisher", details = FALSE )}
 \arguments{
   \item{vf}{\code{\link{vf}} object with threshold sensitivities, td, or pd values}
   \item{nperm}{number of permutations. Default is \code{5000}}

@@ -4,9 +4,8 @@
 \description{
 create regions in where to print graphs. Used for the generation of printouts
 }
-\usage{
-createviewport( name, left, top, width, height, pwidth = 8.27, pheight = 11.69 )
-}
+\usage{createviewport( name, left, top, width, height, pwidth = 8.27,
+                pheight = 11.69 )}
 \arguments{
   \item{name}{name of he viewport}
   \item{left}{a numeric vector or unit object specifying left location (in inches)}

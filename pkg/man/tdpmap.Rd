@@ -2,9 +2,7 @@
 \alias{ tdpmap }
 \title{ probability map for total deviation }
 \description{gets probability map for total-deviation values}
-\usage{
-tdpmap( td )
-}
+\usage{tdpmap( td )}
 \arguments{
   \item{td}{total-deviation values in dBs}
 }

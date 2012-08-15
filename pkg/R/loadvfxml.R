@@ -1,4 +1,5 @@
-loadvfxml <- function( filename, patternMap, typeData = "vf", typeSubject = "pwg", extractionType = c( "average" ) ) {
+loadvfxml <- function( filename, patternMap, typeData = "vf", typeSubject = "pwg",
+                       extractionType = c( "average" ) ) {
 # loads XML file with visual fields and converts the columns to the correct format
   xmllines <- readLines( filename )
 

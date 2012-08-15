@@ -2,7 +2,6 @@
 \alias{ageLinearModel}
 \title{linear model for age effect on visual sensitivity}
 \description{calculates the linear model to account for mean age effect on visual sensitivity at each location from a sample of controls subjects}
-
 \usage{ageLinearModel( vf, smooth = TRUE, smoothFunction = quad2Dfit )}
 \arguments{
   \item{vf}{a \code{\link{vf}} object. It needs to be in a specific format}

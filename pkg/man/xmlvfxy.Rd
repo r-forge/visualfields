@@ -2,7 +2,7 @@
 \alias{xmlvfxy}
 \title{dxtraction of (x,y)-coordinates of tested locations}
 \description{extracts the (x,y)-coordinates of tested locations}
-\usage{xmlvfxy( xmllines ) }
+\usage{xmlvfxy( xmllines )}
 \arguments{
   \item{xmllines}{lines from loaded XML files}
 }

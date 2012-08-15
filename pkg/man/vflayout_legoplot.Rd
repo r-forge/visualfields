@@ -4,9 +4,8 @@
 \description{
 displays a legoplot visualization for change in sensitivities over time of visual fields
 }
-\usage{
-vflayout_legoplot( vf, grp = 3, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL )
-}
+\usage{vflayout_legoplot( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
+                   margin = 0.25, filename = NULL )}
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds}
   \item{grp}{how many visual fields to group. Default is \code{3}}

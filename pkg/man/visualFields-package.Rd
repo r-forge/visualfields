@@ -9,10 +9,10 @@ This is a collection of tools for analyzing the field of vision. It provides a f
   \tabular{ll}{
    \bold{Chaitanya Khadilkar} \tab developer\cr
    \bold{Neil O'Leary}        \tab provided the original implementation of PoPLR in MatLab\cr
-   \bold{Richard Russell}     \tab provided some code to read XML files extracted from the HFA\cr
    \bold{William H Swanson}   \tab provided data for control subjects for the generation of normative values\cr
-\bold{Mitchell W Dul}           \tab provided data for control subjects for the generation of normative values\cr
-  \bold{Victor E Malinovsky}  \tab provided data for control subjects for the generation of normative values
+   \bold{Victor E Malinovsky} \tab provided data for control subjects for the generation of normative values\cr
+   \bold{Mitchell W Dul}      \tab provided data for control subjects for the generation of normative values\cr
+   \bold{Richard Russell}     \tab provided some code to read XML files extracted from the HFA
    }
 }
 \references{ADD REFERENCES HERE}

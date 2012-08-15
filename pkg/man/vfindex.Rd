@@ -2,7 +2,7 @@
 \alias{vfindex}
 \title{visual field index}
 \description{calculates the visual field index. It can be parametrized by re-defining which locations go to which weighting regions and the actual weights per region.}
-\usage{ vfindex( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) }
+\usage{vfindex( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault )}
 \arguments{
   \item{vf}{stimulus sensitivities in dBs}
   \item{td2pdcutoff}{cutof value for mean deviation. See \code{perc} below for an explanation of how both criteria work in conjunction. Default is -20}

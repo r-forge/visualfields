@@ -2,7 +2,7 @@
 \alias{loadvfxmlbatch}
 \title{loads visual fields from a set of XML files}
 \description{loads visual fields from a set of XML files}
-\usage{loadvfxmlbatch( filename, patternMap, typeData = "vf" ) }
+\usage{loadvfxmlbatch( filename, patternMap, typeData = "vf" )}
 \arguments{
   \item{filename}{filename in CSV format with the list of XML files to upload and whether the subject whose data is in the XML file is a patient with glaucoma \code{pwg} or a control \code{ctr} }
   \item{patternMap}{pattern of stimulus locations. Default is \code{saplocmap$p24d2}}

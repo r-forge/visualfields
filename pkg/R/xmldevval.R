@@ -1,4 +1,6 @@
-xmldevval <- function( xmllines, patternMap, typeData = c( "td" ), group = c( 4, 3, 2, 1, 0 ), cutoffs = c( 0.5, 1, 2, 5, 95 ) ) {
+xmldevval <- function( xmllines, patternMap, typeData = c( "td" ),
+                       group = c( 4, 3, 2, 1, 0 ),
+                       cutoffs = c( 0.5, 1, 2, 5, 95 ) ) {
 
 # init
   xmlobject <- NULL

@@ -1,18 +1,26 @@
-vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
+vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69,
+                            margin = 0.25, filename = NULL,
+                            colorMapType = "pval", colorScale = NULL,
+                            ringMapType  = NULL,  ringScale  = NULL,
+                            rangeNormal = NULL ) {
 ##############
 # input checks
 ##############
 # check that all rows in vf belong to the same subject, the same test, the same perimetry
 # testing and the same algorithm, and the same eye
   if( length( unique( vf$tperimetry ) ) > 1 |
-    length( unique( vf$tpattern   ) ) > 1 |
-    length( unique( vf$talgorithm ) ) > 1 |
-    length( unique( vf$id ) ) > 1         |
-    length( unique( vf$seye ) ) > 1 ) {
+      length( unique( vf$tpattern   ) ) > 1 |
+      length( unique( vf$talgorithm ) ) > 1 |
+      length( unique( vf$id ) ) > 1         |
+      length( unique( vf$seye ) ) > 1 ) {
     stop( "all visual fields should belong to the same subject and eye tested with the same perimeter and algorithm on the same locations" )
   }
   if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the analysis" )
-  if( nrow( vf ) < 8 )       warning( "permutation analysis may not be very precise if for less than 8 visual fields" )
+  if( nrow( vf ) < 8 )       warning( "permutation analysis may not be very precise for less than 8 visual fields" )
+# types of color map
+  if( is.null( colorMapType) ) stop( "colorMapType must be slope or pval" )
+  if( colorMapType != "pval" & colorMapType != "slope" ) stop( "wrong colorMapType. Must be 'slope' or 'pval'" )
+  if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" ) ) stop( "wrong ringMapType. Must be 'slope' or 'pval'" )
 # init
   ffamily          <- "Helvetica"
   sizetxt          <- 12
@@ -25,12 +33,33 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   innerInch        <- outerInch / 1.9
   inch2axisunits   <- 12.528
   lengthLines      <- 5
-  thicknessLines   <- 1.5
+  thicknessLines   <- 2
   outerInchpoplr   <- 0.165
   innerInchpoplr   <- outerInchpoplr / 1.9
   lengthLinespoplr <- 5
+  borderThickness  <- 1.5
   type             <- "slr"
   typecomb         <- "fisher"
+
+# get the conventional color scale
+  if( colorMapType == "pval" & is.null( colorScale ) ) {
+    colorCode  <- nv$pmapsettings
+  }
+  if( colorMapType == "slope" & is.null( colorScale ) ) {
+    colorCode         <- NULL
+    colorCode$cutoffs <- c( -1.5, -1.0, -0.5, 0.5, 1 )
+    colorCode$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432, 0.0000000 )
+    colorCode$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011, 0.9999847 )   
+    colorCode$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409, 0.9999847 )
+    colorCode         <- as.data.frame( colorCode )
+  }
+  if( !is.null( ringMapType ) && ( ringMapType == "pval" & is.null( ringScale ) ) ) {
+    ringScale             <- NULL
+    ringScale$cutoffs     <- c( 0.5, 1, 5 )
+    ringScale$innerCircle <- c( 1, 0, 1 )
+    ringScale$outerCircle <- c( 1, 1, 0 )
+    ringScale             <- as.data.frame( ringScale )
+  }
 # get settings for the pattern of test locations
   texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
@@ -38,10 +67,11 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   texteval <- paste( vf$tperimetry[1], "locmap$",  vf$tpattern[1], sep = "" )
   locmap   <- eval( parse( text = texteval ) )
 ######################
-# Analysis
+# analysis
 ######################
 # get global indices
   vfindices <- vfstats( vf )
+  
 # get poplr analysis
   pres <- poplr( vf, nperm = nperm, type = type, typecomb = typecomb )
 # remove blind spot
@@ -54,13 +84,66 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   locvalsidx <- vfsettings$locini:( vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
   idx0 <- c( 1:grp )
   idx1 <- c( ( nrow( vf ) - grp + 1 ):nrow( vf ) )
-  # get averages
+############################################################################
+# CAK BEGIN
+############################################################################
+# Initialize to 1 
+  nonSeenLocations <- NULL
+  nonSeenLocations[1:(ncol( vf )-vfsettings$locini+1)] <- 1
+  # find locations where stimulus is not seen in all of the last n exams
+  # mark these locations as 0 
+  for(i in 1: length( idx1 ) )
+  {  
+    nonSeenLocations[which( vf[idx1[i],vfsettings$locini:ncol( vf )] > 0 )] <- 0
+  }
+  # get all indices of locations which are not seen
+  idxNotSeen <- which( nonSeenLocations == 1 )
+#############################################################################
+# CAK END
+#############################################################################
+# get averages  
+# for blind sopts at (0,0), do not consider them for analysis
+#############################################################
+# CAK BEGIN
+#############################################################
+# get all x values of blind spot locations from the first n exams that are not zero
+# compute a mean on the set of locations obtained
+
+idx <- which( vf$sbsx[idx0] != 0 )
+  if( length( idx ) > 0 )
+    vfinfo0$sbsx <- mean( vf$sbsx[idx0[idx]] )
+  else if( length( idx ) == 0 )
+    vfinfo0$sbsx <- 0
+# get all x values of blind spot locations from the first n exams that are not zero
+# compute a mean on the set of locations obtained
+
+  idx <- which( vf$sbsy[idx0] != 0 )
+  if( length( idx ) > 0 )
+    vfinfo0$sbsy <- mean( vf$sbsy[idx0[idx]] )
+  else if( length( idx ) == 0 )
+    vfinfo0$sbsy <- 0
+
+# get all x values of blind spot locations from the last n exams that are not zero
+# compute a mean on the set of locations obtained  
+  idx <- which( vf$sbsx[idx1] != 0 )
+  
+  if( length( idx ) > 0 )
+    vfinfo1$sbsx <- mean( vf$sbsx[idx1[idx]] )
+  else if( length( idx ) == 0 )
+    vfinfo1$sbsx <- 0
+
+# get all x values of blind spot locations from the last n exams that are not zero
+# compute a mean on the set of locations obtained  
+  idx <- which( vf$sbsy[idx1] != 0 )
+  if( length( idx ) > 0 )
+    vfinfo1$sbsy <- mean( vf$sbsy[idx1[idx]] )
+  else if( length( idx ) == 0 )
+    vfinfo1$sbsy <- 0
+#############################################################
+# CAK END
+############################################################  
   vfinfo0$sage <- mean( vf$sage[idx0] )
-  vfinfo0$sbsx <- mean( vf$sbsx[idx0] )
-  vfinfo0$sbsy <- mean( vf$sbsy[idx0] )
   vfinfo1$sage <- mean( vf$sage[idx1] )
-  vfinfo1$sbsx <- mean( vf$sbsx[idx1] )
-  vfinfo1$sbsy <- mean( vf$sbsy[idx1] )
   vf0          <- round( colMeans( vf[idx0, locvalsidx] ) )
   vf1          <- round( colMeans( vf[idx1, locvalsidx] ) )
 # open window wiht A4 page
@@ -107,7 +190,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
 # sensitivity plot first n visits
   opar <- par( no.readonly = TRUE )
   par( fig = c( 0.0150, 0.5000, 0.5833, 0.9200 ) )
-  color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  color <- vfgrayscale( vf0, vfinfo0$sage, pattern = vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
@@ -117,8 +200,8 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
 # sensitivity plot last n visits
   par( new = TRUE )
   par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
-  color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
-  vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
+  color <- vfgrayscale( vf1, vfinfo1$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo1$sbsx, vfinfo1$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
@@ -132,7 +215,11 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
                 xminmax = xminmax, yminmax = yminmax,
                 outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                 outerInch = outerInchpoplr, innerInch = innerInchpoplr,
-                lengthLines = lengthLinespoplr, thicknessLines = thicknessLines )
+                lengthLines = lengthLinespoplr, thicknessLines = thicknessLines,  
+                colorMapType = colorMapType, colorScale = colorScale,
+                ringMapType  = ringMapType, ringScale = ringScale,
+                borderThickness = borderThickness,
+                idxNotSeen = idxNotSeen, rangeNormal = rangeNormal )
 # plot permutation histogram
   par( new = TRUE )
   par( fig = c( 0.02, 0.40, 0.015, 0.20 ) )
@@ -140,14 +227,25 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   par( opar )
 # plot md on age
   par( new = TRUE )
-  par( fig = c( 0.65, 0.97, 0.05, 0.20 ) )
+  par( fig = c( 0.65, 0.97, 0.015, 0.20 ) )
   # regression analysis
   progols( vfindices$tdate, vfindices$mtdev, txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
 # color-code map
+  if( !is.null( ringMapType ) ) {
+    par( new = TRUE )
+    par( fig = c( 0.82, 0.97, 0.27, 0.34 ) )
+    ringmapgraph( ncol = nrow( ringScale ), mapval = ringScale, txtfont = ffmailyvf, pointsize = pointsize,
+                  outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+                  outerInch = outerInchpoplr, innerInch = innerInchpoplr,
+                  outerBorderThickness = borderThickness, innerBorderThickness = borderThickness )
+  }
+
+  if( colorMapType == "slope" ) colorCode$cutoffs <- 10 * colorCode$cutoffs
   par( new = TRUE )
-  par( fig = c( 0.6131, 0.97, 0.015, 0.060 ) )
-  colorMapGraph( ncol = 5, notSeenAsBlack = FALSE, txtfont = ffmailyvf, pointsize = pointsize, outerSymbol = outerSymbol, innerSymbol = innerSymbol,
-                 outerInch = outerInch, innerInch = innerInch )
+  par( fig = c( 0.82, 0.97, 0.21, 0.28 ) )
+  colormapgraph( ncol = 3, mapval = colorCode, notSeenAsBlack = TRUE, txtfont = ffmailyvf, pointsize = pointsize,
+                 outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+                 outerInch = outerInchpoplr, innerInch = innerInchpoplr )
   par( opar )
 ######################################################
 # create the text elements in the printouts

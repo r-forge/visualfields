@@ -1,4 +1,6 @@
-locperc <- function( vals, stds, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ), poolLocations = FALSE ) {
+locperc <- function( vals, stds, percentiles = c( 0.5, 1, 2, 5, 95 ),
+                     type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ),
+                     poolLocations = FALSE ) {
 
 # it estimates the cutoffs for different percentiles for TD values. TDs should come from control subjects
 # from a set of visual fields it fits lines to characterize age effect on the visual-field sensitivities

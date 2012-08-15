@@ -1,6 +1,9 @@
-vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE, txtfont = "Helvetica", pointsize = 7,
-                    width = 6, xminmax = 29, yminmax = 29, outerSymbol = "circles", innerSymbol = "circles",
-                    outerSize = 1, innerSize = 1, outerInch = 0.14, innerInch = 0.08,
+vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
+                    txtfont = "Helvetica", pointsize = 7, width = 6,
+                    xminmax = 29, yminmax = 29,
+                    outerSymbol = "circles", innerSymbol = "circles",
+                    outerSize = 1, innerSize = 1,
+                    outerInch = 0.14, innerInch = 0.08,
                     lengthLines = 4.25, thicknessLines = 2 ) {
   
 # check that vf has only 1 entry
@@ -82,18 +85,22 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE, txtf
     dev  <- pdval( dev )
     devP <- pdpmap( dev )
   }
-    
+
 # getRGB will return a table with the red, green and blue intensity values 
 # corresponding to pattern deviation at each location
   if( plotType == "vf" ) {
     plotColor  <- vfgrayscale( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )], age = vf$sage, pattern = vf$tpattern, algorithm = vf$talgorithm )
     cloneDev   <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
   }  else {
-    plotColor  <- vfcolormap( devP[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] )
+    plotColor  <- vfcolormap( as.numeric( devP[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
 # exclude blind spot locations
     dev <- dev[,-( vfsettings$locini + bspos - 1 )]
     if( notSeenAsBlack ) {
-      idxblack <- which( vf[vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] <= 0)
+#      vf2 <- as.numeric( vf[vfsettings$locini:( vfsettings$locini + loc_num - 1 )] )
+#      vf2 <- vf2[-bspos]
+#      idxblack <- which( vf2 <= 0 )
+#      if( length( idxblack ) > 0 ) plotColor[idxblack,] <- 0
+      idxblack <- which( vf[vfsettings$locini:( vfsettings$locini + loc_num - 1 )] <= 0)
       if( length( idxblack ) > 0 ) plotColor[idxblack,] <- 0
     }
     cloneDev <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] ) )
@@ -115,7 +122,8 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE, txtf
       windows( xpos = 0, ypos = 0, width = width, height = height, rescale = "fixed" )
     }
   }
-  vfplotloc( cloneDev, eye = vf$seye, patternMap = patternMap, outerColor = plotColor, bs = c( vf$sbsx, vf$sbsy ),
+  vfplotloc( cloneDev, eye = vf$seye, patternMap = patternMap, outerColor = plotColor,
+             bs = c( vf$sbsx, vf$sbsy ),
              txtfont = txtfont, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,

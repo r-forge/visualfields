@@ -2,7 +2,8 @@
 \alias{vfiperc}
 \title{percentiles for visual field index}
 \description{gets the percentiles for visual field index}
-\usage{vfiperc( vals, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) )}
+\usage{vfiperc( vals, percentiles = c( 0.5, 1, 2, 5, 95 ),
+         type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) )}
 \arguments{
   \item{vals}{\code{\link{vf}}-object with vfi values}
   \item{percentiles}{percentiles at which to calculate cutoff values}

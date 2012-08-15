@@ -2,7 +2,8 @@
 \alias{stimLoc}
 \title{stimulus location and size}
 \description{plots the stimulus location and size}
-\usage{stimLoc( perimetry, pattern, eye, txtfont = "mono", pointsize = 7, xminmax = 29, yminmax = 29 )}
+\usage{stimLoc( perimetry, pattern, eye, txtfont = "mono", pointsize = 7,
+         xminmax = 29, yminmax = 29 )}
 \arguments{
   \item{perimetry}{type of perimetry}
   \item{pattern}{pattern used in the perimetry}

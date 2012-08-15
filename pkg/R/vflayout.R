@@ -1,4 +1,5 @@
-vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filename = NULL ) {
+vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
+                      filename = NULL ) {
 
   if( nrow( vf ) > 1 ) {
     stop("Error! vf cannot have more than 1 rows")
@@ -93,11 +94,11 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25, filenam
   par( new = TRUE )
   par( fig = c( 0.007, 0.4039, 0.05, 0.2891 ) )
   par( mar = c( 3.25, 4.2, 0.5, 0.5 ) )
-  bebie( tdval( vf ), txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  bebie( tdrank( tdval( vf ) ), txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
 # color-code map
   par( new = TRUE )
   par( fig = c( 0.03, 0.3869, 0.015, 0.060 ) )
-  colorMapGraph( ncol = 6, txtfont = ffmailyvf, pointsize = pointsize, outerSymbol = outerSymbol, innerSymbol = innerSymbol,
+  colormapgraph( ncol = 6, txtfont = ffmailyvf, pointsize = pointsize, outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                  outerInch = outerInch, innerInch = innerInch )
   par( opar )
 

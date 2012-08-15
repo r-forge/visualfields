@@ -1,4 +1,5 @@
-poplr <- function( vf, nperm = 5000, type = "slr", sl_test = NULL, typecomb = "fisher", details = FALSE ) {
+poplr <- function( vf, nperm = 5000, type = "slr", sl_test = NULL,
+                   typecomb = "fisher", details = FALSE ) {
 ##############
 # input checks
 ##############

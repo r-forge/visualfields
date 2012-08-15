@@ -1,9 +1,7 @@
-bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfont = "mono", pointsize = 7, cex = 1 ) {
+bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
+                   correction = TRUE, txtfont = "mono", pointsize = 7, cex = 1 ) {
 
-  if( nrow( td ) > 1 ) {
-    stop( "Error! only one visual field to use here" )
-  }
-
+  if( type != "conventional" & type != "ghrank" ) stop( "wrong type of TD rank curve plot" )
   xlab <- "rank"
   linewdt <- 1.5
   if( diff ) {
@@ -12,31 +10,49 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
     ylab <- "dB"
   }
 
-  tdr <- tdrank( td )
-  tdr <- as.numeric( tdr[,vfsettings$locini:ncol( tdr )] )
-
-# set limits
-  xlim <- c( 1, length( tdr ) )
-  if( diff ) ylim <- c( -15, 5 ) else ylim <- c( -20, 10 )
-
+  if( type == "conventional" ) {
+    if( nrow( tdr ) > 1 ) {
+      stop( "Error! only one visual field to use here" )
+    }
+    tdrval    <- as.numeric( tdr[,vfsettings$locini:ncol( tdr )] )
+    rank      <- c( 1:length( tdrval ) )
 # get reference
-  evaltxt <- paste( "nv$", td$tpattern, "_", td$talgorithm, "$nvtdrank", sep = "" )
-  tdrref <- as.numeric( eval( parse( text = evaltxt ) )$mtdr )
-
-# get differences
-  if( diff ) tdr <- tdr - tdrref
-# get correction
-  if( correction ) {
-    evaltxt <- paste( "vfsettings$", td$tpattern, "$locrPD", sep = "" )
-    loc <- eval( parse( text = evaltxt ) )
-    tdrc <- tdr - tdr[loc]
+    evaltxt        <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$nvtdrank", sep = "" )
+    tdrvalref      <- as.numeric( eval( parse( text = evaltxt ) )$mtdr )
+    tdrvalsubtract <- tdrvalref
+    gh             <- ghpostd( tdr, correction = TRUE )
+    evaltxt        <- paste( "vfsettings$", tdr$tpattern, sep = "" )
+    settings       <- eval( parse( text = evaltxt ) )
+    if( diff ) ylim <- c( -31, 5 ) else ylim <- c( -35, 10 )
+  } else if ( type == "ghrank" ) {
+    rank           <- tdr$rank
+    tdrval         <- tdr$tdrn
+    evaltxt        <- paste( "nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$nvtdrank", sep = "" )
+    tdrvalref      <- as.numeric( eval( parse( text = evaltxt ) )$mtdr )
+    tdrvalsubtract <- tdr$mtdr
+    gh             <- tdr$gh
+    evaltxt        <- paste( "vfsettings$", tdr$tdr$tpattern, sep = "" )
+    settings       <- eval( parse( text = evaltxt ) )
+    if( diff ) ylim <- c( -7, 5 ) else ylim <- c( -8, 5 )
   }
+# set limits
+  xlim <- c( 1, settings$locnum - length( settings$bs ) )
+  
+# get differences
+  if( diff ) tdrval <- tdrval - tdrvalsubtract
+# get correction
+  if( correction ) tdrvalc <- tdrval + gh
 # get percentiles
   if( percentiles ) {
     if( diff ) {
-      evaltxt <- paste( "nv$", td$tpattern, "_", td$talgorithm, "$perctdrankadj", sep = "" )
+      if( type == "conventional" ) {
+        evaltxt <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrankadj7", sep = "" )
+      } else{
+        stop( "not yet implemented" )
+        evaltxt <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrankadjrank", sep = "" )
+      }
     } else {
-      evaltxt <- paste( "nv$", td$tpattern, "_", td$talgorithm, "$perctdrank", sep = "" )
+      evaltxt <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrank", sep = "" )
     }
     tdrperc <- eval( parse( text = evaltxt ) )
   }
@@ -46,9 +62,9 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
   par( family = txtfont )
 
   if( diff ) {
-    plot(c( xlim[1], xlim[2] ), c( 0, 0 ), axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "n" )
+    plot(c( xlim[1], xlim[2] ), c( 0, 0 ), axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "l" )
   } else {
-    plot( tdrref, axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "l", lwd = linewdt )
+    plot( tdrvalref, axes = FALSE, ann = FALSE, xlim = xlim, ylim = ylim, type = "l", lwd = linewdt )
   }
 
   axis( 1, las = 1, tcl = -.3, lwd = 0.5, lwd.ticks = 0.5 )
@@ -65,8 +81,8 @@ bebie <- function( td, diff = TRUE, percentiles = TRUE, correction = TRUE, txtfo
     lines( tdrperc[,ncol( tdrperc )], col = rgb( red = nv$pmapsettings$red[nrow( nv$pmapsettings )], green = nv$pmapsettings$green[nrow( nv$pmapsettings )], blue = nv$pmapsettings$blue[nrow( nv$pmapsettings )] ), lwd = linewdt )
   }
 
-  points( tdr, xlim = xlim, ylim = ylim, pch = 1, cex = cex )
-  if( correction ) points( tdrc, xlim = xlim, ylim = ylim, pch = 16, cex = cex )
+  points( rank, tdrval, xlim = xlim, ylim = ylim, pch = 1, cex = cex )
+  if( correction ) points( rank, tdrvalc, xlim = xlim, ylim = ylim, pch = 16, cex = cex )
 
   par( new    = FALSE )
   par( ps     = ops )

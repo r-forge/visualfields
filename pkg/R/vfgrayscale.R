@@ -11,4 +11,5 @@ vfgrayscale <- function( sens, age, pattern, algorithm ) {
   sens[which( sens < 0 )] <- 0
   sens[which( sens > 1 )] <- 1
   return ( matrix( rep( sens, 3 ), nrow = length( sens ), ncol = 3 ) )
+
 }

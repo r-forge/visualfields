@@ -1,4 +1,5 @@
-gloperc <- function( vals, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) ) {
+gloperc <- function( vals, percentiles = c( 0.5, 1, 2, 5, 95 ),
+                     type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) ) {
 
 # it estimates the cutoffs for different percentiles for global indices of glaucoma, such as MD, PSD, etc.
 # TDs should come from control subjects from a set of visual fields it fits lines to characterize age effect
