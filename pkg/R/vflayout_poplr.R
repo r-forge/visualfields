@@ -2,6 +2,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
                             margin = 0.25, filename = NULL,
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
+                            lifeExpectancy = 81.27, imparedVision = 10,
                             rangeNormal = NULL ) {
 ##############
 # input checks
@@ -17,10 +18,10 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   }
   if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the analysis" )
   if( nrow( vf ) < 8 )       warning( "permutation analysis may not be very precise for less than 8 visual fields" )
-# types of color map
-  if( is.null( colorMapType) ) stop( "colorMapType must be slope or pval" )
-  if( colorMapType != "pval" & colorMapType != "slope" ) stop( "wrong colorMapType. Must be 'slope' or 'pval'" )
-  if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" ) ) stop( "wrong ringMapType. Must be 'slope' or 'pval'" )
+# types of color map and ring map
+  if( is.null( colorMapType) ) stop( "colorMapType must be 'slope', 'pval', or 'blind'" )
+  if( colorMapType != "pval" & colorMapType != "slope" & colorMapType  != "blind" ) stop( "wrong colorMapType. Must be 'slope', 'pval', or 'blind'" )
+  if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" & ringMapType  != "blind" ) ) stop( "wrong ringMapType. Must be 'slope', 'pval', or 'blind'" )
 # init
   ffamily          <- "Helvetica"
   sizetxt          <- 12
@@ -34,24 +35,32 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   inch2axisunits   <- 12.528
   lengthLines      <- 5
   thicknessLines   <- 2
-  outerInchpoplr   <- 0.165
+  outerInchpoplr   <- 0.185
   innerInchpoplr   <- outerInchpoplr / 1.9
-  lengthLinespoplr <- 5
+  lengthLinespoplr <- 5.5
   borderThickness  <- 1.5
   type             <- "slr"
   typecomb         <- "fisher"
 
 # get the conventional color scale
   if( colorMapType == "pval" & is.null( colorScale ) ) {
-    colorCode  <- nv$pmapsettings
+    colorScale  <- nv$pmapsettings
   }
   if( colorMapType == "slope" & is.null( colorScale ) ) {
-    colorCode         <- NULL
-    colorCode$cutoffs <- c( -1.5, -1.0, -0.5, 0.5, 1 )
-    colorCode$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432, 0.0000000 )
-    colorCode$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011, 0.9999847 )   
-    colorCode$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409, 0.9999847 )
-    colorCode         <- as.data.frame( colorCode )
+    colorScale         <- NULL
+    colorScale$cutoffs <- c( -1.5, -1.0, -0.5, 0.5, 1 )
+    colorScale$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432, 0.0000000 )
+    colorScale$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011, 0.9999847 )   
+    colorScale$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409, 0.9999847 )
+    colorScale         <- as.data.frame( colorScale )
+  }
+  if( colorMapType == "blind" & is.null( colorScale ) ) {
+    colorScale         <- NULL
+    colorScale$cutoffs <- c( 10, 5, 0, -10 )
+    colorScale$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432 )
+    colorScale$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011 )   
+    colorScale$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409 )
+    colorScale         <- as.data.frame( colorScale )
   }
   if( !is.null( ringMapType ) && ( ringMapType == "pval" & is.null( ringScale ) ) ) {
     ringScale             <- NULL
@@ -160,8 +169,8 @@ idx <- which( vf$sbsx[idx0] != 0 )
   } else {
     pdf( width = pwidth, height = pheight, file = filename )
   }
-  
-  # define the margins
+
+# define the margins
   mwidth  <- pwidth  - 2 * margin
   mheight <- pheight - 2 * margin
   
@@ -219,7 +228,9 @@ idx <- which( vf$sbsx[idx0] != 0 )
                 colorMapType = colorMapType, colorScale = colorScale,
                 ringMapType  = ringMapType, ringScale = ringScale,
                 borderThickness = borderThickness,
-                idxNotSeen = idxNotSeen, rangeNormal = rangeNormal )
+                idxNotSeen = idxNotSeen,
+                lifeExpectancy = lifeExpectancy, imparedVision = imparedVision,
+                rangeNormal = rangeNormal )
 # plot permutation histogram
   par( new = TRUE )
   par( fig = c( 0.02, 0.40, 0.015, 0.20 ) )
@@ -240,10 +251,10 @@ idx <- which( vf$sbsx[idx0] != 0 )
                   outerBorderThickness = borderThickness, innerBorderThickness = borderThickness )
   }
 
-  if( colorMapType == "slope" ) colorCode$cutoffs <- 10 * colorCode$cutoffs
+  if( colorMapType == "slope" ) colorScale$cutoffs <- 10 * colorScale$cutoffs
   par( new = TRUE )
   par( fig = c( 0.82, 0.97, 0.21, 0.28 ) )
-  colormapgraph( ncol = 3, mapval = colorCode, notSeenAsBlack = TRUE, txtfont = ffmailyvf, pointsize = pointsize,
+  colormapgraph( ncol = 3, mapval = colorScale, notSeenAsBlack = TRUE, txtfont = ffmailyvf, pointsize = pointsize,
                  outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                  outerInch = outerInchpoplr, innerInch = innerInchpoplr )
   par( opar )

@@ -37,7 +37,7 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
   }
 # set limits
   xlim <- c( 1, settings$locnum - length( settings$bs ) )
-  
+
 # get differences
   if( diff ) tdrval <- tdrval - tdrvalsubtract
 # get correction

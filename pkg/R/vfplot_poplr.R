@@ -7,6 +7,7 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
                           lengthLines = 3.0, thicknessLines = 2,
                           colorMapType = "pval", colorScale = NULL,
                           ringMapType  = NULL, ringScale  = NULL,
+                          lifeExpectancy = 81.27, imparedVision = 10,
                           borderThickness = 2,
                           idxNotSeen = NULL, rangeNormal = NULL, conormal = NULL ) {
 
@@ -52,10 +53,10 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
       stop( "Error! outerSize should be greater than or equal to 3 for stars" )
     }
   }
-# types of color map
-  if( is.null( colorMapType) ) stop( "colorMapType must be slope or pval" )
-  if( colorMapType != "pval" & colorMapType != "slope" ) stop( "wrong colorMapType. Must be 'slope' or 'pval'" )
-  if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" ) ) stop( "wrong ringMapType. Must be 'slope' or 'pval'" )
+# types of color map and ring map
+  if( is.null( colorMapType) ) stop( "colorMapType must be 'slope', 'pval', or 'blind'" )
+  if( colorMapType != "pval" & colorMapType != "slope" & colorMapType  != "blind" ) stop( "wrong colorMapType. Must be 'slope', 'pval', or 'blind'" )
+  if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" & ringMapType  != "blind" ) ) stop( "wrong ringMapType. Must be 'slope', 'pval', or 'blind'" )
 # init
   if( is.null( conormal ) ) {
     if( colorMapType == "pval" )  conormal <- 95
@@ -95,8 +96,10 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
   for( i in 2:( length( nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > nv$pmapsettings$cutoffs[i-1] & pval <= nv$pmapsettings$cutoffs[i] )] <- nv$pmapsettings$cutoffs[i]
 
 # get the conventional color scale
-  if( colorMapType == "pval" & is.null( colorScale ) ) {
-    colorScale  <- nv$pmapsettings
+  if( colorMapType == "pval" ) {
+    if( is.null( colorScale ) ) {
+      colorScale  <- nv$pmapsettings
+    }
     valForMapping <- pvalc
   }
 # inform the color scale for slopes
@@ -119,6 +122,40 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
     }
     valForMapping <- slc
   }
+# inform the color scale for years blind
+  if( colorMapType == "blind" ) {
+    if( is.null( colorScale ) ) {
+      colorScale         <- NULL
+      colorScale$cutoffs <- c( 10, 5, 0, -10 )
+      colorScale$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432 )
+      colorScale$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011 )   
+      colorScale$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409 )
+      colorScale         <- as.data.frame( colorScale )
+    }
+# calculate years blind
+    sens             <- as.numeric( vfinfo[vfsettings$locini:ncol( vfinfo ) ] )
+    sens[idxNotSeen] <- 0
+    idx              <- idxNotSeen
+    yearsblind       <- NULL
+    idx              <- unique( c( idx, which( sl > 0 ) ) )
+    yearsblind       <- vfinfo$sage + ( imparedVision - sens ) / sl
+    yearsblind[idx]  <- 0
+    idx              <- unique( c( idx, which( yearsblind >= lifeExpectancy ) ) )
+    yearsblind[idx]  <- -1
+    c( 1:length( sl ) )
+    if( length( yearsblind[-idx] ) > 0 ) yearsblind[-idx] <- lifeExpectancy - yearsblind[-idx]
+
+# get category of years blind
+    yearsblindc                              <- NULL
+    yearsblindc[c( 1:length( yearsblind ) )] <- NA
+    yearsblindc[which( yearsblind >= colorScale$cutoffs[1] )] <- colorScale$cutoffs[1]
+    yearsblindc[which( yearsblind <= colorScale$cutoffs[length( colorScale$cutoffs ) - 1] )] <- colorScale$cutoffs[length( colorScale$cutoffs )]
+    for( i in 2:( length( colorScale$cutoffs ) - 1) ) {
+      yearsblindc[which( yearsblind >= colorScale$cutoffs[i] & yearsblind < colorScale$cutoffs[i-1] )] <- colorScale$cutoffs[i]
+    }
+    valForMapping <- yearsblindc
+  }
+
   outerColor <- vfcolormap( valForMapping, mapval = colorScale )
 
 # init ring color values
@@ -150,9 +187,11 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
     }
   }
 
-# inform the color scale for slopes
+# inform the ring scale for slopes
   if( !is.null( ringMapType ) && ( ringMapType == "slope" & is.null( ringScale ) ) ) stop( "not implemented yet" )
-
+# inform the ring scale for years blind
+  if( !is.null( ringMapType ) && ( ringMapType == "blind" & is.null( ringScale ) ) ) stop( "not implemented yet" )
+  
 # if some are in range normal, then restore defaults. Only if colorMapType is slope
   if( length( rangeNormal ) > 0 ) {
     idxNormal <- which( sl >= rangeNormal[1] & sl <= rangeNormal[2] )

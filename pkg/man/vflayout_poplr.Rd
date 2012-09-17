@@ -6,6 +6,7 @@
                 margin = 0.25, filename = NULL,
                 colorMapType = "pval", colorScale = NULL,
                 ringMapType  = NULL,  ringScale  = NULL,
+                lifeExpectancy = 81.27, imparedVision = 10,
                 rangeNormal = NULL )}
 \arguments{
   \item{vf}{\code{\link{vf}} object with threshold sensitivities, td, or pd values}
@@ -15,11 +16,13 @@
   \item{pheight}{height of the page (in inches). Default is \code{11.69}}
   \item{margin}{margins of the page (in inches). Default is \code{0.25}}
   \item{filename}{file name to save the printout as pdf. If it is saved to pdf, it won't be displayed in the screen. Default is \code{NULL}.}
-  \item{colorMapType}{FILL OUT}
-  \item{colorScale}{FILL OUT}
-  \item{ringMapType}{FILL OUT}
-  \item{ringScale}{FILL OUT}
+  \item{colorMapType}{what does color map categorizes. It can be \code{pvals}, \code{slopes}, or years \code{blind}. Default is \code{pvals}}
+  \item{colorScale}{Color mapping to use. Default is \code{NULL}. A different default is given depending on \code{colorMapType}}
+  \item{ringMapType}{what concentric rings categorizes. It can be \code{pvals} or \code{slopes}, or years \code{blind}. Default is \code{NULL}, for which no rings are shown.}
+  \item{ringScale}{Ring mapping to use. Default is \code{NULL}. A different default is given depending on \code{ringMapType}}
+  \item{lifeExpectancy}{life expectancy in years. Default is \code{81.27}, the CIA estimate for Spain as of 2012 (\url{https://www.cia.gov/library/publications/the-world-factbook/rankorder/2102rank.html})}
   \item{rangeNormal}{range to indicate which slopes are normal. All significance from data points within the range will be removed. Default is \code{NULL}.}
+  \item{imparedVision}{sensitivity below which it is considered imparement. Default is \code{10}}
 }
 
 \seealso{\code{\link{vflayout}}, \code{\link{vflayout_legoplot}}, \code{\link{poplr}}, \code{\link{hist_poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vfplot_poplr}}}

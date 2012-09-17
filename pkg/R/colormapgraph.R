@@ -4,16 +4,20 @@ colormapgraph <- function( ncol = 3, mapval = nv$pmapsettings, notSeenAsBlack = 
                            outerInch = 0.2, innerInch = 0.1 ) {
   mapval$cutoffs[ length( mapval$cutoffs ) ] <-
           paste( ">",  mapval$cutoffs[ length( mapval$cutoffs ) - 1 ], sep = "" )
+
   total <- nrow( mapval )
   if( notSeenAsBlack ) total <- total + 1
-  nrow <- floor( total / ncol )
+  nrow <- ceil( total / ncol )
+
 # get coordinates to plot
   coords   <- NULL
-  coords$x <- rep( c( 1:ncol ), nrow )
-  coords$y <- rep( c( 1:nrow ), ncol )
+  coords$x <- ( c( 1:total ) - 1 ) %% ncol + 1
+  coords$y <- ( c( 1:total ) ) %% nrow + 1
+  
   coords   <- as.data.frame( coords )
   coords   <- coords[order( coords$x ),]
   coords   <- coords[order( coords$y, decreasing = TRUE ),]
+  
   xmin     <- min( coords$x ) - 1 / ncol
   xmax     <- max( coords$x ) + 1 / ncol
   ymin     <- min( coords$y ) - 1 / nrow

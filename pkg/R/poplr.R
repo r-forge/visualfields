@@ -12,15 +12,24 @@ poplr <- function( vf, nperm = 5000, type = "slr", sl_test = NULL,
       length( unique( vf$seye ) ) > 1 ) {
     stop( "all visual fields should belong to the same subject tested with the same perimeter and algorithm on the same locations" )
   }
-  if( nperm < 5 ) stop( "Come on! At least 5 laps. Number of permutations was lower than 5" )
+  if( nperm < 5 ) stop( "number of permutations was lower than 5" )
   if( nperm > 1000000 ) stop( "please don't! Don't use more than a million permutations!" )
   if( ( type != "slr" & !is.null( sl_test ) ) ) stop( "tests about slopes being larger than a value are only valid for slr analysis" )
+
 
 # permutation matrix
   porder <- make.permSpace( c( 1:nrow( vf ) ), nperm )$permID
 
-  res          <- NULL
-  res$vfdata   <- vf[1,1:vfsettings$locini-1]
+  res             <- NULL
+  res$vfdata      <- vf[1,]
+# get average age and average VF values in res$vfdata
+  res$vfdata$sage                            <- mean( vf$sage )
+  res$vfdata[1,vfsettings$locini:ncol( vf )] <- colMeans( vf[,vfsettings$locini:ncol( vf )] )
+# get and remove blind spot
+  evaltxt <- paste("vfsettings$", vf$tpattern[1], "$bs", sep = "")
+  bs <- eval(parse(text = evaltxt)) + vfsettings$locini - 1
+  res$vfdata <- res$vfdata[-bs]
+
   res$nvisits  <- nrow( vf )
   res$nperm    <- nperm
   res$type     <- type

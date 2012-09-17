@@ -86,3 +86,8 @@ improved functions vflayout_poplr, vflplot_poplr, vfplotloc so that they now adm
 added two functions that make operations on vf-objects: vfsort, and vfselectvisit
 
 added another function that creates legend for rings, ringmapgraph
+
+v0.2-4 08/17/2012
+finished documentation
+
+added a "expected number of years blind" in PoPLR analysis
