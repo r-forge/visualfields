@@ -91,3 +91,6 @@ v0.2-4 08/17/2012
 finished documentation
 
 added a "expected number of years blind" in PoPLR analysis
+
+v0.2-4 10/08/2012
+fixed bug in vflayout_legoplots

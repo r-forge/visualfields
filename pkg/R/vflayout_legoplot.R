@@ -136,7 +136,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
   # sensitivity plot last n visits
   par( new = TRUE )
   par( fig = c( 0.5000, 0.985, 0.2332,  0.5700 ) )
-  color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  color <- vfgrayscale( vf1, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
