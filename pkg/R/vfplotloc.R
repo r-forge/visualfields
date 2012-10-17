@@ -34,9 +34,8 @@ vfplotloc <- function( vals, eye, patternMap, outerColor, innerColor = NULL, bs 
   plot( patternMap$xod, patternMap$yod, type = "n", axes = FALSE, xlab = "", ylab = "", asp = 1, xlim = c( -xminmax, xminmax ), ylim = c( -yminmax, yminmax ) )
   
 # add an x in the blindspot location
-  if( !is.null( bs ) ) 
-  {
-    if( bs[1] != 0 && bs[2] != 0 )
+  if( !is.null( bs ) ) {
+    if( bs[1] != 0 | bs[2] != 0 )
       points( bs[1], bs[2], pch = 4, lwd = thicknessLines, cex = 5 )
   }  
 # plot lines denoting the orientation of the RNF bundle

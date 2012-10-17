@@ -87,10 +87,13 @@ added two functions that make operations on vf-objects: vfsort, and vfselectvisi
 
 added another function that creates legend for rings, ringmapgraph
 
-v0.2-4 08/17/2012
+v0.2-4 09/16/2012
 finished documentation
 
 added a "expected number of years blind" in PoPLR analysis
 
-v0.2-4 10/08/2012
+v0.2-5 10/08/2012
 fixed bug in vflayout_legoplots
+
+v0.2-6 10/17/2012
+fixed bug in vlplotloc
