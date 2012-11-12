@@ -91,6 +91,7 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
   if( plotType == "vf" ) {
     plotColor  <- vfgrayscale( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )], age = vf$sage, pattern = vf$tpattern, algorithm = vf$talgorithm )
     cloneDev   <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
+    cloneDev[which( dev[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] < 0 )] = "<0"
   }  else {
     plotColor  <- vfcolormap( as.numeric( devP[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
 # exclude blind spot locations

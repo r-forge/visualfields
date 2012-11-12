@@ -97,3 +97,6 @@ fixed bug in vflayout_legoplots
 
 v0.2-6 10/17/2012
 fixed bug in vlplotloc
+
+v0.2-7 11/11/2012
+In plots of visual sensitivities show <0 for negative values and a couple of patches

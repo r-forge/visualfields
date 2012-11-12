@@ -200,6 +200,7 @@ idx <- which( vf$sbsx[idx0] != 0 )
   opar <- par( no.readonly = TRUE )
   par( fig = c( 0.0150, 0.5000, 0.5833, 0.9200 ) )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern = vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  vf0[which( vf0 < 0 )] <- "<0"
   vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
@@ -210,6 +211,7 @@ idx <- which( vf$sbsx[idx0] != 0 )
   par( new = TRUE )
   par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
   color <- vfgrayscale( vf1, vfinfo1$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
+  vf1[which( vf1 < 0 )] <- "<0"
   vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo1$sbsx, vfinfo1$sbsy ), 
              txtfont = ffmailyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,

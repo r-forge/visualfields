@@ -61,7 +61,7 @@ vfplotloc <- function( vals, eye, patternMap, outerColor, innerColor = NULL, bs 
                     " fg = rgb( innerBorderColor[,1] , innerBorderColor[,2], innerBorderColor[,3] ),",
                     " lwd = innerBorderThickness )", sep = "" )
   eval( parse( text = evaltxt ) )
-
+  
   text( patternMap$xod, patternMap$yod, col = rgb(txtcolor$red,txtcolor$green,txtcolor$blue), labels = vals, adj = 0.525 )
 
   par( plt    = oplt )
