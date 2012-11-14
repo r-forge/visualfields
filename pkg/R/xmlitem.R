@@ -1,6 +1,6 @@
-xmlitem <- function( tag, xmllines ) {
+xmlitem <- function( tag, xmllines, capitalize = TRUE ) {
 # extracts from a loaded XML file the info of a tag
-  tag       <- toupper( tag ) # all tags are in capital
+  if( capitalize ) tag <- toupper( tag ) # tags in capital
   tag_ini   <- paste( "<", tag, ">", sep = "" )
   tag_end   <- paste( "</", tag, ">", sep = "" )
   tag_empty <- paste( "<", tag, "/>", sep = "" )

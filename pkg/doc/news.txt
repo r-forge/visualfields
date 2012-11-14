@@ -100,3 +100,6 @@ fixed bug in vlplotloc
 
 v0.2-7 11/11/2012
 In plots of visual sensitivities show <0 for negative values and a couple of patches
+
+v0.2-8 11/13/2012
+removed unreliable controls from the normative values. Added option to capitalize tags or not in xmlblock and xlmitem functions.

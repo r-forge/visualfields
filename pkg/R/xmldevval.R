@@ -43,6 +43,7 @@ xmldevval <- function( xmllines, patternMap, typeData = c( "td" ),
   valblock <- xmlblock( blocktag, xmllines )
   if( is.na( valblock[1] ) ) {
     fname <- xmlitem( "IMAGE_FILE_NAME", xmllines )
+    fname <- paste( substr( fname, 1, nchar( fname ) - 4 ), ".xml", sep = "" )
     wtxt  <- paste( "The file ", fname, " does not have the block ", blocktag, "; NAs returned", sep = "" )
     warning( wtxt )
     return( xmlobject )
