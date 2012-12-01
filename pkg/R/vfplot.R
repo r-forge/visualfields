@@ -5,7 +5,7 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
                     outerSize = 1, innerSize = 1,
                     outerInch = 0.14, innerInch = 0.08,
                     lengthLines = 4.25, thicknessLines = 2 ) {
-  
+
 # check that vf has only 1 entry
   if( nrow( vf ) > 1 ) {
     stop("Error! vf cannot have more than 1 rows")
