@@ -17,7 +17,7 @@ tdval <- function( vf ) {
   }
 
 # Fill with NA the blind-spot sensitivities
-  td[,bspos + vfsettings$locini - 1] <- NA
+  td[,bspos + vfsettings$locini - 1] <- NA 
 
   return( td )
 }
