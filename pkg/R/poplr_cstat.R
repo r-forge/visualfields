@@ -1,4 +1,4 @@
-poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRUE,
+poplr_cstat <- function( pval, typecomb = "fisher", truncVal = 1, minmax = TRUE,
                          spatialwtd = NULL, distance = NULL, eccwtd = NULL ) {
 ##############
 # input checks
@@ -6,7 +6,7 @@ poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRU
 # check that the type of combination is a valid one. Only one option by now
   if( !( typecomb == "fisher" ) ) stop("Wrong type of combination of p-values")
 # truncation must be between zero and one
-  if( truncation <= 0 | truncation > 1 ) stop("truncation must be between 0 and 1")
+  if( truncVal <= 0 | truncVal > 1 ) stop("truncation must be between 0 and 1")
 # check minmax option
   if( !( minmax == TRUE | minmax == FALSE ) ) stop("minmax option must be either TRUE or FALSE")
 # init
@@ -45,16 +45,17 @@ poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRU
   spatialwtd <- t( t( spatialwtd ) * eccwtd )
 
 # truncate p-values
+  k <- matrix( rep( 1, nrow( pval ) * ncol( pval ) ), nrow( pval ), ncol( pval ) )
   if( minmax ) {
-    pval[which( c( pval ) > rowMaxs( cbind( rep( c( truncation ), nperm ) , rowMins( pval ) ) ) )] <- NA
-  } else pval[which( pval > truncation )] <- NA
+    k[which( c( pval ) > rowMaxs( cbind( rep( c( truncVal ), nperm ) , rowMins( pval ) ) ) )] <- 0
+  } else k[which( pval > truncVal )] <- 0
 
 # combine p-value test statistics
 # Fisher-class combination (product) of p-values with optional weigths
-  if( typecomb == "fisher" ) res$scomb <- rowSums( spatialwtd * log( pval ), na.rm = TRUE )
+  if( typecomb == "fisher" ) res$scomb <- -rowSums( k * spatialwtd * log( pval ) )
 # obtain significance of combination statistics
 # classic Fisher and truncated products (unweighted)
-  res$pcomb     <- rank( res$scomb ) / nperm
+  res$pcomb     <- 1 - rank( res$scomb ) / nperm
 # observed and permutation test statistics
   res$scomb_obs <- res$scomb[1]
   res$scomb     <- res$scomb[-1]
@@ -62,7 +63,7 @@ poplr_cstat <- function( pval, typecomb = "fisher", truncation = 1, minmax = TRU
   res$pcomb     <- res$pcomb[-1]
 # weights
   res$spatialwtd <- spatialwtd
-  
+
   return( res )
 
 }

@@ -1,4 +1,6 @@
-vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 11.69,
+vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
+                            plotType = "vf", truncVal = 1,
+                            pwidth = 8.27, pheight = 11.69,
                             margin = 0.25, filename = NULL,
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
@@ -22,6 +24,8 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   if( is.null( colorMapType) ) stop( "colorMapType must be 'slope', 'pval', or 'blind'" )
   if( colorMapType != "pval" & colorMapType != "slope" & colorMapType  != "blind" ) stop( "wrong colorMapType. Must be 'slope', 'pval', or 'blind'" )
   if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" & ringMapType  != "blind" ) ) stop( "wrong ringMapType. Must be 'slope', 'pval', or 'blind'" )
+# truncation must be between zero and one
+  if( truncVal <= 0 | truncVal > 1 ) stop("truncation must be between 0 and 1")
 # init
   ffamily          <- "Helvetica"
   sizetxt          <- 12
@@ -82,7 +86,10 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000, pwidth = 8.27, pheight = 
   vfindices <- vfstats( vf )
   
 # get poplr analysis
-  pres <- poplr( vf, nperm = nperm, type = type, typecomb = typecomb )
+  if( plotType == "vf" ) vals  <- vf
+  if( plotType == "td" ) vals  <- tdval( vf )
+  if( plotType == "pd" ) vals  <- pdval( tdval( vf ) )
+  pres <- poplr( vals, nperm = nperm, type = type, truncVal = truncVal, typecomb = typecomb )
 # remove blind spot
   vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
   locmap <- locmap[-settings$bs,]

@@ -16,11 +16,9 @@ poplr_pstat <- function( vf, porder, type = "slr", sl_test = NULL ) {
   if( type != "slr" & !is.null( sl_test ) ) stop( "tests about slopes being larger than a value are only valid for slr analysis" )
 # extract age and location values from vf and delete blind spots
   age <- vf$sage
-  evaltxt <- paste( "vfsettings$", vf$tpattern[1], "$locnum", sep = "" )
-  locnum <- eval( parse( text = evaltxt ) )
   evaltxt <- paste( "vfsettings$", vf$tpattern[1], "$bs", sep = "" )
   bs <- eval( parse( text = evaltxt ) )
-  vf <- vf[,vfsettings$locini:( vfsettings$locini + locnum - 1 )]
+  vf <- vf[,vfsettings$locini:ncol( vf )]
   vf <- vf[,-bs]
   vf <- as.matrix( vf )
 # number of permutations, locations, and tests
@@ -52,7 +50,9 @@ poplr_pstat <- function( vf, porder, type = "slr", sl_test = NULL ) {
       res$sl[,loc]  <- ( matrix( age[porder], nrow( porder ), ncol( porder ) ) %*% vf[,loc]
                          - sage * mean( vf[,loc] ) ) / ssage
       res$int[,loc] <- rep( mvf[loc], nperm ) - mage * res$sl[,loc]
-      res$se[,loc]  <- sqrt( ( rep( ssvf[loc], nperm ) - ssage * res$sl[,loc]^2 ) / kvage )
+      varslope <- ( rep( ssvf[loc], nperm ) - ssage * res$sl[,loc]^2 ) / kvage
+      varslope[which( varslope < 0 )] <- 0
+      res$se[,loc]  <- sqrt( varslope )
     }
 # locations with non-changing series in sensitivity: slope is zero,
 # intercept is not defined, and standard error is nominally very small

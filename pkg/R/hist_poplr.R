@@ -2,8 +2,6 @@ hist_poplr <- function( scomb_obs, pcomb_obs, scomb, txtfont = "mono", pointsize
 
   limExtention <- 2
   sizeBreaks   <- 4
-  scomb_obs    <- - scomb_obs
-  scomb        <- - scomb
   breaks       <- c( 0:ceil( max( scomb[scomb != Inf] ) / sizeBreaks ) * sizeBreaks )
   hcomb <- hist( scomb, breaks = breaks, plot = FALSE )
   hcomb$counts <- hcomb$counts / max( hcomb$counts )

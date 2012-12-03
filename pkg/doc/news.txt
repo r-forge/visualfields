@@ -106,3 +106,6 @@ removed unreliable controls from the normative values. Added option to capitaliz
 
 v0.2-9 12/01/2012
 a patch in hist_poplr.R
+
+v0.2-10 12/03/2012
+Adapted PoPLRs to accept analysis with TD and PD values. Also added the possibility for a truncation value
