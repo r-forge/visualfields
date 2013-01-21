@@ -7,9 +7,9 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
                           lengthLines = 3.0, thicknessLines = 2,
                           colorMapType = "pval", colorScale = NULL,
                           ringMapType  = NULL, ringScale  = NULL,
-                          lifeExpectancy = 81.27, imparedVision = 10,
-                          borderThickness = 2,
-                          idxNotSeen = NULL, rangeNormal = NULL, conormal = NULL ) {
+                          imparedVision = 10, borderThickness = 2,
+                          idxNotSeen = NULL, rangeNormal = NULL,
+                          conormal = NULL ) {
 
 # check that symbol input arguments are consistent
 # sizes must be arrays, not matrices
@@ -92,13 +92,13 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
 # init all color values to white
   pval <- 100 * pval
   pvalc <- rep( c( 100 ), length( pval ) )
-  pvalc[which( pval <= nv$pmapsettings$cutoffs[1] )] <- nv$pmapsettings$cutoffs[1]
-  for( i in 2:( length( nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > nv$pmapsettings$cutoffs[i-1] & pval <= nv$pmapsettings$cutoffs[i] )] <- nv$pmapsettings$cutoffs[i]
+  pvalc[which( pval <= vfenv$nv$pmapsettings$cutoffs[1] )] <- vfenv$nv$pmapsettings$cutoffs[1]
+  for( i in 2:( length( vfenv$nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > vfenv$nv$pmapsettings$cutoffs[i-1] & pval <= vfenv$nv$pmapsettings$cutoffs[i] )] <- vfenv$nv$pmapsettings$cutoffs[i]
 
 # get the conventional color scale
   if( colorMapType == "pval" ) {
     if( is.null( colorScale ) ) {
-      colorScale  <- nv$pmapsettings
+      colorScale  <- vfenv$nv$pmapsettings
     }
     valForMapping <- pvalc
   }
@@ -113,11 +113,11 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
       colorScale         <- as.data.frame( colorScale )
     }
 # map slope values to corresponding categories defined by colorScale$cutoffs
-    slc                      <- NULL
-    slc[c( 1:length( sl ) )] <- 1
+    slc <- NULL
+    slc[c( 1:length( sl ) )] <- NA
     slc[which( sl <= colorScale$cutoffs[1] )] <- colorScale$cutoffs[1]
     slc[which( sl > colorScale$cutoffs[length( colorScale$cutoffs )] )] <- colorScale$cutoffs[length( colorScale$cutoffs )]
-    for( i in 2:( length( colorScale$cutoffs ) - 1 ) ) {
+    for( i in 2:length( colorScale$cutoffs ) ) {
       slc[which( sl > colorScale$cutoffs[i-1] & sl <= colorScale$cutoffs[i] )] <- colorScale$cutoffs[i]
     }
     valForMapping <- slc
@@ -126,34 +126,29 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
   if( colorMapType == "blind" ) {
     if( is.null( colorScale ) ) {
       colorScale         <- NULL
-      colorScale$cutoffs <- c( 10, 5, 0, -10 )
+      colorScale$cutoffs <- c( 5, 10, 15, 20 )
       colorScale$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432 )
       colorScale$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011 )   
       colorScale$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409 )
       colorScale         <- as.data.frame( colorScale )
     }
-# calculate years blind
-    sens             <- as.numeric( vfinfo[vfsettings$locini:ncol( vfinfo ) ] )
-    sens[idxNotSeen] <- 0
-    idx              <- idxNotSeen
-    yearsblind       <- NULL
-    idx              <- unique( c( idx, which( sl > 0 ) ) )
-    yearsblind       <- vfinfo$sage + ( imparedVision - sens ) / sl
-    yearsblind[idx]  <- 0
-    idx              <- unique( c( idx, which( yearsblind >= lifeExpectancy ) ) )
-    yearsblind[idx]  <- -1
-    c( 1:length( sl ) )
-    if( length( yearsblind[-idx] ) > 0 ) yearsblind[-idx] <- lifeExpectancy - yearsblind[-idx]
+# calculate years to blindness
+    sens                     <- as.numeric( vfinfo[vfsettings$locini:ncol( vfinfo ) ] )
+    sens[idxNotSeen]         <- 0
+    yearstoblind             <- NULL
+    yearstoblind             <- ( sens - imparedVision ) / -sl
+    yearstoblind[which( yearstoblind < 0 & sl >= 0 )]    <- Inf
+    yearstoblind[idxNotSeen] <- 0
 
 # get category of years blind
-    yearsblindc                              <- NULL
-    yearsblindc[c( 1:length( yearsblind ) )] <- NA
-    yearsblindc[which( yearsblind >= colorScale$cutoffs[1] )] <- colorScale$cutoffs[1]
-    yearsblindc[which( yearsblind <= colorScale$cutoffs[length( colorScale$cutoffs ) - 1] )] <- colorScale$cutoffs[length( colorScale$cutoffs )]
-    for( i in 2:( length( colorScale$cutoffs ) - 1) ) {
-      yearsblindc[which( yearsblind >= colorScale$cutoffs[i] & yearsblind < colorScale$cutoffs[i-1] )] <- colorScale$cutoffs[i]
+    yearstoblindc <- NULL
+    yearstoblindc[c( 1:length( yearstoblind ) )] <- NA
+    yearstoblindc[which( yearstoblind <= colorScale$cutoffs[1] )] <- colorScale$cutoffs[1]
+    yearstoblindc[which( yearstoblind > colorScale$cutoffs[length( colorScale$cutoffs )] )] <- colorScale$cutoffs[length( colorScale$cutoffs )]
+    for( i in 2:length( colorScale$cutoffs ) ) {
+      yearstoblindc[which( yearstoblind > colorScale$cutoffs[i-1] & yearstoblind <= colorScale$cutoffs[i] )] <- colorScale$cutoffs[i]
     }
-    valForMapping <- yearsblindc
+    valForMapping <- yearstoblindc
   }
 
   outerColor <- vfcolormap( valForMapping, mapval = colorScale )

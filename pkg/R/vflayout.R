@@ -9,13 +9,11 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   sizetxt        <- 12
   sizetxtSmall   <- 8
   ffmailyvf      <- "Times"
-  pointsize      <- 7
+  pointsize      <- 5
   outerSymbol    <- "circle"
   outerInch      <- 0.13
   innerSymbol    <- "circle"
   innerInch      <- outerInch / 1.9
-  inch2axisunits <- 12.528
-  lengthLines    <- 1.35 * 2 * outerInch * inch2axisunits
   thicknessLines <- 1.5
 
 # open window wiht A4 page
@@ -44,17 +42,21 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
 # first plot all graphs
 ######################################################
   if( vf$tpattern == "p24d2" ) {
-    xminmax <- 29
-    yminmax <- 29
+    xminmax     <- 30
+    yminmax     <- 30
+    lengthLines <- 4.5
   } else if( vf$tpattern == "p30d2" ) {
-    xminmax <- 29
-    yminmax <- 29    
+    xminmax     <- 30
+    yminmax     <- 30
+    lengthLines <- 4.5
   } else if( vf$tpattern == "p10d2" ) {
-    xminmax <- 10
-    yminmax <- 10
+    xminmax     <- 10
+    yminmax     <- 10
+    lengthLines <- 1.5
   } else if( vf$tpattern == "sgrnfl" ) {
-    xminmax <- 29
-    yminmax <- 29
+    xminmax     <- 30
+    yminmax     <- 30
+    lengthLines <- 4.5
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -133,7 +135,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   seekViewport( "mainInfo" )
   text <- vf$tperimetry
   if( text == "sap" ) {
-    text = "Standard Automatic Perimetry."
+    text = "Static Automated Perimetry."
   } else if( text == "fdp" ) {
     text = "Frequency-doubling Perimetry."
   } else if( text == "csp" ) {
@@ -202,7 +204,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   ######################################################
   seekViewport( "infobox3" )
   
-  text <- paste( "norm vals: ", nv$nvname, sep = "" )
+  text <- paste( "norm vals: ", vfenv$nv$nvname, sep = "" )
   text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
   text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
   grid.text( text, x = 1.00, y = 0.00, just = c( "right", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )
@@ -217,8 +219,10 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   text <- paste( "Date:", format( vf$tdate, "%m/%d/%Y" ), "at", timetxt, sep = " " )
 # duration and pause of test
   timetxt         <- substr( vf$sduration, 3, nchar( vf$sduration ) )
-  if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
-  text <- paste( text, paste( "Duration: ", timetxt, sep = " " ), sep = "\n" )
+  if( timetxt != "59:59" ) {
+    if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
+    text <- paste( text, paste( "Duration: ", timetxt, sep = " " ), sep = "\n" )
+  }
   timetxt         <- substr( vf$spause, 3, nchar( vf$sduration ) )
   if( timetxt != "59:59" ) {
     if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
@@ -252,16 +256,16 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
 # visual-field results
 ######################################################
   vfs  <- vfstats( vf )
-  vfi  <- vfindex( vf )
   vfsp <- vfstatspmap( vfs )
+  vfi  <- vfindex( vf )
   vfip <- vfindexpmap( vfi )
 # general-height difference, if the used normative values have one.
-  texteval <- paste( "nv$", vf$tpattern, "_", vf$talgorithm, "$nvtdrank$mtdr", sep = "" )
+  texteval <- paste( "vfenv$nv$", vf$tpattern, "_", vf$talgorithm, "$nvtdrank$mtdr", sep = "" )
   tdr <- NULL
   tdr <- eval( parse( text = texteval ) )
   if( !is.null( tdr ) ) {
-    ghd <- tdr[7] - ghpostd( tdval( vf ) )
-    ghd <- paste( sprintf( "%.1f", round( 10 * ghd ) / 10 ), "dB", sep = " " )
+    gh <- ghpostd( tdval( vf ) )
+    gh <- paste( sprintf( "%.1f", round( 10 * gh ) / 10 ), "dB", sep = " " )
   }
 
   ms  <- paste( sprintf( "%.1f", round( 10 * vfs$msens ) / 10 ), "dB", sep = " " )
@@ -276,7 +280,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   text <- paste( text, "PSD", sep = "\n" )
   text <- paste( text, "VFI", sep = "\n" )
   if( !is.null( tdr ) ) {
-    text <- paste( text, "GHD", sep = "\n" )
+    text <- paste( text, "GH", sep = "\n" )
   }
   grid.text( text, x = 0.00, y = 1.00, just = c( "left", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 
@@ -287,7 +291,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   text <- paste( text, psd, sep = "\n" )
   text <- paste( text, vfi, sep = "\n" )
   if( !is.null( tdr ) ) {
-    text <- paste( text, ghd, sep = "\n" )
+    text <- paste( text, gh, sep = "\n" )
   }
   grid.text( text, x = 1.00, y = 1.00, just = c( "right", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 

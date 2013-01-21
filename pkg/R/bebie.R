@@ -18,7 +18,7 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
     tdrval    <- as.numeric( tdr[,vfsettings$locini:ncol( tdr )] )
     rank      <- c( 1:length( tdrval ) )
     # get reference
-    evaltxt        <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$nvtdrank", sep = "" )
+    evaltxt        <- paste( "vfenv$nv$", tdr$tpattern, "_", tdr$talgorithm, "$nvtdrank", sep = "" )
     tdrvalref      <- as.numeric( eval( parse( text = evaltxt ) )$mtdr )
     tdrvalsubtract <- tdrvalref
     gh             <- ghpostd( tdr, correction = TRUE )
@@ -27,7 +27,7 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
   } else if ( type == "ghrank" ) {
     rank           <- tdr$rank
     tdrval         <- tdr$tdrn
-    evaltxt        <- paste( "nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$nvtdrank", sep = "" )
+    evaltxt        <- paste( "vfenv$nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$nvtdrank", sep = "" )
     tdrvalref      <- as.numeric( eval( parse( text = evaltxt ) )$mtdr )
     tdrvalsubtract <- tdr$mtdr
     gh             <- tdr$gh
@@ -46,15 +46,15 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
   if( percentiles ) {
     if( diff ) {
       if( type == "conventional" ) {
-        evaltxt <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrankadj7", sep = "" )
+        evaltxt <- paste( "vfenv$nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrankadj7", sep = "" )
       } else{
-        evaltxt <- paste( "nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrankadjgs", sep = "" )
+        evaltxt <- paste( "vfenv$nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrankadjgs", sep = "" )
       }
     } else {
       if( type == "conventional" ) {
-        evaltxt <- paste( "nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrank", sep = "" )
+        evaltxt <- paste( "vfenv$nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrank", sep = "" )
       } else{
-        evaltxt <- paste( "nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrank", sep = "" )
+        evaltxt <- paste( "vfenv$nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrank", sep = "" )
       }
     }
     tdrperc <- eval( parse( text = evaltxt ) )
@@ -79,9 +79,9 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
   
   if( percentiles ){
     for( i in 1:( ncol( tdrperc ) - 1 ) ) {
-      lines( tdrperc[,i], col = rgb( red = nv$pmapsettings$red[i], green = nv$pmapsettings$green[i], blue = nv$pmapsettings$blue[i] ), lwd = linewdt )
+      lines( tdrperc[,i], col = rgb( red = vfenv$nv$pmapsettings$red[i], green = vfenv$nv$pmapsettings$green[i], blue = vfenv$nv$pmapsettings$blue[i] ), lwd = linewdt )
     }
-    lines( tdrperc[,ncol( tdrperc )], col = rgb( red = nv$pmapsettings$red[nrow( nv$pmapsettings )], green = nv$pmapsettings$green[nrow( nv$pmapsettings )], blue = nv$pmapsettings$blue[nrow( nv$pmapsettings )] ), lwd = linewdt )
+    lines( tdrperc[,ncol( tdrperc )], col = rgb( red = vfenv$nv$pmapsettings$red[nrow( vfenv$nv$pmapsettings )], green = vfenv$nv$pmapsettings$green[nrow( vfenv$nv$pmapsettings )], blue = vfenv$nv$pmapsettings$blue[nrow( vfenv$nv$pmapsettings )] ), lwd = linewdt )
   }
   
   points( rank, tdrval, xlim = xlim, ylim = ylim, pch = 1, cex = cex )

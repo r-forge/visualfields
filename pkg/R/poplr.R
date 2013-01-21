@@ -23,10 +23,8 @@ poplr <- function( vf, nperm = 5000, type = "slr", truncVal = 1,
   porder <- make.permSpace( c( 1:nrow( vf ) ), nperm )$permID
 
   res             <- NULL
-  res$vfdata      <- vf[1,]
-# get average age and average VF values in res$vfdata
-  res$vfdata$sage                            <- mean( vf$sage )
-  res$vfdata[1,vfsettings$locini:ncol( vf )] <- colMeans( vf[,vfsettings$locini:ncol( vf )] )
+# get last VF in res$vfdata
+  res$vfdata      <- vf[nrow( vf ),]
 # get and remove blind spot
   evaltxt <- paste("vfsettings$", vf$tpattern[1], "$bs", sep = "")
   bs <- eval(parse(text = evaltxt)) + vfsettings$locini - 1

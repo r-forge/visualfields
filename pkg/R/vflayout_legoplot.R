@@ -184,7 +184,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
   seekViewport( "mainInfo" )
   text <- vfinfo0$tperimetry
   if( text == "sap" ) {
-    text = "Standard Automatic Perimetry."
+    text = "Static Automated Perimetry."
   } else if( text == "fdp" ) {
     text = "Frequency-doubling Perimetry."
   } else if( text == "csp" ) {
@@ -272,7 +272,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
 ######################################################
   seekViewport( "infobox3" )
 
-  text <- paste( "norm vals: ", nv$nvname, sep = "" )
+  text <- paste( "norm vals: ", vfenv$nv$nvname, sep = "" )
   text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
   text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
   grid.text( text, x = 0.50, y = 0.00, just = c( "center", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )

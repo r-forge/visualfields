@@ -49,7 +49,9 @@ tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
   }
   tdrper  <- as.data.frame( tdrper )
 # remove the number of locations corresponding to blind spots (which are not to be analyzed)
-  tdrper   <- tdrper[1:( nrow( tdrper ) - length( settings$bs ) ),]
+  lenbs <- 0
+  if( all( !is.na( settings$bs ) ) ) lenbs <- length( settings$bs )
+  tdrper   <- tdrper[1:( nrow( tdrper ) - lenbs ),]
 
   tdr <- tdrank( td )
   k <- 0

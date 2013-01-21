@@ -2,7 +2,7 @@
 \alias{vfsegmentcoord}
 \title{calculate line segments to plot in \code{\link{vfplot}} representing the overall orientation of the retinal nerve fibre layer bundles according to Jansonious map [1]}
 \description{This function geneartes coordinates for the line segments to be plotted}
-\usage{vfsegmentcoord( lineMap, length = 3.75 )}
+\usage{vfsegmentcoord( lineMap, length = 2.5 )}
 \arguments{
   \item{lineMap}{patternMap having x,y and slope values}
   \item{length}{length of the line segment in inches. Default is \code{3.75}}

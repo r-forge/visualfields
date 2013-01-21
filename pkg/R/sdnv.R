@@ -45,9 +45,11 @@ sdnv <- function( vf, smooth = TRUE, smoothFunction = quad2Dfit ) {
     sds$pd[i]   <- sqrt( wtd.var( pd[,i + locini - 1], weights = idweight, normwt = TRUE ) )
   }
 
-  sds$sens[settings$bs] <- NA
-  sds$td[settings$bs]   <- NA
-  sds$pd[settings$bs]   <- NA
+  if( all( !is.na( settings$bs ) ) ) {
+    sds$sens[settings$bs] <- NA
+    sds$td[settings$bs]   <- NA
+    sds$pd[settings$bs]   <- NA
+  }
 
   if( smooth ) {
 # get x and y locations

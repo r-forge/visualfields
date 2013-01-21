@@ -1,5 +1,5 @@
 getnv <- function(  ) {
 
-  return( nv )
+  return( vfenv$nv )
 
 }

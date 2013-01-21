@@ -8,8 +8,7 @@
                 margin = 0.25, filename = NULL,
                 colorMapType = "pval", colorScale = NULL,
                 ringMapType  = NULL,  ringScale  = NULL,
-                lifeExpectancy = 81.27, imparedVision = 10,
-                rangeNormal = NULL )}
+                imparedVision = 10, rangeNormal = NULL )}
 \arguments{
   \item{vf}{\code{\link{vf}} object with threshold sensitivities, td, or pd values}
   \item{grp}{how many visual fields to group. Default is \code{3}}
@@ -24,7 +23,6 @@
   \item{colorScale}{Color mapping to use. Default is \code{NULL}. A different default is given depending on \code{colorMapType}}
   \item{ringMapType}{what concentric rings categorizes. It can be \code{pvals} or \code{slopes}, or years \code{blind}. Default is \code{NULL}, for which no rings are shown.}
   \item{ringScale}{Ring mapping to use. Default is \code{NULL}. A different default is given depending on \code{ringMapType}}
-  \item{lifeExpectancy}{life expectancy in years. Default is \code{81.27}, the CIA estimate for Spain as of 2012 (\url{https://www.cia.gov/library/publications/the-world-factbook/rankorder/2102rank.html})}
   \item{rangeNormal}{range to indicate which slopes are normal. All significance from data points within the range will be removed. Default is \code{NULL}.}
   \item{imparedVision}{sensitivity below which it is considered imparement. Default is \code{10}}
 }

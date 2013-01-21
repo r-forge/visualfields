@@ -1,4 +1,4 @@
-vfcolormap <- function( map, mapval = nv$pmapsettings ) {
+vfcolormap <- function( map, mapval = vfenv$nv$pmapsettings ) {
 
   rgbval                      <- NULL
   rgbval$red[1:length(map)]   <- c( NA )

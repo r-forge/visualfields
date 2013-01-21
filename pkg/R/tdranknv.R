@@ -19,9 +19,6 @@ tdranknv <- function( td ) {
   texteval <- paste( "vfsettings$", td$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
 
-# position (column number) of the blind spot in the VF object
-  bspos <- settings$bs + locini - 1
-
 # get weights based on number of visits per subject
   idu <- NULL
   idu$id <- unique( td$id )

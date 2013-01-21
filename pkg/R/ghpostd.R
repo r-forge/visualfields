@@ -23,7 +23,7 @@ ghpostd <- function( td, correction = FALSE, rankRef = c( "default" ) ) {
 # rankRef-th largest TD value
   gh <- as.numeric( tdr[vfsettings$locini + rankRef - 1] )
   if( correction ) {
-    texteval <- paste( "nv$", td$tpattern, "_", td$talgorithm, "$nvtdrank$mtdr", sep = "" )
+    texteval <- paste( "vfenv$nv$", td$tpattern, "_", td$talgorithm, "$nvtdrank$mtdr", sep = "" )
     tdrref  <- eval( parse( text = texteval ) )
     gh <- tdrref[rankRef] - gh
   }

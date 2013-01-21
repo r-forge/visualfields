@@ -22,17 +22,19 @@ vfstats <- function( vf ) {
     texteval <- paste( "vfsettings$", td$tpattern[i], "$bs", sep = "" )
     bs <- eval( parse( text = texteval ) )
 # get weights
-    texteval <- paste( "nv$", td$tpattern[i], "_", td$talgorithm[i], "$sds", sep = "" )
+    texteval <- paste( "vfenv$nv$", td$tpattern[i], "_", td$talgorithm[i], "$sds", sep = "" )
     wgt <- 1 / eval( parse( text = texteval ) )
 # senect sensitivity, TD and PD values for the visual field in this iteration
     vf_iter <- as.numeric(vf[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
     td_iter <- as.numeric(td[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
     pd_iter <- as.numeric(pd[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
 # remove BS from everywhere
-    wgt     <- wgt[-bs,]
-    vf_iter <- vf_iter[-bs]
-    td_iter <- td_iter[-bs]
-    pd_iter <- pd_iter[-bs]
+    if( all( !is.na( bs ) ) ) {
+      wgt     <- wgt[-bs,]
+      vf_iter <- vf_iter[-bs]
+      td_iter <- td_iter[-bs]
+      pd_iter <- pd_iter[-bs]
+    }
 # finally, get mean and std of sensitivity...
     vfsaux$msens[i] <- weighted.mean( vf_iter, w = wgt$sens )
     vfsaux$ssens[i] <- sqrt( wtd.var( vf_iter, weights = wgt$sens, normwt = TRUE ) )

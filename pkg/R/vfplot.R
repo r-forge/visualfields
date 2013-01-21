@@ -70,7 +70,7 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
 # read in the plotType and decide what to do
   if( plotType == "vf" ) {
     dev  <- vf
-  }  
+  }
 
 # if plot type id 'td' then calculate total deviation and total deviation probability
   if( plotType == "td" ) {
@@ -95,18 +95,16 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
   }  else {
     plotColor  <- vfcolormap( as.numeric( devP[,vfsettings$locini:( vfsettings$locini + loc_num - 1 )] ) )
 # exclude blind spot locations
-    dev <- dev[,-( vfsettings$locini + bspos - 1 )]
+    if( all( !is.na( bspos ) ) ) dev <- dev[,-( vfsettings$locini + bspos - 1 )]
     if( notSeenAsBlack ) {
-#      vf2 <- as.numeric( vf[vfsettings$locini:( vfsettings$locini + loc_num - 1 )] )
-#      vf2 <- vf2[-bspos]
-#      idxblack <- which( vf2 <= 0 )
-#      if( length( idxblack ) > 0 ) plotColor[idxblack,] <- 0
       idxblack <- which( vf[vfsettings$locini:( vfsettings$locini + loc_num - 1 )] <= 0)
       if( length( idxblack ) > 0 ) plotColor[idxblack,] <- 0
     }
-    cloneDev <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - length( bspos ) - 1 )] ) )
-    patternMap <- patternMap[-bspos,]
-    plotColor  <- plotColor[-bspos,]
+    lenbs <- 0
+    if( all( !is.na( bspos ) ) ) lenbs <- length( bspos )
+    cloneDev <- as.character( round( dev[,vfsettings$locini:( vfsettings$locini + loc_num - lenbs - 1 )] ) )
+    if( all( !is.na( bspos ) ) ) patternMap <- patternMap[-bspos,]
+    if( all( !is.na( bspos ) ) ) plotColor  <- plotColor[-bspos,]
   }
 
 # create a new window and plot data in it

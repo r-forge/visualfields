@@ -1,7 +1,7 @@
 \name{vfobject}
 \alias{vf}
 \title{visualField objects}
-\description{This is the main object of the \code{\link{visualFields}} package. It is essentially a dataframe, but with a fixed number of columns (with pre-determined names) for information about the subject and test data and a variable number of columns for the perimetry results. These can be the sensitivities, or total-deviation values, or pattern-deviation values obtained from standard automatic perimetry (SAP), frequency-doubling perimetry (FDP), or any other perimetry device. (The number of columns for tested locations is variable as is different for different testing patterns, 24-2, 30-2, 10-2, etc.) Mean deviation, Pattern-standard deviation, vfi, etc are stored too in a visualField-type object}
+\description{This is the main object of the \code{\link{visualFields}} package. It is essentially a dataframe, but with a fixed number of columns (with pre-determined names) for information about the subject and test data and a variable number of columns for the perimetry results. These can be the sensitivities, or total-deviation values, or pattern-deviation values obtained from static automated perimetry (SAP), frequency-doubling perimetry (FDP), or any other perimetry device. (The number of columns for tested locations is variable as is different for different testing patterns, 24-2, 30-2, 10-2, etc.) Mean deviation, pattern standard deviation, vfi, etc are stored too in a visualField-type object}
 \details{The fixed columns of the visualField object with information about subject and test are:
   \tabular{ll}{
     \bold{id}         \tab subject identification number\cr

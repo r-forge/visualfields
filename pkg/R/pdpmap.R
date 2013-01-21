@@ -4,7 +4,7 @@ pdpmap <- function( pd ) {
 # init
   pdp <- pd
 
-# NOTE: if the cutoffs defined in nv are e.g. 0.5, 1.0, 5.0, 95.0, and 100.0,
+# NOTE: if the cutoffs defined in vfenv$nv are e.g. 0.5, 1.0, 5.0, 95.0, and 100.0,
 # a cutoff value of 0.5% means that the p-value at that location was smaller
 # than 0.5%, a value of 1.0% means that the p-value of the location was between
 # 0.5 and 1.0%, etc. A value of 95.0% means within normal limits and a value of
@@ -15,7 +15,7 @@ pdpmap <- function( pd ) {
     texteval <- paste( "vfsettings$", pdp$tpattern[i], "$locnum", sep = "" )
     locnum <- eval( parse( text = texteval ) )
 # get the reference values for the PD map...
-    texteval <- paste( "nv$", pdp$tpattern[i], "_", pdp$talgorithm[i], "$PDpercloc", sep = "" )
+    texteval <- paste( "vfenv$nv$", pdp$tpattern[i], "_", pdp$talgorithm[i], "$PDpercloc", sep = "" )
     pdco <- eval( parse( text = texteval ) )
 # init PD probability maps
     pdp[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] <- NA
@@ -23,17 +23,17 @@ pdpmap <- function( pd ) {
     pd_iter <- as.numeric( pd[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
     idx <- which( pd_iter <= pdco[,1] ) + vfsettings$locini - 1
     if( length( idx ) > 0 ) {
-      pdp[i,idx] <- nv$pmapsettings$cutoffs[1]
+      pdp[i,idx] <- vfenv$nv$pmapsettings$cutoffs[1]
     }
-    for( j in 2:( length( nv$pmapsettings$cutoffs ) - 1 ) ) {
+    for( j in 2:( length( vfenv$nv$pmapsettings$cutoffs ) - 1 ) ) {
       idx <- which( pdco[,j-1] < pd_iter & pd_iter <= pdco[,j] ) + vfsettings$locini - 1
       if( length( idx ) > 0 ) {
-        pdp[i,idx] <- nv$pmapsettings$cutoffs[j]
+        pdp[i,idx] <- vfenv$nv$pmapsettings$cutoffs[j]
       }
     }
     idx <- which( pd_iter > pdco[,j] ) + vfsettings$locini - 1
     if( length( idx ) > 0 ) {
-      pdp[i,idx] <- nv$pmapsettings$cutoffs[length( nv$pmapsettings$cutoffs )]
+      pdp[i,idx] <- vfenv$nv$pmapsettings$cutoffs[length( vfenv$nv$pmapsettings$cutoffs )]
     }
   }
 

@@ -1,7 +1,7 @@
-setnv <- function( nvtxt = "sapsunyiunv", name = "sapsunyiunv" ) {
+setnv <- function( nvtxt = "nvsapdefault" ) {
 
   nvinternal        <- eval( parse( text = nvtxt ) ) 
-  nvinternal$nvname <- name
-  assign("nv", nvinternal, envir = .GlobalEnv)
+  nvinternal$nvname <- nvtxt
+  assign( "nv", nvinternal, envir = vfenv )
 
 }

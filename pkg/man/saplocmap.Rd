@@ -1,9 +1,9 @@
 \name{saplocmap}
 \alias{saplocmap}
 \docType{data}
-\title{xy-position mapping between SAP device convention and visualFields convention for patterns of location}
+\title{xy-position mapping between HFA device convention and visualFields convention for patterns of location}
 \description{
-A table with relevant information about test location data for each pattern of locations, 24-2, 10-2, and 30-2, and the standard Goldman size III stimulus. The convention for visualFields is to use always a right-eye format. That is, a left eye would be "flipped" left-right and location number are counted row-wise from top-left to bottom-right. Information about the size of the stimulus and the corresponding angle of incidence and slope with Jansonious map [1] are included.
+A table with relevant information about test location data for each pattern of locations, 24-2, 10-2, and 30-2, and the conventional Goldman size III stimulus. The convention for visualFields is to use always a right-eye format. That is, a left eye would be "flipped" left-right and location number are counted row-wise from top-left to bottom-right. Information about the size of the stimulus and the corresponding angle of incidence and slope with Jansonious map [1] are included.
 }
 \usage{data( saplocmap )}
 \format{

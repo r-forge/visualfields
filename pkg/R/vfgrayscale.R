@@ -1,7 +1,7 @@
 vfgrayscale <- function( sens, age, pattern, algorithm ) {
 
 # get the norm data and calculate normal age-corrected sensitivities
-  texteval <- paste( "nv$", pattern, "_", algorithm, "$agelm", sep = "" )
+  texteval <- paste( "vfenv$nv$", pattern, "_", algorithm, "$agelm", sep = "" )
   agelm    <- eval( parse( text = texteval ) )
   vals     <- agelm$intercept + agelm$slope * age
   idx      <- which( is.na( vals ) )

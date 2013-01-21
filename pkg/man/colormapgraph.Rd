@@ -2,7 +2,7 @@
 \alias{colormapgraph}
 \title{color legend for p-values in td and pd probability plots}
 \description{It geneartes color legend for p-values in td and pd probability plots}
-\usage{colormapgraph( ncol = 3, mapval = nv$pmapsettings, notSeenAsBlack = TRUE,
+\usage{colormapgraph( ncol = 3, mapval = vfenv$nv$pmapsettings, notSeenAsBlack = TRUE,
                txtfont = "mono", pointsize = 7,
                outerSymbol = "circles", innerSymbol = "circles",
                outerSize = 1, innerSize = 1,
@@ -21,7 +21,7 @@
   \item{innerInch}{Maximum size of the inner symbol in inches. Default is \code{0.1}}
 }
 \details{
-it generates a graph with the color legend for p-values in td and pd probability plots given the actual normative values \code{\link{nv}} version set for \code{\link{visualFields}}
+it generates a graph with the color legend for p-values in td and pd probability plots given the actual normative values version set for \code{\link{visualFields}}
 }
 
 \seealso{\code{\link{vfcolormap}}}

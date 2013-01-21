@@ -4,8 +4,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
                             margin = 0.25, filename = NULL,
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
-                            lifeExpectancy = 81.27, imparedVision = 10,
-                            rangeNormal = NULL ) {
+                            imparedVision = 10, rangeNormal = NULL ) {
 ##############
 # input checks
 ##############
@@ -48,7 +47,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
 
 # get the conventional color scale
   if( colorMapType == "pval" & is.null( colorScale ) ) {
-    colorScale  <- nv$pmapsettings
+    colorScale  <- vfenv$nv$pmapsettings
   }
   if( colorMapType == "slope" & is.null( colorScale ) ) {
     colorScale         <- NULL
@@ -60,7 +59,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   }
   if( colorMapType == "blind" & is.null( colorScale ) ) {
     colorScale         <- NULL
-    colorScale$cutoffs <- c( 10, 5, 0, -10 )
+    colorScale$cutoffs <- c( 5, 10, 15, 20 )
     colorScale$red     <- c( 0.8914642, 0.9999847, 0.9999847, 0.9742432 )
     colorScale$green   <- c( 0.0000000, 0.5706177, 0.9041748, 0.9355011 )   
     colorScale$blue    <- c( 0.1622925, 0.1513214, 0.0000000, 0.9213409 )
@@ -124,40 +123,30 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
 #############################################################
 # get all x values of blind spot locations from the first n exams that are not zero
 # compute a mean on the set of locations obtained
+  idx <- which( vf$sbsx[idx0] != 0 )
+  if( length( idx ) > 0 ) vfinfo0$sbsx <- mean( vf$sbsx[idx0[idx]] )
+  if( length( idx ) == 0 ) vfinfo0$sbsx <- 0
 
-idx <- which( vf$sbsx[idx0] != 0 )
-  if( length( idx ) > 0 )
-    vfinfo0$sbsx <- mean( vf$sbsx[idx0[idx]] )
-  else if( length( idx ) == 0 )
-    vfinfo0$sbsx <- 0
 # get all x values of blind spot locations from the first n exams that are not zero
 # compute a mean on the set of locations obtained
-
   idx <- which( vf$sbsy[idx0] != 0 )
-  if( length( idx ) > 0 )
-    vfinfo0$sbsy <- mean( vf$sbsy[idx0[idx]] )
-  else if( length( idx ) == 0 )
-    vfinfo0$sbsy <- 0
+  if( length( idx ) > 0 ) vfinfo0$sbsy <- mean( vf$sbsy[idx0[idx]] )
+  if( length( idx ) == 0 ) vfinfo0$sbsy <- 0
 
 # get all x values of blind spot locations from the last n exams that are not zero
 # compute a mean on the set of locations obtained  
   idx <- which( vf$sbsx[idx1] != 0 )
-  
-  if( length( idx ) > 0 )
-    vfinfo1$sbsx <- mean( vf$sbsx[idx1[idx]] )
-  else if( length( idx ) == 0 )
-    vfinfo1$sbsx <- 0
+  if( length( idx ) > 0 ) vfinfo1$sbsx <- mean( vf$sbsx[idx1[idx]] )
+  if( length( idx ) == 0 ) vfinfo1$sbsx <- 0
 
 # get all x values of blind spot locations from the last n exams that are not zero
 # compute a mean on the set of locations obtained  
   idx <- which( vf$sbsy[idx1] != 0 )
-  if( length( idx ) > 0 )
-    vfinfo1$sbsy <- mean( vf$sbsy[idx1[idx]] )
-  else if( length( idx ) == 0 )
-    vfinfo1$sbsy <- 0
+  if( length( idx ) > 0 ) vfinfo1$sbsy <- mean( vf$sbsy[idx1[idx]] )
+  if( length( idx ) == 0 ) vfinfo1$sbsy <- 0
 #############################################################
 # CAK END
-############################################################  
+############################################################
   vfinfo0$sage <- mean( vf$sage[idx0] )
   vfinfo1$sage <- mean( vf$sage[idx1] )
   vf0          <- round( colMeans( vf[idx0, locvalsidx] ) )
@@ -238,7 +227,7 @@ idx <- which( vf$sbsx[idx0] != 0 )
                 ringMapType  = ringMapType, ringScale = ringScale,
                 borderThickness = borderThickness,
                 idxNotSeen = idxNotSeen,
-                lifeExpectancy = lifeExpectancy, imparedVision = imparedVision,
+                imparedVision = imparedVision,
                 rangeNormal = rangeNormal )
 # plot permutation histogram
   par( new = TRUE )
@@ -295,7 +284,7 @@ idx <- which( vf$sbsx[idx0] != 0 )
   seekViewport( "mainInfo" )
   text <- vfinfo0$tperimetry
   if( text == "sap" ) {
-    text = "Standard Automatic Perimetry."
+    text = "Static Automated Perimetry."
   } else if( text == "fdp" ) {
     text = "Frequency-doubling Perimetry."
   } else if( text == "csp" ) {
@@ -393,7 +382,7 @@ idx <- which( vf$sbsx[idx0] != 0 )
 ######################################################
   seekViewport( "infobox3" )
   
-  text <- paste( "norm vals: ", nv$nvname, sep = "" )
+  text <- paste( "norm vals: ", vfenv$nv$nvname, sep = "" )
   text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
   text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
   grid.text( text, x = 0.50, y = 0.00, just = c( "center", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )

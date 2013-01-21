@@ -11,9 +11,9 @@
               lengthLines = 3.0, thicknessLines = 2,
               colorMapType = "pval", colorScale = NULL,
               ringMapType  = NULL, ringScale  = NULL,
-              lifeExpectancy = 81.27, imparedVision = 10,
-              borderThickness = 2,
-              idxNotSeen = NULL, rangeNormal = NULL, conormal = NULL )}
+              imparedVision = 10, borderThickness = 2,
+              idxNotSeen = NULL, rangeNormal = NULL,
+              conormal = NULL )}
 \arguments{
   \item{sl}{slopes}
   \item{pval}{pvalues calculated for the slope}
@@ -36,7 +36,6 @@
   \item{colorScale}{Color mapping to use. Default is \code{NULL}. A different default is given depending on \code{colorMapType}}
   \item{ringMapType}{what concentric rings categorizes. It can be \code{pvals} or \code{slopes}, or years \code{blind}. Default is \code{NULL}, for which no rings are shown.}
   \item{ringScale}{Ring mapping to use. Default is \code{NULL}. A different default is given depending on \code{ringMapType}}
-  \item{lifeExpectancy}{life expectancy in years. Default is \code{81.27}, the CIA estimate for Spain as of 2012 (\url{https://www.cia.gov/library/publications/the-world-factbook/rankorder/2102rank.html})}
   \item{imparedVision}{sensitivity below which it is considered imparement. Default is \code{10}}
   \item{borderThickness}{Thickness of the borders if ringMapType is not \code{NULL}. Default is \code{5}}
   \item{idxNotSeen}{index of locations that are not seen. These locations will be displayed with a solid balck circle. Default is \code{NULL}.}

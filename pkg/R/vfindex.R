@@ -32,7 +32,7 @@ vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
     texteval <- paste( "vfsettings$", pd$tpattern[i], "$locrPD", sep = "" )
     rankRef <- eval( parse( text = texteval ) )
 # get the norm data and calculate normal age-corrected sensitivities
-    texteval <- paste( "nv$", td$tpattern[i], "_", td$talgorithm[i], "$agelm", sep = "" )
+    texteval <- paste( "vfenv$nv$", td$tpattern[i], "_", td$talgorithm[i], "$agelm", sep = "" )
     agelm <- eval( parse( text = texteval ) )
 # get weights
     texteval <- paste( "vfiset$", td$tpattern[i], sep = "" )
@@ -48,14 +48,16 @@ vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
     tdp_iter <- as.numeric(tdp[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
     pdp_iter <- as.numeric(pdp[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
 # remove blind spot from everywhere
-    vf_iter  <- vf_iter[-bs]
-    td_iter  <- td_iter[-bs]
-    pd_iter  <- pd_iter[-bs]
-    tdp_iter <- tdp_iter[-bs]
-    pdp_iter <- pdp_iter[-bs]
-    agelm    <- agelm[-bs,]
-    wgt      <- wgt[-bs]
-    vfiloc   <- vfiloc[-bs]
+    if( all( !is.na( bs ) ) ) {
+      vf_iter  <- vf_iter[-bs]
+      td_iter  <- td_iter[-bs]
+      pd_iter  <- pd_iter[-bs]
+      tdp_iter <- tdp_iter[-bs]
+      pdp_iter <- pdp_iter[-bs]
+      agelm    <- agelm[-bs,]
+      wgt      <- wgt[-bs]
+      vfiloc   <- vfiloc[-bs]
+    }
 # get age-corrected norms
     vf_age <- agelm$intercept + agelm$slope * vf$sage[i]
 # check if we should use TD or PD values
