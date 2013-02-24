@@ -20,7 +20,7 @@ poplr <- function( vf, nperm = 5000, type = "slr", truncVal = 1,
   if( truncVal <= 0 | truncVal > 1 ) stop("truncation must be between 0 and 1")
 
 # permutation matrix
-  porder <- make.permSpace( c( 1:nrow( vf ) ), nperm )$permID
+  porder <- make.permSpace( c( 1:nrow( vf ) ), nperm, return.permIDs = TRUE )$permID
 
   res             <- NULL
 # get last VF in res$vfdata
