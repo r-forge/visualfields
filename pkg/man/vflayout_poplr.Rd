@@ -29,7 +29,9 @@
 
 \seealso{\code{\link{vflayout}}, \code{\link{vflayout_legoplot}}, \code{\link{poplr}}, \code{\link{hist_poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vfplot_poplr}}}
 
-\references{ADD REFERENCES HERE}
+\references{
+[1] N. O'Leary, B. C. Chauhan, and P. H. Artes. \emph{Visual field progression in glaucoma: estimating the overall significance of deterioration with permutation analyses of pointwise linear regression (PoPLR)}. Investigative Ophthalmology and Visual Science, 53, 2012
+}
 
 \examples{
 vflayout_poplr( vf91016right )

@@ -8,7 +8,7 @@
         outerSymbol = "circles", innerSymbol = "circles",
         outerSize = 1, innerSize = 1,
         outerInch = 0.14, innerInch = 0.08,
-        lengthLines = 4.25, thicknessLines = 2 )}
+        lengthLines = 0, thicknessLines = 0 )}
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds, or TD or PD values}
   \item{plotType}{Type of plot to show. It can be visual sensitivities (\code{vf}), total-deviation values (\code{td}), or pattern-deviation values (\code{pd})}
@@ -37,4 +37,4 @@ The vfplot function operates on a single row of visual fileds (vf). Depending on
 vfplot( vf91016right[15,], plotType = "td", newWindow = TRUE )
 }
 
-\author{Chaitanya Khadilkar <chaikhad@indiana.edu>, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Chaitanya Khadilkar, Ivan Marin-Franch <imarinfr@indiana.edu>}

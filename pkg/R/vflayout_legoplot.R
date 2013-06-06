@@ -27,8 +27,8 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
   innerSymbol    <- "circle"
   innerInch      <- outerInch / 1.9
   inch2axisunits <- 12.528
-  lengthLines    <- 1.75 * 2 * outerInch * inch2axisunits
-  thicknessLines <- 1.5
+  lengthLines    <- 0
+  thicknessLines <- 0
   outerSymbollego <- "square"
   innerSymbollego <- "circle"
   outerInchlego   <- 0.36

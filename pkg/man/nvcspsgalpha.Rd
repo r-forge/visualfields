@@ -14,11 +14,9 @@ Normative reference values or (normative values or nv for short) for Contrast Se
 \item{\code{nvname}}{\bold{mandatory}. Name assigned to this normative-value object}
 }
 }
-\references{ADD REFERENCES HERE}
 
 \keyword{datasets}
 
 \seealso{\code{\link{nvsapdefault}}}
-
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>, William H Swanson}

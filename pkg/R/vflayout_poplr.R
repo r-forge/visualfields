@@ -36,11 +36,11 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   innerSymbol      <- "circle"
   innerInch        <- outerInch / 1.9
   inch2axisunits   <- 12.528
-  lengthLines      <- 5
-  thicknessLines   <- 2
+  lengthLines      <- 0
+  thicknessLines   <- 0
   outerInchpoplr   <- 0.185
   innerInchpoplr   <- outerInchpoplr / 1.9
-  lengthLinespoplr <- 5.5
+  lengthLinespoplr <- 0
   borderThickness  <- 1.5
   type             <- "slr"
   typecomb         <- "fisher"

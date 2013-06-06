@@ -2,21 +2,19 @@
 \alias{visualFields}
 \title{Statistical methods for visual fields}
 \docType{package}
+\encoding{UTF-8}
 \description{
 This is a collection of tools for analyzing the field of vision. It provides a framework for the development and use of innovative methods for visualization, statistical analysis, and clinical interpretation of visual-field loss and its change over time. \code{visualFields} is intended to be a tool for collaborative research
 }
-\details{This work was supported by NIH grant number \bold{R01EY007716}. We thank the following people who contributed to the package
-  \tabular{ll}{
-   \bold{Chaitanya Khadilkar} \tab developer\cr
-   \bold{Neil O'Leary}        \tab provided the original implementation of PoPLR in MatLab\cr
-   \bold{William H Swanson}   \tab provided data for control subjects for the generation of normative values\cr
-   \bold{Victor E Malinovsky} \tab provided data for control subjects for the generation of normative values\cr
-   \bold{Mitchell W Dul}      \tab provided data for control subjects for the generation of normative values\cr
-   \bold{Richard Russell}     \tab provided some code to read XML files extracted from the HFA
-   }
+
+\seealso{\code{OPI}, the Open Perimetry Initiative \url{http://people.eng.unimelb.edu.au/aturpin/opi/index.html}}
+
+\references{
+[1] Marín-Franch I & Swanson WH. The visualFields package: A tool for analysis and visualization of visual fields. Journal of Vision, 2013, 13(4):10, 1-12
+
+[2] Turpin A, Artes PH, & McKendrick AM. The Open Perimetry Interface: An enabling tool for clinical visual psychophysics. Journal of Vision, 2012, 12(11):22, 21–25
+
+This work was supported by NIH grant number \bold{R01EY007716}
 }
-\references{ADD REFERENCES HERE}
 
-\seealso{\code{OPI}}
-
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, Paul H Artes <paul@dal.ca>}
+\author{The visualFields Development Team}

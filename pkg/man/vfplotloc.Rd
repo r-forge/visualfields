@@ -6,8 +6,8 @@
            axesCol = "black", txtfont = "mono", pointsize = 7,
            txtcolor = NULL, xminmax = 29, yminmax = 29, outerSymbol = "circles",
            innerSymbol = "circles", outerSize = 1, innerSize = 1,
-           outerInch = 0.2, innerInch = 0.1, lengthLines = 2.5,
-           thicknessLines = 2, outerBorderColor = NULL, innerBorderColor = NULL,
+           outerInch = 0.2, innerInch = 0.1, lengthLines = 0,
+           thicknessLines = 0, outerBorderColor = NULL, innerBorderColor = NULL,
            outerBorderThickness = 2, innerBorderThickness = 2 )}
 \arguments{
   \item{vals}{sensitivity threshold, TD or PD values, or other location-specific values}
@@ -44,4 +44,4 @@
 #vfplotloc( vals )
 }
 
-\author{Chaitanya Khadilkar <chaikhad@indiana.edu>, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Chaitanya Khadilkar, Ivan Marin-Franch <imarinfr@indiana.edu>}

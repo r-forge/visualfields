@@ -21,4 +21,4 @@ displays a legoplot visualization for change in sensitivities over time of visua
 vflayout_legoplot( vf91016right )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, }
+\author{Ivan Marin-Franch <imarinfr@indiana.edu>}

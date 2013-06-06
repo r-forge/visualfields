@@ -18,4 +18,4 @@
 #vfsegmentcoord( lineMap,length )
 }
 
-\author{Chaitanya Khadilkar <chaikhad@indiana.edu>, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Chaitanya Khadilkar, Ivan Marin-Franch <imarinfr@indiana.edu>}

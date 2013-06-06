@@ -14,7 +14,7 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   outerInch      <- 0.13
   innerSymbol    <- "circle"
   innerInch      <- outerInch / 1.9
-  thicknessLines <- 1.5
+  thicknessLines <- 0
 
 # open window wiht A4 page
   if( is.null( filename ) ) {
@@ -44,19 +44,19 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   if( vf$tpattern == "p24d2" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 4.5
+    lengthLines <- 0
   } else if( vf$tpattern == "p30d2" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 4.5
+    lengthLines <- 0
   } else if( vf$tpattern == "p10d2" ) {
     xminmax     <- 10
     yminmax     <- 10
-    lengthLines <- 1.5
+    lengthLines <- 0
   } else if( vf$tpattern == "sgrnfl" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 4.5
+    lengthLines <- 0
   } else {
     xminmax <- 100
     yminmax <- 100

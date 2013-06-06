@@ -4,7 +4,7 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
                     outerSymbol = "circles", innerSymbol = "circles",
                     outerSize = 1, innerSize = 1,
                     outerInch = 0.14, innerInch = 0.08,
-                    lengthLines = 4.25, thicknessLines = 2 ) {
+                    lengthLines = 0, thicknessLines = 0 ) {
 
 # check that vf has only 1 entry
   if( nrow( vf ) > 1 ) {

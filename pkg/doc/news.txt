@@ -126,3 +126,29 @@ delete old documenation files
 
 v0.2-14 02/24/2013
 fix problem with change in dependent package flip
+
+v0.3 03/15/2013
+version to be included in the manuscript for Journal of Vision, except for some additional information about citations, etc.
+
+fixed a small problem technical problem with cutoffs in pmapsettings in the generation of with the 10-2
+
+fixed further problems with dependent package flip
+
+Submitted version for Journal of Vision depends on the packages:
+
+R version	2.15.2	2012-10-26 -- "Trick or Treat"
+gridBase 	0.4-5	2012-03-18
+flip		2.0	2013-02-23
+foreach		1.4.0	2012-04-16
+e1071		1.6	2011-09-12
+class		7.3-5	2012-10-08
+someMTP		1.4	2011-11-17
+cherry		0.2-6	2012-04-04
+bitops		1.0-4.1	2009-02-15
+matrixStats 	0.4.4 	2012-03-05
+R.methodsS3 	1.2.2 	2012-02-29
+Hmisc		3.9-3	2012-03-27
+survival	2.36-14	2012-04-25
+
+v0.3-1 06/06/2013
+change in functionality of flip. Function poplr.r modified accordingly.

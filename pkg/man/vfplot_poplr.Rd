@@ -8,7 +8,7 @@
               outerSymbol = "circles", innerSymbol = "circles",
               outerSize = 1, innerSize = 1,
               outerInch = 0.24, innerInch = 0.12,
-              lengthLines = 3.0, thicknessLines = 2,
+              lengthLines = 0, thicknessLines = 0,
               colorMapType = "pval", colorScale = NULL,
               ringMapType  = NULL, ringScale  = NULL,
               imparedVision = 10, borderThickness = 2,
@@ -46,7 +46,9 @@
 
 \seealso{\code{\link{poplr}}, \code{\link{hist_poplr}}, \code{\link{poplr_cstat}}, \code{\link{poplr_pstat}}, \code{\link{vflayout_poplr}}}
 
-\references{ADD REFERENCES HERE}
+\references{
+[1] N. O'Leary, B. C. Chauhan, and P. H. Artes. \emph{Visual field progression in glaucoma: estimating the overall significance of deterioration with permutation analyses of pointwise linear regression (PoPLR)}. Investigative Ophthalmology and Visual Science, 53, 2012
+}
 
 \examples{
 res <- poplr( vf91016right )

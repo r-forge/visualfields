@@ -9,4 +9,4 @@
 
 \keyword{datasets}
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, William H Swanson, Victor Malinovsky}
+\author{Ivan Marin-Franch <imarinfr@indiana.edu>, William H Swanson, Victor E Malinovsky}

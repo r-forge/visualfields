@@ -26,11 +26,9 @@ From here age linear models, percentile values, etc are defined for combination 
 }
 
 \references{
-[1] ADD REFERENCE FOR 24-2
+[1] H. J. Wyatt, M. W. Dul, and W. H. Swanson. \emph{Variability of visual field measurements is correlated with the gradient of visual sensitivity}. Vision Research, 47, 2007.
 
-[2] H. J. Wyatt, M. W. Dul, and W. H. Swanson. \emph{Variability of visual field measurements is correlated with the gradient of visual sensitivity}. Vision Research, 47, 2007.
-
-[3] A. Shafi, W. H. Swanson, and M. W. Dul. \emph{Structure and Function in Patients with Glaucomatous Defects Near Fixation}. Optometry and Vision Science, 88, 2011.
+[2] A. Shafi, W. H. Swanson, and M. W. Dul. \emph{Structure and Function in Patients with Glaucomatous Defects Near Fixation}. Optometry and Vision Science, 88, 2011.
 
 }
 
