@@ -161,3 +161,6 @@ allow calculation of age by dividing by a factor days per year
 
 v0.3-4 03/10/2013
 fixing new problem with quartz and windows, all calls to open a new window are now made with "dev.new".
+
+v0.3-5 09/10/2013
+removed opening new windows in examples, as not allowed in the new R-devel version 2013-10-08 r64038.

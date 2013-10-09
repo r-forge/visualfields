@@ -34,7 +34,7 @@
 
 \examples{
 # show a printout
-vflayout( vf91016right[15,] )
+#vflayout( vf91016right[15,] )
 }
 
 \author{Ivan Marin-Franch <imarinfr@indiana.edu>}
