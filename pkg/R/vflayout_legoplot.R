@@ -1,5 +1,15 @@
 vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
-                               margin = 0.25, filename = NULL ) {
+                               margin = 0.25, filename = NULL,
+                               ffamily = "Helvetica", sizetxt = 12,
+                               sizetxtSmall = 8,
+                               ffmailyvf = "Times", pointsize = 6,
+                               txtcolorlego = "red", pointsizelego = 16,
+                               outerSymbol = "circle", outerInch = 0.12,
+                               innerSymbol = "circle", innerInch = outerInch / 1.9,
+                               inch2axisunits = 12.528,
+                               lengthLines = 0, thicknessLines = 0,
+                               outerSymbollego = "square", outerInchlego = 0.36,
+                               innerSymbollego = "circle", innerInchlego = 0.16 ) {
 ##############
 # input checks
 ##############
@@ -14,25 +24,6 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
   }
   if( nrow( vf ) < 2 * grp ) stop( "the number of visual fields needs to be at least twice the number of visual fields to group for the display" )
 
-# init
-  ffamily        <- "Helvetica"
-  sizetxt        <- 12
-  sizetxtSmall   <- 8
-  ffmailyvf      <- "Times"
-  pointsize      <- 6
-  txtcolorlego   <- "red"
-  pointsizelego  <- 16
-  outerSymbol    <- "circle"
-  outerInch      <- 0.12
-  innerSymbol    <- "circle"
-  innerInch      <- outerInch / 1.9
-  inch2axisunits <- 12.528
-  lengthLines    <- 0
-  thicknessLines <- 0
-  outerSymbollego <- "square"
-  innerSymbollego <- "circle"
-  outerInchlego   <- 0.36
-  innerInchlego   <- 0.16
 # get settings for the pattern of test locations
   texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
@@ -73,15 +64,23 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
 
 # open window wiht A4 page
   if( is.null( filename ) ) {
+    device <- options( "device" )
     if( .Platform$OS.type == "unix" ) {
       if( Sys.info()["sysname"] == "Darwin" ) {
-        quartz( width = pwidth, height = pheight, dpi = 85 )
+        options( device = "quartz" )
+        dev.new( width = pwidth, height = pheight, dpi = 85 )
+#        quartz( width = pwidth, height = pheight, dpi = 85 )
       } else {
-        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
+        options( device = "x11" )
+        dev.new( width = pwidth, height = pheight )
+#        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
       }
     } else{
-      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
+      options( device = "windows" )
+      dev.new( width = pwidth, height = pheight, rescale = "fixed" )
+#      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
     }
+    options( device = device )
   } else {
     pdf( width = pwidth, height = pheight, file = filename )
   }

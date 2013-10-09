@@ -65,12 +65,12 @@
 
 \examples{
 # DO NOT EXECUTE
-### ALL THESE HAVE THE SAME STRUCTURE WITH FIXED COLUMS id .. spause and then L1 .. L54 BUT DIFFERENT DATA
 # one can load sensitivities using loadvfcsv or loadvfxml the data so
 # vf <- loadvfcsv( filename = "foo.csv", , patternMap = saplocmap$p24d2 )
-# calculate total deviation values using \code{\link{visualFields}} normative values for SAP SITAS 24-2 (and Goldman size III stimulus)
+# calculate total deviation values using \code{\link{visualFields}} normative values for
+# SAP SITAS 24-2 (and Goldman size III stimulus)
 # td <- tdval( vf )
-# calculate pattern deviation values using total deviation values SAP SITAS 24-2 (and Goldman size III stimulus)
+# calculate pattern deviation values using total deviation values SAP SITAS 24-2
 # pd <- tdval( td )
 # OR
 # pd <- tdval( tdval( vf ) )

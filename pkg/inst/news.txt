@@ -150,5 +150,14 @@ R.methodsS3 	1.2.2 	2012-02-29
 Hmisc		3.9-3	2012-03-27
 survival	2.36-14	2012-04-25
 
-v0.3-1 06/06/2013
+v0.3-1 06/06/2013 (EU date system, from here on)
 change in functionality of flip. Function poplr.r modified accordingly.
+
+v0.3-2 07/06/2013
+fix small bugs. Incorrect age calculation in loadvfxml and incorrect order for false positives, false negatives, and fixation loses in vflayout
+
+v0.3-3 16/06/2013
+allow calculation of age by dividing by a factor days per year
+
+v0.3-4 03/10/2013
+fixing new problem with quartz and windows, all calls to open a new window are now made with "dev.new".

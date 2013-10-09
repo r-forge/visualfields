@@ -48,4 +48,5 @@ export( ageLinearModel,
 	progols,
 	vfsort,
 	vfselectvisit,
-	ringmapgraph )
+	ringmapgraph,
+	agecalc )

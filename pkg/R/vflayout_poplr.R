@@ -1,10 +1,21 @@
 vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
                             plotType = "vf", truncVal = 1,
+                            type = "slr", typecomb = "fisher",
                             pwidth = 8.27, pheight = 11.69,
                             margin = 0.25, filename = NULL,
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
-                            imparedVision = 10, rangeNormal = NULL ) {
+                            imparedVision = 10, rangeNormal = NULL,
+                            ffamily = "Helvetica", sizetxt = 12,
+                            sizetxtSmall = 8,
+                            ffmailyvf = "Times", pointsize = 7,
+                            outerSymbol = "circle", outerInch = 0.12,
+                            innerSymbol = "circle", innerInch = outerInch / 1.9,
+                            inch2axisunits = 12.528,
+                            lengthLines = 0, thicknessLines = 0,
+                            outerInchpoplr = 0.185,
+                            innerInchpoplr = outerInchpoplr / 1.9,
+                            lengthLinespoplr = 0, borderThickness = 1.5 ) {
 ##############
 # input checks
 ##############
@@ -25,25 +36,6 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   if( !is.null( ringMapType ) && ( ringMapType  != "pval" & ringMapType  != "slope" & ringMapType  != "blind" ) ) stop( "wrong ringMapType. Must be 'slope', 'pval', or 'blind'" )
 # truncation must be between zero and one
   if( truncVal <= 0 | truncVal > 1 ) stop("truncation must be between 0 and 1")
-# init
-  ffamily          <- "Helvetica"
-  sizetxt          <- 12
-  sizetxtSmall     <- 8
-  ffmailyvf        <- "Times"
-  pointsize        <- 7
-  outerSymbol      <- "circle"
-  outerInch        <- 0.12
-  innerSymbol      <- "circle"
-  innerInch        <- outerInch / 1.9
-  inch2axisunits   <- 12.528
-  lengthLines      <- 0
-  thicknessLines   <- 0
-  outerInchpoplr   <- 0.185
-  innerInchpoplr   <- outerInchpoplr / 1.9
-  lengthLinespoplr <- 0
-  borderThickness  <- 1.5
-  type             <- "slr"
-  typecomb         <- "fisher"
 
 # get the conventional color scale
   if( colorMapType == "pval" & is.null( colorScale ) ) {
@@ -153,15 +145,23 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   vf1          <- round( colMeans( vf[idx1, locvalsidx] ) )
 # open window wiht A4 page
   if( is.null( filename ) ) {
+    device <- options( "device" )
     if( .Platform$OS.type == "unix" ) {
       if( Sys.info()["sysname"] == "Darwin" ) {
-        quartz( width = pwidth, height = pheight, dpi = 85 )
+        options( device = "quartz" )
+        dev.new( width = pwidth, height = pheight, dpi = 85 )
+#        quartz( width = pwidth, height = pheight, dpi = 85 )
       } else {
-        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
+        options( device = "x11" )
+        dev.new( width = pwidth, height = pheight )
+#        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
       }
     } else{
-      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
+      options( device = "windows" )
+      dev.new( width = pwidth, height = pheight, rescale = "fixed" )
+#      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
     }
+    options( device = device )
   } else {
     pdf( width = pwidth, height = pheight, file = filename )
   }

@@ -111,16 +111,25 @@ vfplot <- function( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
 # window rescale is set to fixed to ensure re-sizing window doesn't re-size the plot
   height <- width * yminmax / xminmax
   if( newWindow ) {
+    device <- options( "device" )
     if( .Platform$OS.type == "unix" ) {
       if( Sys.info()["sysname"] == "Darwin" ) {
-        quartz( width = width, height = height, dpi = 85 )
+        options( device = "quartz" )
+        dev.new( width = width, height = height, dpi = 85 )
+        #        quartz( width = width, height = height, dpi = 85 )
       } else {
-        x11( xpos = 0, ypos = 0, width = width, height = height )
+        options( device = "x11" )
+        dev.new( width = width, height = height )
+        #        x11( xpos = 0, ypos = 0, width = width, height = height )
       }
     } else{
-      windows( xpos = 0, ypos = 0, width = width, height = height, rescale = "fixed" )
+      options( device = "windows" )
+      dev.new( width = width, height = height, rescale = "fixed" )
+      #      windows( xpos = 0, ypos = 0, width = width, height = height, rescale = "fixed" )
     }
+    options( device = device )
   }
+
   vfplotloc( cloneDev, eye = vf$seye, patternMap = patternMap, outerColor = plotColor,
              bs = c( vf$sbsx, vf$sbsy ),
              txtfont = txtfont, pointsize = pointsize,

@@ -1,32 +1,37 @@
-vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
-                      filename = NULL ) {
+vflayout <- function( vf, pwidth = 8.27,
+                      pheight = 11.69, margin = 0.25,
+                      filename = NULL,
+                      ffamily = "Helvetica", sizetxt = 12,
+                      sizetxtSmall = 8, ffmailyvf = "Times",
+                      pointsize = 5,
+                      outerSymbol = "circle", outerInch = 0.13,
+                      innerSymbol = "circle", innerInch = outerInch / 1.9,
+                      lengthLines = 0, thicknessLines = 0 ) {
 
   if( nrow( vf ) > 1 ) {
     stop("Error! vf cannot have more than 1 rows")
   }
-  
-  ffamily        <- "Helvetica"
-  sizetxt        <- 12
-  sizetxtSmall   <- 8
-  ffmailyvf      <- "Times"
-  pointsize      <- 5
-  outerSymbol    <- "circle"
-  outerInch      <- 0.13
-  innerSymbol    <- "circle"
-  innerInch      <- outerInch / 1.9
-  thicknessLines <- 0
 
 # open window wiht A4 page
   if( is.null( filename ) ) {
+    device <- options( "device" )
     if( .Platform$OS.type == "unix" ) {
       if( Sys.info()["sysname"] == "Darwin" ) {
-        quartz( width = pwidth, height = pheight, dpi = 85 )
+        options( device = "quartz" )
+        dev.new( width = pwidth, height = pheight, dpi = 85 )
+#        quartz( width = pwidth, height = pheight, dpi = 85 )
       } else {
-        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
+        options( device = "x11" )
+        dev.new( width = pwidth, height = pheight )
+#        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
       }
     } else{
-      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
+      options( device = "windows" )
+      dev.new( width = pwidth, height = pheight, dpi = 85 )
+      #dev.new( width = pwidth, height = pheight, rescale = "fixed" )
+#      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
     }
+    options( device = device )
   } else {
     pdf( width = pwidth, height = pheight, file = filename )
   }
@@ -44,19 +49,15 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
   if( vf$tpattern == "p24d2" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 0
   } else if( vf$tpattern == "p30d2" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 0
   } else if( vf$tpattern == "p10d2" ) {
     xminmax     <- 10
     yminmax     <- 10
-    lengthLines <- 0
   } else if( vf$tpattern == "sgrnfl" ) {
     xminmax     <- 30
     yminmax     <- 30
-    lengthLines <- 0
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -236,9 +237,9 @@ vflayout <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
 ######################################################
   seekViewport( "infotest1" )
 
-  text <- "fixation losses"
-  text <- paste( text, "false positives", sep = "\n" )
+  text <- "false positives"
   text <- paste( text, "false negatives", sep = "\n" )
+  text <- paste( text, "fixation losses", sep = "\n" )
   grid.text( text, x = 0.00, y = 1.00, just = c( "left", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 
   seekViewport( "infotest2" )
