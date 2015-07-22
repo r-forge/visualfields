@@ -29,7 +29,7 @@ poplr <- function( vf, nperm = 5000, type = "slr", truncVal = 1,
   res$vfdata      <- vf[nrow( vf ),]
 # get and remove blind spot
   evaltxt <- paste("vfsettings$", vf$tpattern[1], "$bs", sep = "")
-  bs <- eval(parse(text = evaltxt)) + vfsettings$locini - 1
+  bs <- eval(parse(text = evaltxt)) + visualFields::vfsettings$locini - 1
   res$vfdata <- res$vfdata[-bs]
 
   res$nvisits  <- nrow( vf )

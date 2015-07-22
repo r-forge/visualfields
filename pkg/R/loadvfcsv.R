@@ -11,8 +11,8 @@ loadvfcsv <- function( filename, patternMap ) {
 # reading row-wise. The structure vfsettings used here are part of the data
 # of visualField package; it has information about how the VF-object is
 # expected to be
-  vf2 <- vf[,vfsettings$locini:ncol( vf )]
-  vf[,vfsettings$locini:ncol( vf )] <- vf2[,patternMap$loc]
+  vf2 <- vf[,visualFields::vfsettings$locini:ncol( vf )]
+  vf[,visualFields::vfsettings$locini:ncol( vf )] <- vf2[,patternMap$loc]
   remove( vf2 )
   
 # convert all text columns into the correct class

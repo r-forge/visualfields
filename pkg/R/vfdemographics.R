@@ -26,7 +26,7 @@ vfdemographics <- function( vf ) {
   }
 
 # get settings for the pattern of test locations
-  locini   <- vfsettings$locini
+  locini   <- visualFields::vfsettings$locini
   texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
 
@@ -36,7 +36,7 @@ vfdemographics <- function( vf ) {
   for( i in 1:length( idu$id ) ) {
     idx <- which( vf$id == idu$id[i] )
     nvisit[i] <- length( idx )
-    futime[i] <- difftime( vf$tdate[idx[length( idx )]], vf$tdate[idx[length( 1 )]], units = "weeks" )
+    futime[i] <- difftime( vf$tdate[idx[length( idx )]], vf$tdate[idx[length( 1 )]], units = "days" )
   }
   demog$nsubjects    <- length( unique( idu$id) )
   demog$ntotalvisits <- nrow( vf )

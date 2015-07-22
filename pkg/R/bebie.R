@@ -1,6 +1,7 @@
 bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
                    correction = TRUE, txtfont = "mono", pointsize = 7, cex = 1 ) {
 
+  
   if( type != "conventional" & type != "ghrank" ) stop( "wrong type of TD-rank curve plot" )
 
   xlab <- "rank"
@@ -15,7 +16,7 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
     if( nrow( tdr ) > 1 ) {
       stop( "Error! only one visual field to use here" )
     }
-    tdrval    <- as.numeric( tdr[,vfsettings$locini:ncol( tdr )] )
+    tdrval    <- as.numeric( tdr[,visualFields::vfsettings$locini:ncol( tdr )] )
     rank      <- c( 1:length( tdrval ) )
 # get reference
     evaltxt        <- paste( "vfenv$nv$", tdr$tpattern, "_", tdr$talgorithm, "$nvtdrank", sep = "" )
@@ -48,7 +49,7 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
       if( type == "conventional" ) {
         evaltxt <- paste( "vfenv$nv$", tdr$tpattern, "_", tdr$talgorithm, "$perctdrankadj7", sep = "" )
       } else{
-        evaltxt <- paste( "vfenv$nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrankadjgs", sep = "" )
+        evaltxt <- paste( "vfenv$nv$", tdr$tdr$tpattern, "_", tdr$tdr$talgorithm, "$perctdrankadjghr", sep = "" )
       }
     } else {
       if( type == "conventional" ) {
@@ -79,9 +80,9 @@ bebie <- function( tdr, type = "conventional", diff = TRUE, percentiles = TRUE,
 
   if( percentiles ){
     for( i in 1:( ncol( tdrperc ) - 1 ) ) {
-      lines( tdrperc[,i], col = rgb( red = vfenv$nv$pmapsettings$red[i], green = vfenv$nv$pmapsettings$green[i], blue = vfenv$nv$pmapsettings$blue[i] ), lwd = linewdt )
+      lines( tdrperc[,i], col = rgb( red = visualFields::vfenv$nv$pmapsettings$red[i], green = visualFields::vfenv$nv$pmapsettings$green[i], blue = visualFields::vfenv$nv$pmapsettings$blue[i] ), lwd = linewdt )
     }
-    lines( tdrperc[,ncol( tdrperc )], col = rgb( red = vfenv$nv$pmapsettings$red[nrow( vfenv$nv$pmapsettings )], green = vfenv$nv$pmapsettings$green[nrow( vfenv$nv$pmapsettings )], blue = vfenv$nv$pmapsettings$blue[nrow( vfenv$nv$pmapsettings )] ), lwd = linewdt )
+    lines( tdrperc[,ncol( tdrperc )], col = rgb( red = visualFields::vfenv$nv$pmapsettings$red[nrow( visualFields::vfenv$nv$pmapsettings )], green = visualFields::vfenv$nv$pmapsettings$green[nrow( visualFields::vfenv$nv$pmapsettings )], blue = visualFields::vfenv$nv$pmapsettings$blue[nrow( visualFields::vfenv$nv$pmapsettings )] ), lwd = linewdt )
   }
 
   points( rank, tdrval, xlim = xlim, ylim = ylim, pch = 1, cex = cex )

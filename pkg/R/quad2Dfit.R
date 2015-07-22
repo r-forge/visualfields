@@ -1,5 +1,5 @@
-quad2Dfit <- function( val, patternMap = saplocmap$p24d2,
-                       bspos = vfsettings$p24d2$bs ) {
+quad2Dfit <- function( val, patternMap = visualFields::saplocmap$p24d2,
+                       bspos = visualFields::vfsettings$p24d2$bs ) {
 # fit a 2D quadratic function using values in val as "observations" for the x and y coordinates in patternMap
 
   val           <- as.data.frame( val )

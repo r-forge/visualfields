@@ -6,9 +6,9 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
                             imparedVision = 10, rangeNormal = NULL,
-                            ffamily = "Helvetica", sizetxt = 12,
+                            ffamily = "serif", sizetxt = 12,
                             sizetxtSmall = 8,
-                            ffmailyvf = "Times", pointsize = 7,
+                            ffamilyvf = "serif", pointsize = 7,
                             outerSymbol = "circle", outerInch = 0.12,
                             innerSymbol = "circle", innerInch = outerInch / 1.9,
                             inch2axisunits = 12.528,
@@ -39,7 +39,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
 
 # get the conventional color scale
   if( colorMapType == "pval" & is.null( colorScale ) ) {
-    colorScale  <- vfenv$nv$pmapsettings
+    colorScale  <- visualFields::vfenv$nv$pmapsettings
   }
   if( colorMapType == "slope" & is.null( colorScale ) ) {
     colorScale         <- NULL
@@ -82,13 +82,13 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   if( plotType == "pd" ) vals  <- pdval( tdval( vf ) )
   pres <- poplr( vals, nperm = nperm, type = type, truncVal = truncVal, typecomb = typecomb )
 # remove blind spot
-  vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
+  vf     <- vf[,-( settings$bs + visualFields::vfsettings$locini - 1 )]
   locmap <- locmap[-settings$bs,]
 # init
-  vfinfo0 <- vf[1,1:( vfsettings$locini - 1 )]
-  vfinfo1 <- vf[1,1:( vfsettings$locini - 1 )]
+  vfinfo0 <- vf[1,1:( visualFields::vfsettings$locini - 1 )]
+  vfinfo1 <- vf[1,1:( visualFields::vfsettings$locini - 1 )]
   # get indices for averages
-  locvalsidx <- vfsettings$locini:( vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
+  locvalsidx <- visualFields::vfsettings$locini:( visualFields::vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
   idx0 <- c( 1:grp )
   idx1 <- c( ( nrow( vf ) - grp + 1 ):nrow( vf ) )
 ############################################################################
@@ -96,12 +96,12 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
 ############################################################################
 # Initialize to 1 
   nonSeenLocations <- NULL
-  nonSeenLocations[1:(ncol( vf )-vfsettings$locini+1)] <- 1
+  nonSeenLocations[1:(ncol( vf )-visualFields::vfsettings$locini+1)] <- 1
   # find locations where stimulus is not seen in all of the last n exams
   # mark these locations as 0 
   for(i in 1: length( idx1 ) )
   {  
-    nonSeenLocations[which( vf[idx1[i],vfsettings$locini:ncol( vf )] > 0 )] <- 0
+    nonSeenLocations[which( vf[idx1[i],visualFields::vfsettings$locini:ncol( vf )] > 0 )] <- 0
   }
   # get all indices of locations which are not seen
   idxNotSeen <- which( nonSeenLocations == 1 )
@@ -150,11 +150,9 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
       if( Sys.info()["sysname"] == "Darwin" ) {
         options( device = "quartz" )
         dev.new( width = pwidth, height = pheight, dpi = 85 )
-#        quartz( width = pwidth, height = pheight, dpi = 85 )
       } else {
         options( device = "x11" )
         dev.new( width = pwidth, height = pheight )
-#        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
       }
     } else{
       options( device = "windows" )
@@ -198,7 +196,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern = vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vf0[which( vf0 < 0 )] <- "<0"
   vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
-             txtfont = ffmailyvf, pointsize = pointsize,
+             txtfont = ffamilyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
              outerInch = outerInch, innerInch = innerInch,
@@ -209,7 +207,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   color <- vfgrayscale( vf1, vfinfo1$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vf1[which( vf1 < 0 )] <- "<0"
   vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo1$sbsx, vfinfo1$sbsy ), 
-             txtfont = ffmailyvf, pointsize = pointsize,
+             txtfont = ffamilyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
              outerInch = outerInch, innerInch = innerInch,
@@ -218,7 +216,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   par( new = TRUE )
   par( fig = c( 0.1461, 0.8539, 0.1400, 0.6315 ) )
   vfplot_poplr( pres$sl, pres$pval, pres$vfdata,
-                txtfont = ffmailyvf, pointsize = pointsize,
+                txtfont = ffamilyvf, pointsize = pointsize,
                 xminmax = xminmax, yminmax = yminmax,
                 outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                 outerInch = outerInchpoplr, innerInch = innerInchpoplr,
@@ -243,7 +241,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   if( !is.null( ringMapType ) ) {
     par( new = TRUE )
     par( fig = c( 0.82, 0.97, 0.27, 0.34 ) )
-    ringmapgraph( ncol = nrow( ringScale ), mapval = ringScale, txtfont = ffmailyvf, pointsize = pointsize,
+    ringmapgraph( ncol = nrow( ringScale ), mapval = ringScale, txtfont = ffamilyvf, pointsize = pointsize,
                   outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                   outerInch = outerInchpoplr, innerInch = innerInchpoplr,
                   outerBorderThickness = borderThickness, innerBorderThickness = borderThickness )
@@ -252,7 +250,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
   if( colorMapType == "slope" ) colorScale$cutoffs <- 10 * colorScale$cutoffs
   par( new = TRUE )
   par( fig = c( 0.82, 0.97, 0.21, 0.28 ) )
-  colormapgraph( ncol = 3, mapval = colorScale, notSeenAsBlack = TRUE, txtfont = ffmailyvf, pointsize = pointsize,
+  colormapgraph( ncol = 3, mapval = colorScale, notSeenAsBlack = TRUE, txtfont = ffamilyvf, pointsize = pointsize,
                  outerSymbol = outerSymbol, innerSymbol = innerSymbol,
                  outerInch = outerInchpoplr, innerInch = innerInchpoplr )
   par( opar )
@@ -382,7 +380,7 @@ vflayout_poplr <- function( vf, grp = 3, nperm = 5000,
 ######################################################
   seekViewport( "infobox3" )
   
-  text <- paste( "norm vals: ", vfenv$nv$nvname, sep = "" )
+  text <- paste( "norm vals: ", visualFields::vfenv$nv$nvname, sep = "" )
   text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
   text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
   grid.text( text, x = 0.50, y = 0.00, just = c( "center", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )

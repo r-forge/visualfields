@@ -18,7 +18,7 @@ poplr_pstat <- function( vf, porder, type = "slr", sl_test = NULL ) {
   age <- vf$sage
   evaltxt <- paste( "vfsettings$", vf$tpattern[1], "$bs", sep = "" )
   bs <- eval( parse( text = evaltxt ) )
-  vf <- vf[,vfsettings$locini:ncol( vf )]
+  vf <- vf[,visualFields::vfsettings$locini:ncol( vf )]
   vf <- vf[,-bs]
   vf <- as.matrix( vf )
 # number of permutations, locations, and tests

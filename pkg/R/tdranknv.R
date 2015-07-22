@@ -1,4 +1,4 @@
-tdranknv <- function( td ) {
+tdranknv <- function( td, smooth = TRUE, smoothFunction = tdrankglm ) {
 # gets mean and standard deviation for TD rank curve
 
 # from a set of visual fields it fits lines to characterize age effect on the visual-field sensitivities
@@ -15,9 +15,12 @@ tdranknv <- function( td ) {
   }
 
 # get settings for the pattern of test locations
-  locini   <- vfsettings$locini
+  locini   <- visualFields::vfsettings$locini
   texteval <- paste( "vfsettings$", td$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
+
+# position (column number) of the blind spot in the VF object
+  bspos <- settings$bs + locini - 1
 
 # get weights based on number of visits per subject
   idu <- NULL
@@ -37,6 +40,9 @@ tdranknv <- function( td ) {
   for( i in 1:ncol( tdr ) ) {
     nvtdr$mtdr[i] <- weighted.mean( tdr[,i], w = idweight )
     nvtdr$stdr[i] <- wtd.var( tdr[,i], weights = idweight, normwt = TRUE )
+  }
+  if( smooth ) {
+    nvtdr$mtdr <- smoothFunction( nvtdr$mtdr )$val
   }
   return( as.data.frame( nvtdr ) )
 }

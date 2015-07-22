@@ -96,18 +96,31 @@ loadvfxml <- function( filename, patternMap, typeData = "vf", typeSubject = "pwg
     xmlvals <- xmldevval( xmllines, typeData = "pdp", patternMap = patternMap )
     xmlobject <- cbind( xmlobject, xmlvals )
   } else if( typeData == "gip" )  {
+    group   <- c( 4, 3, 2, 1, 0 )
+    cutoffs <- c( 0.5, 1, 2, 5, 95 )
     xmlobject$msens <- NA
     xmlobject$ssens <- NA
     xmlobject$mtdev <- xmlitem( "MD_PROBABILITY", xmllines )
+    # map probability categories from HFA XML to visualFields
+    xmlobject$mtdev <- cutoffs[which( group == xmlobject$mtdev )]
     xmlobject$stdev <- NA
     xmlobject$mpdev <- NA
     xmlobject$spdev <- xmlitem( "PSD_PROBABILITY", xmllines )
+    # map probability categories from HFA XML to visualFields
+    xmlobject$spdev <- cutoffs[which( group == xmlobject$spdev )]
   } else if( typeData == "vfip" ) {
     xmlobject$mvfi <- NA
     xmlobject$svfi <- NA
   } else {
     stop("wrong data type to load")
   }
+
+  # format data: test dates and lapse times
+  xmlobject$tdate     <- as.Date( xmlobject$tdate )
+  #xmlobject$sduration <- substr( xmlobject$sduration, 4, 8 )
+  #xmlobject$spause    <- substr( xmlobject$spause, 4, 8 )
+  # format data: numeric values
+  xmlobject$sbsy      <- as.numeric( xmlobject$sbsy )
 
   return( xmlobject )
 

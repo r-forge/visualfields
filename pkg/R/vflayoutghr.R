@@ -1,16 +1,22 @@
-vflayout <- function( vf, pwidth = 8.27,
-                      pheight = 11.69, margin = 0.25,
-                      filename = NULL,
-                      ffamily = "serif", sizetxt = 12,
-                      sizetxtSmall = 8, ffamilyvf = "serif",
-                      pointsize = 5,
-                      outerSymbol = "circle", outerInch = 0.13,
-                      innerSymbol = "circle", innerInch = outerInch / 1.9,
-                      lengthLines = 0, thicknessLines = 0 ) {
+vflayoutghr <- function( vf, pwidth = 8.27, pheight = 11.69, margin = 0.25,
+                      filename = NULL ) {
 
   if( nrow( vf ) > 1 ) {
     stop("Error! vf cannot have more than 1 rows")
   }
+  
+  ffamily        <- "serif"
+  sizetxt        <- 12
+  sizetxtSmall   <- 8
+  ffamilyvf      <- "serif"
+  pointsize      <- 7
+  outerSymbol    <- "circle"
+  outerInch      <- 0.13
+  innerSymbol    <- "circle"
+  innerInch      <- outerInch / 1.9
+  inch2axisunits <- 12.528
+  lengthLines    <- 1.35 * 2 * outerInch * inch2axisunits
+  thicknessLines <- 1.5
 
 # open window wiht A4 page
   if( is.null( filename ) ) {
@@ -43,38 +49,17 @@ vflayout <- function( vf, pwidth = 8.27,
 # first plot all graphs
 ######################################################
   if( vf$tpattern == "p24d2" ) {
-    xminmax     <- 30
-    yminmax     <- 30
+    xminmax <- 29
+    yminmax <- 29
   } else if( vf$tpattern == "p30d2" ) {
-    xminmax     <- 30
-    yminmax     <- 30
+    xminmax <- 29
+    yminmax <- 29    
   } else if( vf$tpattern == "p10d2" ) {
-    xminmax     <- 10
-    yminmax     <- 10
-  } else if( vf$tpattern == "p30d1" ) {
-    xminmax     <- 10
-    yminmax     <- 10
-  } else if( vf$tpattern == "p24d2v" ) {
-    xminmax     <- 30
-    yminmax     <- 30
-  } else if( vf$tpattern == "p30d2v" ) {
-    xminmax     <- 30
-    yminmax     <- 30
-  } else if( vf$tpattern == "p10d2v" ) {
-    xminmax     <- 10
-    yminmax     <- 10
-  } else if( vf$tpattern == "p30d1v" ) {
-    xminmax     <- 10
-    yminmax     <- 10
+    xminmax <- 10
+    yminmax <- 10
   } else if( vf$tpattern == "sgrnfl" ) {
-    xminmax     <- 30
-    yminmax     <- 30
-  } else if( vf$tpattern == "p24d2csp" ) {
-    xminmax     <- 30
-    yminmax     <- 30
-  } else if( vf$tpattern == "p24d2SB" ) {
-    xminmax     <- 30
-    yminmax     <- 30
+    xminmax <- 29
+    yminmax <- 29
   } else {
     xminmax <- 100
     yminmax <- 100
@@ -98,7 +83,7 @@ vflayout <- function( vf, pwidth = 8.27,
 # pattern-deviation plot
   par( new = TRUE )
   par( fig = c( 0.3869, 0.9915, 0.0060, 0.4337 ) )
-  vfplot( vf, plotType = "pd", txtfont = ffamilyvf, pointsize = pointsize,
+  vfplot( vf, plotType = "pdghr", txtfont = ffamilyvf, pointsize = pointsize,
           xminmax = xminmax, yminmax = yminmax,
           outerSymbol = outerSymbol, innerSymbol = innerSymbol,
           outerInch = outerInch, innerInch = innerInch,
@@ -114,7 +99,8 @@ vflayout <- function( vf, pwidth = 8.27,
   par( new = TRUE )
   par( fig = c( 0.007, 0.4039, 0.05, 0.2891 ) )
   par( mar = c( 3.25, 4.2, 0.5, 0.5 ) )
-  bebie( tdrank( tdval( vf ) ), txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
+  tdr <- ghranktd( tdval( vf ) )
+  bebie( tdr, type = "ghrank", txtfont = ffamily, pointsize = sizetxt, cex = 0.75 )
 # color-code map
   par( new = TRUE )
   par( fig = c( 0.03, 0.3869, 0.015, 0.060 ) )
@@ -153,7 +139,7 @@ vflayout <- function( vf, pwidth = 8.27,
   seekViewport( "mainInfo" )
   text <- vf$tperimetry
   if( text == "sap" ) {
-    text = "Static Automated Perimetry."
+    text = "Standard Automatic Perimetry."
   } else if( text == "fdp" ) {
     text = "Frequency-doubling Perimetry."
   } else if( text == "csp" ) {
@@ -196,26 +182,11 @@ vflayout <- function( vf, pwidth = 8.27,
     textpattern <- "Central 30-2"
   } else if( vf$tpattern == "p10d2" ) {
     textpattern <- "Central 10-2"
-  } else if( vf$tpattern == "p24d2v" ) {
-    textpattern <- "Central 24-2, size V"
-  } else if( vf$tpattern == "p30d2v" ) {
-    textpattern <- "Central 30-2, size V"
-  } else if( vf$tpattern == "p10d2v" ) {
-    textpattern <- "Central 10-2, size V"
-  } else if( vf$tpattern == "p30d1" ) {
-    textpattern <- "Central 30-1"
-  } else if( vf$tpattern == "p30d1v" ) {
-    textpattern <- "Central 30-1, size V"
   } else if( vf$tpattern == "sgrnfl" ) {
     textpattern <- "CSP-SG-RNFL-57"
-  } else if( vf$tpattern == "p24d2csp" ) {
-    textpattern <- "Central 24-2"  
-  } else if( vf$tpattern == "p24d2SB" ) {
-    textpattern <- "Central 24-2"
   } else {
     textpattern <- "Unknown"
   }
-  
   # algorithm
   if( vf$talgorithm == "sitas" ) {
     textalgorithm <- "SITA standard"
@@ -251,12 +222,10 @@ vflayout <- function( vf, pwidth = 8.27,
   if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
   text <- paste( "Date:", format( vf$tdate, "%m/%d/%Y" ), "at", timetxt, sep = " " )
 # duration and pause of test
-  timetxt         <- substr( vf$sduration, 4, nchar( vf$sduration ) )
-  if( timetxt != "59:59" ) {
-    if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
-    text <- paste( text, paste( "Duration: ", timetxt, sep = " " ), sep = "\n" )
-  }
-  timetxt         <- substr( vf$spause, 4, nchar( vf$sduration ) )
+  timetxt         <- substr( vf$sduration, 3, nchar( vf$sduration ) )
+  if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
+  text <- paste( text, paste( "Duration: ", timetxt, sep = " " ), sep = "\n" )
+  timetxt         <- substr( vf$spause, 3, nchar( vf$sduration ) )
   if( timetxt != "59:59" ) {
     if( substr( timetxt, 1, 1 ) == "0" ) substr( timetxt, 1, 1 ) <- ""
     text <- paste( text, paste( ", pause: ", timetxt, sep = "" ), sep = "" )
@@ -269,9 +238,9 @@ vflayout <- function( vf, pwidth = 8.27,
 ######################################################
   seekViewport( "infotest1" )
 
-  text <- "false positives"
+  text <- "fixation losses"
+  text <- paste( text, "false positives", sep = "\n" )
   text <- paste( text, "false negatives", sep = "\n" )
-  text <- paste( text, "fixation losses", sep = "\n" )
   grid.text( text, x = 0.00, y = 1.00, just = c( "left", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 
   seekViewport( "infotest2" )
@@ -289,16 +258,16 @@ vflayout <- function( vf, pwidth = 8.27,
 # visual-field results
 ######################################################
   vfs  <- vfstats( vf )
-  vfsp <- vfstatspmap( vfs )
   vfi  <- vfindex( vf )
+  vfsp <- vfstatspmap( vfs )
   vfip <- vfindexpmap( vfi )
 # general-height difference, if the used normative values have one.
   texteval <- paste( "vfenv$nv$", vf$tpattern, "_", vf$talgorithm, "$nvtdrank$mtdr", sep = "" )
   tdr <- NULL
   tdr <- eval( parse( text = texteval ) )
   if( !is.null( tdr ) ) {
-    gh <- ghpostd( tdval( vf ) )
-    gh <- paste( sprintf( "%.1f", round( 10 * gh ) / 10 ), "dB", sep = " " )
+    ghd <- ghranktd( tdval( vf ) )$gh
+    ghd <- paste( sprintf( "%.1f", round( 10 * ghd ) / 10 ), "dB", sep = " " )
   }
 
   ms  <- paste( sprintf( "%.1f", round( 10 * vfs$msens ) / 10 ), "dB", sep = " " )
@@ -313,7 +282,7 @@ vflayout <- function( vf, pwidth = 8.27,
   text <- paste( text, "PSD", sep = "\n" )
   text <- paste( text, "VFI", sep = "\n" )
   if( !is.null( tdr ) ) {
-    text <- paste( text, "GH", sep = "\n" )
+    text <- paste( text, "GHD", sep = "\n" )
   }
   grid.text( text, x = 0.00, y = 1.00, just = c( "left", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 
@@ -324,7 +293,7 @@ vflayout <- function( vf, pwidth = 8.27,
   text <- paste( text, psd, sep = "\n" )
   text <- paste( text, vfi, sep = "\n" )
   if( !is.null( tdr ) ) {
-    text <- paste( text, gh, sep = "\n" )
+    text <- paste( text, ghd, sep = "\n" )
   }
   grid.text( text, x = 1.00, y = 1.00, just = c( "right", "top" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxt ) )
 

@@ -1,4 +1,4 @@
-pdpmap <- function( pd ) {
+pdpmapghr <- function( pd ) {
 # gets the probability score from the current normative value reference.
 
 # init
@@ -15,7 +15,7 @@ pdpmap <- function( pd ) {
     texteval <- paste( "vfsettings$", pdp$tpattern[i], "$locnum", sep = "" )
     locnum <- eval( parse( text = texteval ) )
 # get the reference values for the PD map...
-    texteval <- paste( "vfenv$nv$", pdp$tpattern[i], "_", pdp$talgorithm[i], "$PDpercloc", sep = "" )
+    texteval <- paste( "vfenv$nv$", pdp$tpattern[i], "_", pdp$talgorithm[i], "$PDGHRpercloc", sep = "" )
     pdco <- eval( parse( text = texteval ) )
 # init PD probability maps
     pdp[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] <- NA

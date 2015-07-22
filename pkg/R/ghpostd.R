@@ -21,7 +21,7 @@ ghpostd <- function( td, correction = FALSE, rankRef = c( "default" ) ) {
 # get TD values in a list and remove blind spot
   tdr <- tdrank( td )
 # rankRef-th largest TD value
-  gh <- as.numeric( tdr[vfsettings$locini + rankRef - 1] )
+  gh <- as.numeric( tdr[visualFields::vfsettings$locini + rankRef - 1] )
   if( correction ) {
     texteval <- paste( "vfenv$nv$", td$tpattern, "_", td$talgorithm, "$nvtdrank$mtdr", sep = "" )
     tdrref  <- eval( parse( text = texteval ) )

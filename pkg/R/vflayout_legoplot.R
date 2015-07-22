@@ -1,8 +1,8 @@
 vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
                                margin = 0.25, filename = NULL,
-                               ffamily = "Helvetica", sizetxt = 12,
+                               ffamily = "serif", sizetxt = 12,
                                sizetxtSmall = 8,
-                               ffmailyvf = "Times", pointsize = 6,
+                               ffamilyvf = "serif", pointsize = 6,
                                txtcolorlego = "red", pointsizelego = 16,
                                outerSymbol = "circle", outerInch = 0.12,
                                innerSymbol = "circle", innerInch = outerInch / 1.9,
@@ -33,8 +33,8 @@ vflayout_legoplot <- function( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
 # get TD and PD values
   td  <- tdval( vf )
 # remove blind spot
-  vf     <- vf[,-( settings$bs + vfsettings$locini - 1 )]
-  td     <- td[,-( settings$bs + vfsettings$locini - 1 )]
+  vf     <- vf[,-( settings$bs + visualFields::vfsettings$locini - 1 )]
+  td     <- td[,-( settings$bs + visualFields::vfsettings$locini - 1 )]
   locmap <- locmap[-settings$bs,]
 # add color for the text of the legoplots
 txtcolorlego <- t( matrix( rep( col2rgb( txtcolorlego ) / 255, nrow( locmap ) ), 3, nrow( locmap ) ) )
@@ -44,10 +44,10 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
 # Analysis
 ######################
 # init
-  vfinfo0 <- vf[1,1:( vfsettings$locini - 1 )]
-  vfinfo1 <- vf[1,1:( vfsettings$locini - 1 )]
+  vfinfo0 <- vf[1,1:( visualFields::vfsettings$locini - 1 )]
+  vfinfo1 <- vf[1,1:( visualFields::vfsettings$locini - 1 )]
 # get indices for averages
-  locvalsidx <- vfsettings$locini:( vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
+  locvalsidx <- visualFields::vfsettings$locini:( visualFields::vfsettings$locini + settings$locnum - length( settings$bs ) - 1 )
   idx0 <- c( 1:grp )
   idx1 <- c( ( nrow( vf ) - grp + 1 ):nrow( vf ) )
 # get averages
@@ -69,16 +69,13 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
       if( Sys.info()["sysname"] == "Darwin" ) {
         options( device = "quartz" )
         dev.new( width = pwidth, height = pheight, dpi = 85 )
-#        quartz( width = pwidth, height = pheight, dpi = 85 )
       } else {
         options( device = "x11" )
         dev.new( width = pwidth, height = pheight )
-#        x11( xpos = 0, ypos = 0, width = pwidth, height = pheight )
       }
     } else{
       options( device = "windows" )
       dev.new( width = pwidth, height = pheight, rescale = "fixed" )
-#      windows( xpos = 0, ypos = 0, width = pwidth, height = pheight, rescale = "fixed" )
     }
     options( device = device )
   } else {
@@ -117,7 +114,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
   color1 <- vfgrayscale( vf1, vfinfo1$sage, pattern = vfinfo1$tpattern, algorithm = vfinfo1$talgorithm )
   par( fig = c( 0.5000, 0.985, 0.5833, 0.9200 ) )
   vfplotloc( vf1 - vf0, eye = vfinfo0$seye, patternMap = locmap, outerColor = color0, innerColor = color1, axesCol = "white",
-             txtfont = ffmailyvf, pointsize = pointsizelego, txtcolor = txtcolorlego,
+             txtfont = ffamilyvf, pointsize = pointsizelego, txtcolor = txtcolorlego,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbollego, innerSymbol = innerSymbollego,
              outerInch = outerInchlego, innerInch = innerInchlego,
@@ -128,7 +125,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
   color <- vfgrayscale( vf0, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vf0[which( vf0 < 0 )] <- "<0"
   vfplotloc( vf0, eye = vfinfo0$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
-             txtfont = ffmailyvf, pointsize = pointsize,
+             txtfont = ffamilyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
              outerInch = outerInch, innerInch = innerInch,
@@ -139,7 +136,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
   color <- vfgrayscale( vf1, vfinfo0$sage, pattern =  vfinfo0$tpattern, algorithm = vfinfo0$talgorithm )
   vf1[which( vf1 < 0 ) ] <- "<0"
   vfplotloc( vf1, eye = vfinfo1$seye, patternMap = locmap , outerColor = color, bs = c( vfinfo0$sbsx, vfinfo0$sbsy ), 
-             txtfont = ffmailyvf, pointsize = pointsize,
+             txtfont = ffamilyvf, pointsize = pointsize,
              xminmax = xminmax, yminmax = yminmax,
              outerSymbol = outerSymbol, innerSymbol = innerSymbol,
              outerInch = outerInch, innerInch = innerInch,
@@ -271,7 +268,7 @@ names( txtcolorlego ) <- c( "red", "green", "blue" )
 ######################################################
   seekViewport( "infobox3" )
 
-  text <- paste( "norm vals: ", vfenv$nv$nvname, sep = "" )
+  text <- paste( "norm vals: ", visualFields::vfenv$nv$nvname, sep = "" )
   text <- paste( text, substr( packageDescription( "visualFields" )$Date, 1, 4 ), sep = "\n" )
   text <- paste( text, "visualFields", packageDescription( "visualFields" )$Version, sep = " " )
   grid.text( text, x = 0.50, y = 0.00, just = c( "center", "bottom" ), gp = gpar( fontfamily = ffamily, fontsize = sizetxtSmall ) )

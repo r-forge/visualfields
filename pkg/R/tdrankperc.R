@@ -1,5 +1,4 @@
-tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
-                        type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ) ) {
+tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ), type = c( "quantile", "(i-1)/(n-1)", "i/(n+1)", "i/n" ), smooth = TRUE, smoothFunction = tdrankglm ) {
 # gets percentiles for TD rank curve. TDs should come from control subjects from a
 # set of visual fields it fits lines to characterize age effect on the visual-field
 # sensitivities. For this function all visual fields should correspond to the
@@ -15,7 +14,7 @@ tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
   }
 
 # get settings for the pattern of test locations
-  locini   <- vfsettings$locini
+  locini   <- visualFields::vfsettings$locini
   texteval <- paste( "vfsettings$", td$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
 
@@ -49,9 +48,7 @@ tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
   }
   tdrper  <- as.data.frame( tdrper )
 # remove the number of locations corresponding to blind spots (which are not to be analyzed)
-  lenbs <- 0
-  if( all( !is.na( settings$bs ) ) ) lenbs <- length( settings$bs )
-  tdrper   <- tdrper[1:( nrow( tdrper ) - lenbs ),]
+  tdrper   <- tdrper[1:( nrow( tdrper ) - length( settings$bs ) ),]
 
   tdr <- tdrank( td )
   k <- 0
@@ -61,5 +58,10 @@ tdrankperc <- function( td, percentiles = c( 0.5, 1, 2, 5, 95 ),
                                    normwt = TRUE )
   }
   
+  if( smooth ) {
+    for( i in 1:ncol( tdrper ))
+    tdrper[,i] <- smoothFunction( tdrper[,i] )$val
+  }
+
   return( tdrper )
 }

@@ -1,4 +1,4 @@
-colormapgraph <- function( ncol = 3, mapval = vfenv$nv$pmapsettings, notSeenAsBlack = TRUE, txtfont = "mono", pointsize = 7,
+colormapgraph <- function( ncol = 3, mapval = visualFields::vfenv$nv$pmapsettings, notSeenAsBlack = TRUE, txtfont = "mono", pointsize = 7,
                            outerSymbol = "circles", innerSymbol = "circles",
                            outerSize = 1, innerSize = 1,
                            outerInch = 0.2, innerInch = 0.1 ) {

@@ -83,16 +83,13 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
       if( Sys.info()["sysname"] == "Darwin" ) {
         options( device = "quartz" )
         dev.new( width = width, height = height, dpi = 85 )
-        #        quartz( width = width, height = height, dpi = 85 )
       } else {
         options( device = "x11" )
         dev.new( width = width, height = height )
-        #        x11( xpos = 0, ypos = 0, width = width, height = height )
       }
     } else{
       options( device = "windows" )
       dev.new( width = width, height = height, rescale = "fixed" )
-      #      windows( xpos = 0, ypos = 0, width = width, height = height, rescale = "fixed" )
     }
     options( device = device )
   }
@@ -100,13 +97,13 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
 # init all color values to white
   pval <- 100 * pval
   pvalc <- rep( c( 100 ), length( pval ) )
-  pvalc[which( pval <= vfenv$nv$pmapsettings$cutoffs[1] )] <- vfenv$nv$pmapsettings$cutoffs[1]
-  for( i in 2:( length( vfenv$nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > vfenv$nv$pmapsettings$cutoffs[i-1] & pval <= vfenv$nv$pmapsettings$cutoffs[i] )] <- vfenv$nv$pmapsettings$cutoffs[i]
+  pvalc[which( pval <= visualFields::vfenv$nv$pmapsettings$cutoffs[1] )] <- visualFields::vfenv$nv$pmapsettings$cutoffs[1]
+  for( i in 2:( length( visualFields::vfenv$nv$pmapsettings$cutoffs ) - 1) ) pvalc[which( pval > visualFields::vfenv$nv$pmapsettings$cutoffs[i-1] & pval <= visualFields::vfenv$nv$pmapsettings$cutoffs[i] )] <- visualFields::vfenv$nv$pmapsettings$cutoffs[i]
 
 # get the conventional color scale
   if( colorMapType == "pval" ) {
     if( is.null( colorScale ) ) {
-      colorScale  <- vfenv$nv$pmapsettings
+      colorScale  <- visualFields::vfenv$nv$pmapsettings
     }
     valForMapping <- pvalc
   }
@@ -141,7 +138,7 @@ vfplot_poplr <- function( sl, pval, vfinfo, newWindow = FALSE, txtfont = "mono",
       colorScale         <- as.data.frame( colorScale )
     }
 # calculate years to blindness
-    sens                     <- as.numeric( vfinfo[vfsettings$locini:ncol( vfinfo ) ] )
+    sens                     <- as.numeric( vfinfo[visualFields::vfsettings$locini:ncol( vfinfo ) ] )
     sens[idxNotSeen]         <- 0
     yearstoblind             <- NULL
     yearstoblind             <- ( sens - imparedVision ) / -sl

@@ -1,5 +1,5 @@
 getnv <- function(  ) {
 
-  return( vfenv$nv )
+  return( visualFields::vfenv$nv )
 
 }

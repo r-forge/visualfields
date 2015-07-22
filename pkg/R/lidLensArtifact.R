@@ -8,7 +8,7 @@ lidLensArtifact <- function( vf, min_dB = c( 12 ) ) {
 # remove blind-spot data
     texteval <- paste( "vfsettings$", vf$tpattern[i], "$bs", sep = "" )
     bs <- eval( parse( text = texteval ) )
-    vf2 <- vf[i,vfsettings$locini:ncol( vf )]
+    vf2 <- vf[i,visualFields::vfsettings$locini:ncol( vf )]
     vf2 <- vf2[,-bs]
     if( length( which( vf2 <= min_dB ) ) >= 1 ) {
       k <- k + 1

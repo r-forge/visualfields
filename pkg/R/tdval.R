@@ -13,11 +13,11 @@ tdval <- function( vf ) {
     texteval <- paste( "vfenv$nv$", td$tpattern[i], "_", td$talgorithm[i], "$agelm", sep = "" )
     agelm <- eval( parse( text = texteval ) )
 # calculate total-deviation values
-    td[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] <- td[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] - ( agelm$intercept + agelm$slope * td$sage[i] )
+    td[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] <- td[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] - ( agelm$intercept + agelm$slope * td$sage[i] )
   }
 
 # Fill with NA the blind-spot sensitivities
-  if( all( !is.na( bspos ) ) ) td[,bspos + vfsettings$locini - 1] <- NA 
+  if( all( !is.na( bspos ) ) ) td[,bspos + visualFields::vfsettings$locini - 1] <- NA 
 
   return( td )
 }

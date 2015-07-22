@@ -6,7 +6,7 @@ vfstats <- function( vf ) {
   numstatindices <- 6 # change if more are to be included here
 
 # init objects
-  vfs    <- vf[,1:( vfsettings$locini-1 )]
+  vfs    <- vf[,1:( visualFields::vfsettings$locini-1 )]
   vfsaux <- NULL
 
 # get TD and PD values
@@ -25,9 +25,9 @@ vfstats <- function( vf ) {
     texteval <- paste( "vfenv$nv$", td$tpattern[i], "_", td$talgorithm[i], "$sds", sep = "" )
     wgt <- 1 / eval( parse( text = texteval ) )
 # senect sensitivity, TD and PD values for the visual field in this iteration
-    vf_iter <- as.numeric(vf[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    td_iter <- as.numeric(td[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    pd_iter <- as.numeric(pd[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
+    vf_iter <- as.numeric(vf[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    td_iter <- as.numeric(td[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    pd_iter <- as.numeric(pd[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
 # remove BS from everywhere
     if( all( !is.na( bs ) ) ) {
       wgt     <- wgt[-bs,]
@@ -47,7 +47,7 @@ vfstats <- function( vf ) {
   }
   
   vfsaux <- as.data.frame( vfsaux )
-  vfs[,vfsettings$locini:( vfsettings$locini - 1 + numstatindices )] <- vfsaux
+  vfs[,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + numstatindices )] <- vfsaux
 
   return( vfs )
 

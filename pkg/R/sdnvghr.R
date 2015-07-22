@@ -1,8 +1,7 @@
-ageLinearModel <- function( vf, smooth = TRUE, smoothFunction = quad2Dfit ) {
+sdnvghr <- function( vf, smooth = TRUE, smoothFunction = quad2Dfit ) {
 
-  agelm <- NULL
+  sds <- NULL
 
-# from a set of visual fields it fits lines to characterize age effect on the visual-field sensitivities
 # For this function all visual fields should correspond to the same device, algorithm, and pattern of
 # test locations. If not, stop!!!
   if( length( unique( vf$tperimetry ) ) > 1 ) {
@@ -15,7 +14,7 @@ ageLinearModel <- function( vf, smooth = TRUE, smoothFunction = quad2Dfit ) {
     stop("mixing different patterns of locations")
   }
 
-# get settings for the pattern of test locations
+  # get settings for the pattern of test locations
   locini   <- visualFields::vfsettings$locini
   texteval <- paste( "vfsettings$", vf$tpattern[1], sep = "" )
   settings <- eval( parse( text = texteval ) )
@@ -34,28 +33,24 @@ ageLinearModel <- function( vf, smooth = TRUE, smoothFunction = quad2Dfit ) {
     idweight[i] <- idu$weight[which( idu$id == vf$id[i] )]
   }
 
-# get linear regressions per location weighted per subject number of visits
-  k <- 0
-  for( i in locini:( locini - 1 + settings$locnum ) ) {
-    k <- k + 1
-    if( !( i %in% bspos ) ){
-      coeff <- lm( vf[,i] ~ vf$sage, weights = idweight )$coefficients
-      agelm$intercept[k] <- coeff[1]
-      agelm$slope[k]     <- coeff[2]    
-    } else {
-      agelm$intercept[k] <- NA
-      agelm$slope[k]     <- NA
-    }
-  }
-  if( smooth ) {
-# get x and y locations
-    texteval <- paste( vf$tperimetry[1], "locmap$",  vf$tpattern[1], sep = "" )
-    locmap   <- eval( parse( text = texteval ) )
-# 2D quadratic fit for intercept
-    agelm$intercept <- smoothFunction( agelm$intercept, patternMap = locmap, bspos = settings$bs )
-# 2D quadratic fit for slope
-    agelm$slope     <- smoothFunction( agelm$slope, patternMap = locmap, bspos = settings$bs )
+# get td and pd values
+  td   <- tdval( vf )
+  pdghr <- pdvalghr( td )
+
+# I don't know why R doesn't have a way to compute the variances per column (that
+# I could find) of a data frame so we have to do a very inneficient loop here
+  for( i in 1:settings$locnum ) {
+    sds[i] <- sqrt( wtd.var( pdghr[,i + locini - 1], weights = idweight, normwt = TRUE ) )
   }
 
-  return( as.data.frame( agelm ) )
+  sds[settings$bs]   <- NA
+
+  if( smooth ) {
+# get x and y locations
+    texteval <- paste( vf$tperimetry[1], "locmap$", vf$tpattern[1], sep = "" )
+    locmap   <- eval( parse( text = texteval ) )
+    sds <- smoothFunction( sds, patternMap = locmap, bspos = settings$bs )
+  }
+
+  return( sds )
 }

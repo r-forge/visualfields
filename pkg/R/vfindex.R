@@ -1,4 +1,4 @@
-vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
+vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = visualFields::vfidefault ) {
 # calculates the vfi. It is flexible enought to change the weithgs, weighting regions,
 # the cutoff value for MD and, even, the percentile to look at whether the 85th TD
 # percentile is within normal limits or not. It returns the mean AND the SD of vfi
@@ -7,7 +7,7 @@ vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
   numstatindices <- 2 # change if more are to be included here
 
 # init
-  vfi    <- vf[,1:( vfsettings$locini-1 )]
+  vfi    <- vf[,1:( visualFields::vfsettings$locini-1 )]
   vfiaux <- NULL
 # calculate TD and PD maps
   td <- tdval( vf )
@@ -42,11 +42,11 @@ vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
     }
 # get sensitivities, td and pd values, and td and pd probability maps for the vf
 # of this iteration
-    vf_iter  <- as.numeric(vf[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    td_iter  <- as.numeric(td[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    pd_iter  <- as.numeric(pd[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    tdp_iter <- as.numeric(tdp[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
-    pdp_iter <- as.numeric(pdp[i,vfsettings$locini:( vfsettings$locini - 1 + locnum )] )
+    vf_iter  <- as.numeric(vf[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    td_iter  <- as.numeric(td[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    pd_iter  <- as.numeric(pd[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    tdp_iter <- as.numeric(tdp[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
+    pdp_iter <- as.numeric(pdp[i,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + locnum )] )
 # remove blind spot from everywhere
     if( all( !is.na( bs ) ) ) {
       vf_iter  <- vf_iter[-bs]
@@ -83,7 +83,7 @@ vfindex <- function( vf, td2pdcutoff = -20, perc = 5, vfiset = vfidefault ) {
   }
 
   vfiaux <- as.data.frame( vfiaux )
-  vfi[,vfsettings$locini:( vfsettings$locini - 1 + numstatindices )] <- vfiaux
+  vfi[,visualFields::vfsettings$locini:( visualFields::vfsettings$locini - 1 + numstatindices )] <- vfiaux
 
   return( vfi )
 }
