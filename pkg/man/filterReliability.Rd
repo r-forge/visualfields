@@ -18,4 +18,4 @@ returns a list of visual fields that did not pass the reliability criteria
 #idx <- filterReliability( vf )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

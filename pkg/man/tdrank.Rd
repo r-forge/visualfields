@@ -15,4 +15,4 @@ td <- tdval( vf91016right )
 tdr <- tdrank( td  )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

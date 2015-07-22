@@ -30,8 +30,8 @@ bebie( tdr )
 # "ghrank" type of "Bebie" rank TD curve
 td  <- tdval( vf91016right[15,] )
 tdr <- tdrank( td )
-#################################################ghr <- ghranktd( td )
-#################################################bebie( ghr, type = "ghrank" )
+ghr <- ghranktd( td )
+bebie( ghr, type = "ghrank" )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

@@ -24,4 +24,4 @@ percentiles for global indices
 # gperc <- gloper()
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

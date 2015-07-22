@@ -16,4 +16,4 @@ SUNY-IU control data for static automated perimetry 10-2 SITA Standard
 
 \keyword{datasets}
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, William H Swanson, Harry J Wyatt, Mitchell W Dul}
+\author{Ivan Marin-Franch, William H Swanson, Harry J Wyatt, Mitchell W Dul}

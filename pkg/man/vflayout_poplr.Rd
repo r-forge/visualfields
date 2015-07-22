@@ -10,9 +10,9 @@
                             colorMapType = "pval", colorScale = NULL,
                             ringMapType  = NULL,  ringScale  = NULL,
                             imparedVision = 10, rangeNormal = NULL,
-                            ffamily = "Helvetica", sizetxt = 12,
+                            ffamily = "serif", sizetxt = 12,
                             sizetxtSmall = 8,
-                            ffmailyvf = "Times", pointsize = 7,
+                            ffamilyvf = "serif", pointsize = 7,
                             outerSymbol = "circle", outerInch = 0.12,
                             innerSymbol = "circle", innerInch = outerInch / 1.9,
                             inch2axisunits = 12.528,
@@ -41,7 +41,7 @@
   \item{ffamily}{Family font for the text in the from. Default is \code{"Helvetica"}}
   \item{sizetxt}{Text size for main text in the form. Default is \code{12}}
   \item{sizetxtSmall}{Text size for details in the form. Default is \code{8}}
-  \item{ffmailyvf}{Font family for text in lego plots. Default is \code{"Times"}}
+  \item{ffamilyvf}{Font family for text in lego plots. Default is \code{"Times"}}
   \item{pointsize}{Point size for text in lego plots. Default is \code{7}}
   \item{outerSymbol}{Type of outer symbol. Default is \code{"circle"}}
   \item{outerInch}{Inches of outer symbol. Default is \code{0.12}}
@@ -66,4 +66,4 @@
 #vflayout_poplr( vf91016right )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, Chaitanya Khadilkar}
+\author{Ivan Marin-Franch, Chaitanya Khadilkar}

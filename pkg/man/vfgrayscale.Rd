@@ -20,4 +20,4 @@
 #vfgrayscale( sens )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

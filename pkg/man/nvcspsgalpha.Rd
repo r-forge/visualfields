@@ -19,4 +19,4 @@ Normative reference values or (normative values or nv for short) for Contrast Se
 
 \seealso{\code{\link{nvsapdefault}}}
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>, William H Swanson}
+\author{Ivan Marin-Franch, William H Swanson}

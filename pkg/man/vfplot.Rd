@@ -3,12 +3,12 @@
 \title{visual field plot}
 \description{plots location-specific sensitivity thresholds, or TD or PD values at each location of the visual field with the corresponding color code for the probability map}
 \usage{vfplot( vf, plotType, notSeenAsBlack = TRUE, newWindow = FALSE,
-        txtfont = "Helvetica", pointsize = 7, width = 6,
+        txtfont = "serif", pointsize = 7, width = 6,
         xminmax = 29, yminmax = 29,
         outerSymbol = "circles", innerSymbol = "circles",
         outerSize = 1, innerSize = 1,
         outerInch = 0.14, innerInch = 0.08,
-        lengthLines = 0, thicknessLines = 0 )}
+        lengthLines = 4.25, thicknessLines = 2 )}
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds, or TD or PD values}
   \item{plotType}{Type of plot to show. It can be visual sensitivities (\code{vf}), total-deviation values (\code{td}), or pattern-deviation values (\code{pd})}
@@ -37,4 +37,4 @@ The vfplot function operates on a single row of visual fileds (vf). Depending on
 vfplot( vf91016right[15,], plotType = "td" )
 }
 
-\author{Chaitanya Khadilkar, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Chaitanya Khadilkar, Ivan Marin-Franch}

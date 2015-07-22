@@ -32,4 +32,4 @@ returns a table with intercepts and slopes modelling age-related mean sensitivit
 # agelm <- ageLinearModel( vf )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

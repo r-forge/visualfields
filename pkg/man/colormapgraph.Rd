@@ -2,7 +2,9 @@
 \alias{colormapgraph}
 \title{color legend for p-values in td and pd probability plots}
 \description{It geneartes color legend for p-values in td and pd probability plots}
-\usage{colormapgraph( ncol = 3, mapval = vfenv$nv$pmapsettings, notSeenAsBlack = TRUE,
+\usage{colormapgraph( ncol = 3,
+               mapval = visualFields::vfenv$nv$pmapsettings,
+               notSeenAsBlack = TRUE,
                txtfont = "mono", pointsize = 7,
                outerSymbol = "circles", innerSymbol = "circles",
                outerSize = 1, innerSize = 1,
@@ -30,4 +32,4 @@ it generates a graph with the color legend for p-values in td and pd probability
 colormapgraph()
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

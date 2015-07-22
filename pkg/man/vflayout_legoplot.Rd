@@ -6,9 +6,9 @@ displays a legoplot visualization for change in sensitivities over time of visua
 }
 \usage{vflayout_legoplot( vf, grp = 3, pwidth = 8.27, pheight = 11.69,
                                margin = 0.25, filename = NULL,
-                               ffamily = "Helvetica", sizetxt = 12,
+                               ffamily = "serif", sizetxt = 12,
                                sizetxtSmall = 8,
-                               ffmailyvf = "Times", pointsize = 6,
+                               ffamilyvf = "serif", pointsize = 6,
                                txtcolorlego = "red", pointsizelego = 16,
                                outerSymbol = "circle", outerInch = 0.12,
                                innerSymbol = "circle", innerInch = outerInch / 1.9,
@@ -26,7 +26,7 @@ displays a legoplot visualization for change in sensitivities over time of visua
   \item{ffamily}{Family font for the text in the from. Default is \code{"Helvetica"}}
   \item{sizetxt}{Text size for main text in the form. Default is \code{12}}
   \item{sizetxtSmall}{Text size for details in the form. Default is \code{8}}
-  \item{ffmailyvf}{Font family for text in lego plots. Default is \code{"Times"}}
+  \item{ffamilyvf}{Font family for text in lego plots. Default is \code{"Times"}}
   \item{pointsize}{Point size for text in lego plots. Default is \code{6}}
   \item{txtcolorlego}{Text color for lego plots. Default is \code{"red"}}
   \item{pointsizelego}{Point size for text of lego plots. Default is \code{16}}
@@ -49,4 +49,4 @@ displays a legoplot visualization for change in sensitivities over time of visua
 #vflayout_legoplot( vf91016right )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

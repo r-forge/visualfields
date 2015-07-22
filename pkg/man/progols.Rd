@@ -21,4 +21,4 @@ vfi <- vfindex( vf91016right )
 progols( vfi$tdate, vfi$mvfi, ylab = "vfi" )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

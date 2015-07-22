@@ -19,4 +19,4 @@ returns the subselected visits per subject. For those subject for which at least
 vfselectvisit( vf91016left )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

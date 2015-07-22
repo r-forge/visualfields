@@ -19,4 +19,4 @@ vfs  <- vfstats( vf91016right )
 vfsp <- vfstatspmap( vfs )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

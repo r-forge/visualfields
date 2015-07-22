@@ -17,4 +17,4 @@ environment containing the current version of normative values to be used with v
 
 \keyword{datasets}
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

@@ -17,4 +17,4 @@ returns the names of the variables containing the normative values and the stimu
 getnv()
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

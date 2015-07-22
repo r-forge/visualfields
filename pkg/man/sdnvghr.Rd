@@ -1,8 +1,8 @@
-\name{sdnv}
-\alias{sdnv}
-\title{standard deviations of normative values}
-\description{get the standard deviations at each location for normative values: sensitivities, total-deviation, and pattern-deviation values}
-\usage{sdnv( vf, smooth = TRUE, smoothFunction = quad2Dfit )}
+\name{sdnvghr}
+\alias{sdnvghr}
+\title{standard deviations of normative values of PD from general-height-rank}
+\description{get the standard deviations of PD values from general-height-rank estimates at each location for normative values}
+\usage{sdnvghr( vf, smooth = TRUE, smoothFunction = quad2Dfit )}
 \arguments{
   \item{vf}{\code{\link{vf}}-object with sensitivity thresholds}
   \item{smooth}{whether to use a function to smooth the results or not. Default is \code{TRUE}}
@@ -15,7 +15,7 @@
 \seealso{ \code{\link{ageLinearModel}}, \code{\link{locperc}}, \code{\link{quad2Dfit}} }
 
 \examples{
-#sdnv( vf )
+#sdnvghr( vf )
 }
 
 \author{Ivan Marin-Franch}

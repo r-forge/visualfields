@@ -19,4 +19,4 @@ it returns a list of indices of visual fields in \code{\link{vf}} that may have 
 #idx <- lidLensArtifact( vf )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

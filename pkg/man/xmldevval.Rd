@@ -22,4 +22,4 @@
 #xmldevval( xmllines, patternMap = saplocmap$p24d2 )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

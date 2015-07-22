@@ -35,4 +35,4 @@ percentiles for each location
 # lperc <- locper()
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

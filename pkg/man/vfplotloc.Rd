@@ -44,4 +44,4 @@
 #vfplotloc( vals )
 }
 
-\author{Chaitanya Khadilkar, Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Chaitanya Khadilkar, Ivan Marin-Franch}

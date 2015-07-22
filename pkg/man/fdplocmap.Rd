@@ -25,4 +25,4 @@ The structure fdplocmap has 3 tables, one for each test pattern: \code{p24d2}, \
 [1] N. M. Jansonius, J. Nevalainen, B. Selig, L. M. Zangwill, P. A. Sample, W. M. Budde, J. B. Jonas, W. A. Lagreze, P. J. Airaksinen, R. Vonthein, L. A. Levin, J. Paetzold, and U. Schiefer. \emph{A mathematical description of nerve fiber bundle trajectories and their variability in the human retina. Vision Research}, 49, 2009.
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

@@ -163,4 +163,26 @@ v0.3-4 03/10/2013
 fixing new problem with quartz and windows, all calls to open a new window are now made with "dev.new".
 
 v0.3-5 09/10/2013
-removed opening new windows in examples, as not allowed in the new R-devel version 2013-10-08 r64038.
+removed opening new windows in examples, as not allowed in the new R-devel version 2013-10-08 r64038
+
+v0.3-6 20/12/2013
+fixed vfdemographics follow up time
+
+v0.4 22/02/2014
+inclusion of the novel GHr estimator for general height
+
+v0.4.1 07/09/2014
+fixed small bug in loadvfxml, mapped values for probability categories for MD and PSD
+fixed small bug in tdrankadjperc
+fixed agecalc so that we can ages from a vector of dates and of dobs
+
+v0.4.2 21/01/2015
+fixed small bug in loadvfxml: problem with dates
+fixed small bug in vflayout: correct format for duration and pause
+added ÒvisualFields::Ó to global variables and environment within visualFields
+changed fonts to make them compatible with both Windows and Mac
+
+v0.4.3 25/06/2015
+changes in documentation
+inclusion of 30-1 map for size III and of 10-2, 24-2, 30-2, and 30-1 maps for size V and VI
+other location maps

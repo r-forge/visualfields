@@ -18,4 +18,4 @@ sets normative values and stimuli location map to be used with visualFields
 setnv()
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

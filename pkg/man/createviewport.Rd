@@ -30,4 +30,4 @@ returns a viewport object
 #vflayout( vf91016right[15,] )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

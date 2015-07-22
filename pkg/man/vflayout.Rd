@@ -5,8 +5,8 @@
 \usage{vflayout( vf, pwidth = 8.27,
                       pheight = 11.69, margin = 0.25,
                       filename = NULL,
-                      ffamily = "Helvetica", sizetxt = 12,
-                      sizetxtSmall = 8, ffmailyvf = "Times",
+                      ffamily = "serif", sizetxt = 12,
+                      sizetxtSmall = 8, ffamilyvf = "serif",
                       pointsize = 5,
                       outerSymbol = "circle", outerInch = 0.13,
                       innerSymbol = "circle", innerInch = outerInch / 1.9,
@@ -20,7 +20,7 @@
   \item{ffamily}{Family font for the text in the from. Default is \code{"Helvetica"}}
   \item{sizetxt}{Text size for main text in the form. Default is \code{12}}
   \item{sizetxtSmall}{Text size for details in the form. Default is \code{8}}
-  \item{ffmailyvf}{Family font for the number in the vfpots (TD, PD, etc). Default is \code{"Times"}}
+  \item{ffamilyvf}{Family font for the number in the vfpots (TD, PD, etc). Default is \code{"Times"}}
   \item{pointsize}{Point size for numbers in the vfplots (TD, PD, etc). Default is \code{5}}
   \item{outerSymbol}{Type of outer symbol. Default is \code{"circle"}}
   \item{outerInch}{Inches of outer symbol. Default is \code{0.13}}
@@ -37,4 +37,4 @@
 #vflayout( vf91016right[15,] )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

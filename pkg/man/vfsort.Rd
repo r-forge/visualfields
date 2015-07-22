@@ -15,4 +15,4 @@ return a sorted vf
 vfsort( vf91016left, decreasing = TRUE )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

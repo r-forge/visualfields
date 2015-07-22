@@ -18,4 +18,4 @@ pd  <- pdval( td )
 pdp <- pdpmap( pd )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

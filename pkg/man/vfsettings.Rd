@@ -17,4 +17,4 @@ This structure contains a variable specifying the number of columns with patient
 
 \keyword{datasets}
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

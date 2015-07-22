@@ -20,4 +20,4 @@
 stimLoc( "sap", "p24d2", "OD" )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

@@ -21,4 +21,4 @@ td <- tdval( vf91016right[15,] )
 ghseventh <- ghpostd( td )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

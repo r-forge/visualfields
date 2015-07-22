@@ -18,4 +18,4 @@ vfisettings contains structures for different patterns of location testing. For 
 [1] B. Bengtsson and A. Heijl. \emph{A visual field index for calculation of glaucoma rate of progression}. American Journal of Ophthalmology, 145, 2008
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}

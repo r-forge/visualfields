@@ -13,4 +13,4 @@
 vfdemog <- vfdemographics( vf91016right )
 }
 
-\author{Ivan Marin-Franch <imarinfr@indiana.edu>}
+\author{Ivan Marin-Franch}
